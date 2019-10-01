@@ -17,7 +17,15 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@efaps/pos-library": [
+        "dist/efaps/pos-library"
+      ],
+      "@efaps/pos-library/*": [
+        "dist/efaps/pos-library/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
