@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod",
+    "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -45,6 +45,17 @@
     "ts-node": "~7.0.0",
     "tsickle": "^0.37.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.5.3"
+    "typescript": "~3.5.3",
+    "import-sort-style-module": "^5.0.0"
+  },
+  "importSort": {
+    ".js, .jsx, .es6, .es": {
+      "parser": "babylon",
+      "style": "eslint"
+    },
+    ".ts, .tsx": {
+      "parser": "typescript",
+      "style": "module"
+    }
   }
 }
