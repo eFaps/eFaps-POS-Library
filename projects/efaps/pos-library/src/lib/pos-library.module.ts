@@ -1,6 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import { PosConfig } from './model';
+import { AdminService } from './services/admin.service';
 import { ConfigService } from './services/config.service';
 import { PosConfigToken } from './services/pos-config.token';
 import { UserService } from './services/user.service';
@@ -16,6 +17,7 @@ export class PosLibraryModule {
           provide: PosConfigToken,
           useValue: config
         },
+        AdminService,
         UserService
       ]
     };
