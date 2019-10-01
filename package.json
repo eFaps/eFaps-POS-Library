@@ -1,16 +1,15 @@
 {
   "name": "pos-library",
-  "version": "0.0.3",
+  "version": "0.0.4-0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test --watch=false ",
+    "build": "ng build --prod",
+    "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "release": "release-it"
+    "e2e": "ng e2e"
   },
-  "private": false,
+  "private": true,
   "dependencies": {
     "@angular/animations": "~8.2.7",
     "@angular/common": "~8.2.7",
@@ -43,13 +42,9 @@
     "karma-jasmine-html-reporter": "^1.4.0",
     "ng-packagr": "^5.4.0",
     "protractor": "~5.4.0",
-    "release-it": "^12.4.1",
     "ts-node": "~7.0.0",
     "tsickle": "^0.37.0",
     "tslint": "~5.15.0",
     "typescript": "~3.5.3"
-  },
-  "np": {
-    "contents": "dist"
   }
 }
