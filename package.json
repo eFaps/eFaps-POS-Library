@@ -10,7 +10,7 @@
     "e2e": "ng e2e",
     "release": "release-it"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "~8.2.7",
     "@angular/common": "~8.2.7",
