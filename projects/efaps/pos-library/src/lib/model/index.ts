@@ -1,3 +1,4 @@
+export * from './collector';
 export * from './config';
 export * from './contact';
 export * from './tokens';
