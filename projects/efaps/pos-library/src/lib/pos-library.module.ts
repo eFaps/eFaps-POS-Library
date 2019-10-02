@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
@@ -12,7 +13,11 @@ import { JwtInterceptor } from './services/jwt.interceptor';
 import { PosConfigToken } from './services/pos-config.token';
 import { UserService } from './services/user.service';
 
-@NgModule()
+@NgModule({
+  imports: [
+    CommonModule
+  ]
+})
 export class PosLibraryModule {
   static forRoot(config: PosConfig): ModuleWithProviders {
     return {
@@ -34,7 +39,7 @@ export class PosLibraryModule {
           useClass: JwtInterceptor,
           multi: true
         },
-      ]
+      ],
     };
   }
 }
