@@ -60,7 +60,7 @@ export class ProductService {
   }
 
   public getProductsByCategory(_oid: string): Observable<Product[]> {
-    const requestUrl = `${this.config.baseUrl}/products/category=${_oid}`;
+    const requestUrl = `${this.config.baseUrl}/products?category=${_oid}`;
     return this.http.get<Product[]>(requestUrl);
   }
 }
