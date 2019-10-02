@@ -1,26 +1,27 @@
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { TestBed, inject } from '@angular/core/testing';
-import { DomSanitizer } from '@angular/platform-browser';
 
+import { AuthService } from './auth.service';
 import { ConfigService } from './config.service';
-import { ImageService } from './image.service';
+import { WorkspaceService } from './workspace.service';
 
 class ConfigServiceStub {}
+class AuthServiceStub { }
 
-describe('ImageService', () => {
+describe('WorkspaceService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        DomSanitizer,
         HttpClient,
         HttpHandler,
-        ImageService,
+        WorkspaceService,
+        { provide: AuthService, useClass: AuthServiceStub },
         { provide: ConfigService, useClass: ConfigServiceStub },
       ]
     });
   });
 
-  it('should be created', inject([ImageService], (service: ImageService) => {
+  it('should be created', inject([WorkspaceService], (service: WorkspaceService) => {
     expect(service).toBeTruthy();
   }));
 });
