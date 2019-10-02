@@ -6,7 +6,9 @@ import { map } from 'rxjs/operators';
 import { ConfigService } from './config.service';
 import { Category, PosCategory, Product } from '../model/index';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ProductService {
 
   constructor(private http: HttpClient, private config: ConfigService) { }

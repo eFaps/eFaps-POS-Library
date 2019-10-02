@@ -9,9 +9,11 @@ import { PosConfigToken } from './pos-config.token';
 export class ConfigService {
   public baseUrl: string;
   public socketUrl: string;
+  public defaultProdImg: string;
 
   constructor(@Inject(PosConfigToken) private config: PosConfig) {
     this.baseUrl = config.baseUrl;
     this.socketUrl = config.socketUrl;
+    this.defaultProdImg = config.defaultProdImg;
   }
 }
