@@ -7,4 +7,5 @@ export * from './config.service';
 export * from './contact.service';
 export * from './jwt.interceptor';
 export * from './pos-config.token';
+export * from './product.service';
 export * from './user.service';

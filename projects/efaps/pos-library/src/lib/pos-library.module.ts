@@ -3,6 +3,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import { PosConfig } from './model';
+import { ProductService } from './services';
 import { AdminGuard } from './services/admin.guard';
 import { AdminService } from './services/admin.service';
 import { AuthGuard } from './services/auth.guard';
@@ -33,6 +34,7 @@ export class PosLibraryModule {
         AuthGuard,
         AuthService,
         CollectService,
+        ProductService,
         UserService,
         {
           provide: HTTP_INTERCEPTORS,
