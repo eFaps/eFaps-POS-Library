@@ -23,6 +23,7 @@ import { SpotService } from './services/spot.service';
 import { TaxService } from './services/tax.service';
 import { UserService } from './services/user.service';
 import { WorkspaceService } from './services/workspace.service';
+import { StompRService } from '@stomp/ng2-stompjs';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ export class PosLibraryModule {
         PosService,
         ProductService,
         SpotService,
+        StompRService,
         TaxService,
         UserService,
         WorkspaceService,
