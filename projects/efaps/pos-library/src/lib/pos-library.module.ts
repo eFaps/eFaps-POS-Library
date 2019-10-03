@@ -5,6 +5,7 @@ import { StompRService } from '@stomp/ng2-stompjs';
 
 import { AdminGuard } from './guards/admin.guard';
 import { AuthGuard } from './guards/auth.guard';
+import { WorkspaceGuard } from './guards/workspace.guard';
 import { CompanyInterceptor } from './interceptors/company.interceptor';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { PosConfig } from './model';
@@ -76,6 +77,7 @@ export class PosLibraryModule {
         TaxService,
         UserService,
         UtilsService,
+        WorkspaceGuard,
         WorkspaceService,
         {
           provide: HTTP_INTERCEPTORS,
