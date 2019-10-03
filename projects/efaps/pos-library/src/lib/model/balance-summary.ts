@@ -1,5 +1,6 @@
 import { Balance } from './balance';
-import { TaxEntry, PaymentType } from '@efaps/pos-library';
+import { PaymentType } from './payment';
+import { TaxEntry } from './tax';
 
 export interface BalanceSummary {
   balance: Balance;

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { TestBed, inject } from '@angular/core/testing';
-import { ConfigService } from '@efaps/pos-library';
 
+import { ConfigService } from './config.service';
 import { InventoryService } from './inventory.service';
 
 class ConfigServiceStub {}

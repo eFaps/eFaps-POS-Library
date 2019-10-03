@@ -8,8 +8,8 @@ import {
 import { DomSanitizer } from '@angular/platform-browser';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
-import { ConfigService } from './config.service';
-import { ImageService } from './image.service';
+import { ConfigService } from '../services/config.service';
+import { ImageService } from '../services/image.service';
 
 @Pipe({
   name: 'secure',

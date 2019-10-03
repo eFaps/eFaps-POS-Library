@@ -1,10 +1,12 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AuthService, ConfigService, WorkspaceService } from '@efaps/pos-library';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { Balance, BalanceSummary } from '../model';
+import { AuthService } from './auth.service';
+import { ConfigService } from './config.service';
+import { WorkspaceService } from './workspace.service';
 
 @Injectable({
   providedIn: 'root'

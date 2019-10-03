@@ -2,8 +2,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { PrintResponse } from '../model/index';
-import { ConfigService, Document, Order } from '@efaps/pos-library';
+import { Document, Order, PrintResponse } from '../model';
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root'

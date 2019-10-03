@@ -4,7 +4,7 @@ import {
 } from '@angular/common';
 import localeEsPE from '@angular/common/locales/es-PE';
 import { Injectable } from '@angular/core';
-import * as parseDecimalNumber from 'parse-decimal-number';
+import parseDecimalNumber from 'parse-decimal-number';
 
 @Injectable()
 export class UtilsService {
@@ -20,7 +20,7 @@ export class UtilsService {
 
   toString(_number: number): string {
     if (_number) {
-      return _number.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+      return _number.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
     return '';
   }

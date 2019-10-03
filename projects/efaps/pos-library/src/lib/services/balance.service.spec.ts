@@ -1,9 +1,11 @@
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { TestBed, inject } from '@angular/core/testing';
-import { AuthService, ConfigService, WorkspaceService } from '@efaps/pos-library';
 import { Observable } from 'rxjs';
 
+import { AuthService } from './auth.service';
 import { BalanceService } from './balance.service';
+import { ConfigService } from './config.service';
+import { WorkspaceService } from './workspace.service';
 
 class AuthServiceStub {
   currentEvent = new Observable(observer => {

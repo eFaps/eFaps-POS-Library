@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { InventoryEntry, Warehouse } from '../model/index';
-import { ConfigService } from '@efaps/pos-library';
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root'
