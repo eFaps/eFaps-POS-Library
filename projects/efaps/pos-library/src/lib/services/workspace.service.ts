@@ -9,7 +9,9 @@ import { CollectService } from './collect.service';
 import { CompanyService } from './company.service';
 import { ConfigService } from './config.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class WorkspaceService {
   SpotConfig = SpotConfig;
   private current: Workspace;
@@ -18,8 +20,10 @@ export class WorkspaceService {
   @LocalStorage() workspaces: any = {};
   private autoPayment = false;
 
-  constructor(private http: HttpClient, private auth: AuthService,
-    private config: ConfigService, private companyService: CompanyService,
+  constructor(private http: HttpClient,
+    private auth: AuthService,
+    private config: ConfigService,
+    private companyService: CompanyService,
     private collectService: CollectService) { }
 
   public getWorkspaces(): Observable<Workspace[]> {

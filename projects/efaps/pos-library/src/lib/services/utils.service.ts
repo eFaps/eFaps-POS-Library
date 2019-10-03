@@ -6,7 +6,9 @@ import localeEsPE from '@angular/common/locales/es-PE';
 import { Injectable } from '@angular/core';
 import parseDecimalNumber from 'parse-decimal-number';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UtilsService {
 
   constructor() {

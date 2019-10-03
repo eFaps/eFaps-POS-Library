@@ -6,7 +6,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Company } from '../model';
 import { ConfigService } from './config.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CompanyService {
   @LocalStorage() public currentCompany: Company;
 

@@ -11,7 +11,7 @@ export class ConfigService {
   public socketUrl: string;
   public defaultProdImg: string;
 
-  constructor(@Inject(PosConfigToken) private config: PosConfig) {
+  constructor(@Inject(PosConfigToken) config: PosConfig) {
     this.baseUrl = config.baseUrl;
     this.socketUrl = config.socketUrl;
     this.defaultProdImg = config.defaultProdImg;

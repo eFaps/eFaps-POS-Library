@@ -5,31 +5,32 @@ import { StompRService } from '@stomp/ng2-stompjs';
 
 import { AdminGuard } from './guards/admin.guard';
 import { AuthGuard } from './guards/auth.guard';
+import { CompanyInterceptor } from './interceptors/company.interceptor';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { PosConfig } from './model';
 import { PosCurrencyPipe } from './pipes/pos-currency.pipe';
 import { SecurePipe } from './pipes/secure.pipe';
 import { AdminService } from './services/admin.service';
 import { AuthService } from './services/auth.service';
+import { BalanceService } from './services/balance.service';
 import { CollectService } from './services/collect.service';
 import { CompanyService } from './services/company.service';
 import { ConfigService } from './services/config.service';
+import { DiscountService } from './services/discount.service';
 import { DocumentService } from './services/document.service';
 import { ImageService } from './services/image.service';
+import { InventoryService } from './services/inventory.service';
 import { MsgService } from './services/msg.service';
 import { PaymentService } from './services/payment.service';
 import { PosConfigToken } from './services/pos-config.token';
 import { PosService } from './services/pos.service';
+import { PrintService } from './services/print.service';
 import { ProductService } from './services/product.service';
 import { SpotService } from './services/spot.service';
 import { TaxService } from './services/tax.service';
 import { UserService } from './services/user.service';
-import { WorkspaceService } from './services/workspace.service';
-import { BalanceService } from './services/balance.service';
-import { DiscountService } from './services/discount.service';
-import { InventoryService } from './services/inventory.service';
-import { PrintService } from './services/print.service';
 import { UtilsService } from './services/utils.service';
+import { WorkspaceService } from './services/workspace.service';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,6 @@ export class PosLibraryModule {
     return {
       ngModule: PosLibraryModule,
       providers: [
-        ConfigService,
         {
           provide: PosConfigToken,
           useValue: config
@@ -61,6 +61,7 @@ export class PosLibraryModule {
         BalanceService,
         CollectService,
         CompanyService,
+        ConfigService,
         DiscountService,
         DocumentService,
         ImageService,
@@ -79,6 +80,11 @@ export class PosLibraryModule {
         {
           provide: HTTP_INTERCEPTORS,
           useClass: JwtInterceptor,
+          multi: true
+        },
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: CompanyInterceptor,
           multi: true
         },
       ],

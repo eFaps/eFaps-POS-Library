@@ -4,7 +4,9 @@ import { Observable } from 'rxjs';
 
 import { CompanyService } from '../services';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CompanyInterceptor implements HttpInterceptor {
 
   private currentCompany;
