@@ -8,12 +8,21 @@ import { PosConfigToken } from './pos-config.token';
 })
 export class ConfigService {
   public baseUrl: string;
-  public socketUrl: string;
   public defaultProdImg: string;
-
+  private _socketUrl: string;
+  
   constructor(@Inject(PosConfigToken) config: PosConfig) {
     this.baseUrl = config.baseUrl;
-    this.socketUrl = config.socketUrl;
+    this._socketUrl = config.socketUrl;
     this.defaultProdImg = config.defaultProdImg;
+  }
+
+  get socketUrl() {
+    //absolute path is given
+    if (this._socketUrl.startsWith('ws')) {
+      return this._socketUrl;
+    } else {
+      return `ws:///${window.location.host}${this._socketUrl}`;
+    }
   }
 }
