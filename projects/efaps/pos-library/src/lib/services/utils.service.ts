@@ -15,19 +15,19 @@ export class UtilsService {
     registerLocaleData(localeEsPE);
   }
 
-  parse(_numberStr: string): number {
+  parse(numberStr: string): number {
     const customSeparators = { thousands: ',', decimal: '.' };
-    return parseDecimalNumber(_numberStr, customSeparators);
+    return parseDecimalNumber(numberStr, customSeparators);
   }
 
-  toString(_number: number): string {
-    if (_number) {
-      return _number.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  toString(number: number): string {
+    if (number || number === 0) {
+      return number.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
     return '';
   }
 
-  getCurrencySymbol(_isoCode: string) {
-    return getCurrencySymbol(_isoCode, 'narrow', 'es-PE');
+  getCurrencySymbol(isoCode: string) {
+    return getCurrencySymbol(isoCode, 'narrow', 'es-PE');
   }
 }
