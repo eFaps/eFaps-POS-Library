@@ -7,7 +7,11 @@ import { ConfigService } from './config.service';
 import { Category, PosCategory, Product } from '../model/index';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
+  deps: [
+    HttpClient,
+    ConfigService
+  ]
 })
 export class ProductService {
 

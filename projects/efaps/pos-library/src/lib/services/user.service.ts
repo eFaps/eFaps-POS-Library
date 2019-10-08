@@ -6,7 +6,11 @@ import { User } from '../model/index';
 import { ConfigService } from './config.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
+  deps: [
+    HttpClient,
+    ConfigService
+  ]
 })
 export class UserService {
 

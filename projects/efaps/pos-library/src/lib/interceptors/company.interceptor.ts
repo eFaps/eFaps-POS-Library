@@ -5,7 +5,10 @@ import { Observable } from 'rxjs';
 import { CompanyService } from '../services/company.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
+  deps: [
+    CompanyService
+  ]
 })
 export class CompanyInterceptor implements HttpInterceptor {
 

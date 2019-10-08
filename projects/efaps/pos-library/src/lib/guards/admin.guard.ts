@@ -10,7 +10,10 @@ import { Roles } from '../model';
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
+  deps: [
+    AuthService
+  ]
 })
 export class AdminGuard implements CanActivate {
 

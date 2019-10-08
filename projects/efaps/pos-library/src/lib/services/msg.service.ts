@@ -5,7 +5,12 @@ import { AuthService } from './auth.service';
 import { ConfigService } from './config.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
+  deps: [
+    ConfigService,
+    StompRService,
+    AuthService
+  ]
 })
 export class MsgService {
 

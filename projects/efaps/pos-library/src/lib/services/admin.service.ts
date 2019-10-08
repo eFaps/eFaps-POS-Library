@@ -6,7 +6,11 @@ import { Versions } from '../model/versions';
 import { ConfigService } from './config.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
+  deps: [
+    HttpClient,
+    ConfigService
+  ]
 })
 export class AdminService {
 

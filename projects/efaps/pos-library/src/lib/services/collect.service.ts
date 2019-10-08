@@ -7,7 +7,11 @@ import { CollectOrder, Collector } from '../model/collector';
 import { ConfigService } from './config.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
+  deps: [
+    HttpClient,
+    ConfigService
+  ]
 })
 export class CollectService {
 

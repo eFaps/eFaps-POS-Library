@@ -3,7 +3,8 @@ import {
   OnDestroy,
   Pipe,
   PipeTransform,
-  WrappedValue
+  WrappedValue,
+  Injectable,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
@@ -11,6 +12,15 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { ConfigService } from '../services/config.service';
 import { ImageService } from '../services/image.service';
 
+@Injectable({
+  providedIn: "root",
+  deps: [
+    ChangeDetectorRef,
+    DomSanitizer,
+    ImageService,
+    ConfigService
+  ]
+})
 @Pipe({
   name: 'secure',
   pure: false

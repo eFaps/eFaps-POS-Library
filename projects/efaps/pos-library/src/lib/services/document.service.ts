@@ -8,7 +8,12 @@ import { ConfigService } from './config.service';
 import { WorkspaceService } from './workspace.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
+  deps: [
+    HttpClient,
+    ConfigService,
+    WorkspaceService
+  ]
 })
 export class DocumentService {
   private wsoid: string;

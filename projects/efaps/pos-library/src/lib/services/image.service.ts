@@ -6,7 +6,11 @@ import { Observable, Subscriber } from 'rxjs';
 import { ConfigService } from './config.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
+  deps: [
+    HttpClient,
+    ConfigService
+  ]
 })
 export class ImageService {
 

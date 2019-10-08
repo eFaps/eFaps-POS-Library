@@ -6,7 +6,11 @@ import { DocumentService } from './document.service';
 import { TaxService } from './tax.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
+  deps: [
+    TaxService,
+    DocumentService
+  ]
 })
 export class DiscountService {
 

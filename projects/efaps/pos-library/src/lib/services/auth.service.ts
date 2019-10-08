@@ -9,7 +9,11 @@ import { Roles, Tokens } from '../model';
 import { ConfigService } from './config.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
+  deps: [
+    HttpClient,
+    ConfigService
+  ]
 })
 export class AuthService {
   @LocalStorage() public currentUser: any;

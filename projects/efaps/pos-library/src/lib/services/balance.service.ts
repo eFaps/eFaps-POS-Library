@@ -9,7 +9,13 @@ import { ConfigService } from './config.service';
 import { WorkspaceService } from './workspace.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
+  deps: [
+    HttpClient,
+    AuthService,
+    ConfigService,
+    WorkspaceService
+  ]
 })
 export class BalanceService {
   private balance: Balance;

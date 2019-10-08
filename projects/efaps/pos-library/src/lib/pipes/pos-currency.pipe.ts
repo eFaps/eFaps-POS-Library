@@ -1,8 +1,14 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform, Injectable } from '@angular/core';
 import { UtilsService } from '../services/utils.service';
 
+@Injectable({
+  providedIn: "root",
+  deps: [
+    UtilsService
+  ]
+})
 @Pipe({
-  name: 'posCurrency'
+  name: 'posCurrency',
 })
 export class PosCurrencyPipe implements PipeTransform {
 

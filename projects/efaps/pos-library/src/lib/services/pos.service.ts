@@ -10,7 +10,14 @@ import { TaxService } from './tax.service';
 import { WorkspaceService } from './workspace.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
+  deps: [
+    HttpClient,
+    ConfigService,
+    WorkspaceService,
+    DocumentService,
+    TaxService
+  ]
 })
 export class PosService {
 

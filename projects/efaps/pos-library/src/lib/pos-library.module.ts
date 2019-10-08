@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { StompRService } from '@stomp/ng2-stompjs';
@@ -41,8 +41,7 @@ import { WorkspaceService } from './services/workspace.service';
   ],
   imports: [
     BrowserModule,
-    CommonModule,
-    HttpClientModule,
+    CommonModule
   ],
   exports: [
     PosCurrencyPipe,
@@ -58,6 +57,7 @@ export class PosLibraryModule {
           provide: PosConfigToken,
           useValue: config
         },
+        ConfigService,
         AdminService,
         AuthService,
         AuthGuard,
@@ -65,7 +65,6 @@ export class PosLibraryModule {
         BalanceService,
         CollectService,
         CompanyService,
-        ConfigService,
         DiscountService,
         DocumentService,
         ImageService,

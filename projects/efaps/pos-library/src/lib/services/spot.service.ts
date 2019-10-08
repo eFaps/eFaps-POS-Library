@@ -7,7 +7,11 @@ import { DocumentService } from './document.service';
 import { WorkspaceService } from './workspace.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
+  deps: [
+    DocumentService,
+    WorkspaceService
+  ]
 })
 export class SpotService {
 

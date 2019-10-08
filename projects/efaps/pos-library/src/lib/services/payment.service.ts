@@ -6,7 +6,10 @@ import { Document, Payment } from '../model/index';
 import { PosService } from './pos.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
+  deps: [
+    PosService,
+  ]
 })
 export class PaymentService {
 

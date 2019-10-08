@@ -5,7 +5,11 @@ import { Observable } from 'rxjs';
 import { WorkspaceService } from '../services/workspace.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
+  deps: [
+    Router,
+    WorkspaceService
+  ]
 })
 export class WorkspaceGuard implements CanActivate {
 

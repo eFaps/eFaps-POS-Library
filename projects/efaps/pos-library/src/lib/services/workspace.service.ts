@@ -10,7 +10,14 @@ import { CompanyService } from './company.service';
 import { ConfigService } from './config.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
+  deps: [
+    HttpClient,
+    AuthService,
+    ConfigService,
+    CompanyService,
+    CollectService
+  ]
 })
 export class WorkspaceService {
   SpotConfig = SpotConfig;
