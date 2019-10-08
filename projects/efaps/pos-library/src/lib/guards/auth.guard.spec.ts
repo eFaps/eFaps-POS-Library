@@ -4,8 +4,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { LocalStorageService } from 'ngx-store';
 
 import { AuthGuard } from './auth.guard';
-import { AuthService } from './auth.service';
-import { ConfigService } from './config.service';
+import { AuthService } from '../services/auth.service';
+import { ConfigService } from '../services/config.service';
 
 describe('AuthGuard', () => {
   beforeEach(() => {

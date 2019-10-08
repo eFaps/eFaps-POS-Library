@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { StompRService } from '@stomp/ng2-stompjs';
 
 import { AdminGuard } from './guards/admin.guard';
@@ -39,7 +40,9 @@ import { WorkspaceService } from './services/workspace.service';
     SecurePipe
   ],
   imports: [
-    CommonModule
+    BrowserModule,
+    CommonModule,
+    HttpClientModule,
   ],
   exports: [
     PosCurrencyPipe,
@@ -55,10 +58,10 @@ export class PosLibraryModule {
           provide: PosConfigToken,
           useValue: config
         },
-        AdminGuard,
         AdminService,
-        AuthGuard,
         AuthService,
+        AuthGuard,
+        AdminGuard,
         BalanceService,
         CollectService,
         CompanyService,

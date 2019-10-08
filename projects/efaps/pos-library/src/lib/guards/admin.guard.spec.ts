@@ -3,8 +3,9 @@ import { TestBed, inject } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LocalStorageService } from 'ngx-store';
 
-import { AuthService, ConfigService } from '../services/index';
 import { AdminGuard } from './admin.guard';
+import { AuthService } from '../services/auth.service';
+import { ConfigService } from '../services/config.service';
 
 describe('AdminGuard', () => {
   beforeEach(() => {
