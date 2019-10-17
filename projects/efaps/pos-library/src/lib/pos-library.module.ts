@@ -18,6 +18,7 @@ import { BalanceService } from './services/balance.service';
 import { CollectService } from './services/collect.service';
 import { CompanyService } from './services/company.service';
 import { ConfigService } from './services/config.service';
+import { ContactService } from './services/contact.service';
 import { DiscountService } from './services/discount.service';
 import { DocumentService } from './services/document.service';
 import { ImageService } from './services/image.service';
@@ -63,6 +64,7 @@ export class PosLibraryModule {
         AuthGuard,
         AdminGuard,
         BalanceService,
+        ContactService,
         CollectService,
         CompanyService,
         DiscountService,
