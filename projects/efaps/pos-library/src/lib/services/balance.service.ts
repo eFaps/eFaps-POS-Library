@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -62,9 +62,7 @@ export class BalanceService {
 
   private getCurrent(_createNew?: boolean): Observable<Balance> {
     const requestUrl = `${this.config.baseUrl}/balance/current`;
-    const params = new HttpParams()
-      .set('createNew', _createNew.toString());
-    return this.http.get<Balance>(requestUrl, { params: params });
+    return this.http.get<Balance>(requestUrl, { params: { 'createNew': _createNew.toString() } });
   }
 
   init() {

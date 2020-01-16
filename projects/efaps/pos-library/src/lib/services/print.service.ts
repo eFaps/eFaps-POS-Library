@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -17,12 +17,14 @@ export class PrintService {
   constructor(private http: HttpClient,
     private config: ConfigService) { }
 
-  printJobs(_workspaceOid: string, _order: Order): Observable<PrintResponse[]> {
+  printJobs(workspaceOid: string, order: Order): Observable<PrintResponse[]> {
     const requestUrl = `${this.config.baseUrl}/print/jobs`;
-    const params = new HttpParams()
-      .set('documentId', _order.id)
-      .set('workspaceOid', _workspaceOid);
-    return this.http.post<PrintResponse[]>(requestUrl, null, { params: params });
+    return this.http.post<PrintResponse[]>(requestUrl, null, {
+      params: {
+        'documentId': order.id,
+        workspaceOid
+      }
+    });
   }
 
   getPreview(_key: string): Observable<any> {
@@ -30,35 +32,43 @@ export class PrintService {
     return this.http.get(requestUrl, { responseType: 'blob' });
   }
 
-  printPreliminary(_workspaceOid: string, _doc: Document): Observable<PrintResponse[]> {
+  printPreliminary(workspaceOid: string, doc: Document): Observable<PrintResponse[]> {
     const requestUrl = `${this.config.baseUrl}/print/preliminary`;
-    const params = new HttpParams()
-      .set('documentId', _doc.id)
-      .set('workspaceOid', _workspaceOid);
-    return this.http.post<PrintResponse[]>(requestUrl, null, { params: params });
+    return this.http.post<PrintResponse[]>(requestUrl, null, {
+      params: {
+        'documentId': doc.id,
+        workspaceOid
+      }
+    });
   }
 
-  printCopy(_workspaceOid: string, _doc: Document): Observable<PrintResponse[]> {
+  printCopy(workspaceOid: string, doc: Document): Observable<PrintResponse[]> {
     const requestUrl = `${this.config.baseUrl}/print/copy`;
-    const params = new HttpParams()
-      .set('documentId', _doc.id)
-      .set('workspaceOid', _workspaceOid);
-    return this.http.post<PrintResponse[]>(requestUrl, null, { params: params });
+    return this.http.post<PrintResponse[]>(requestUrl, null, {
+      params: {
+        'documentId': doc.id,
+        workspaceOid
+      }
+    });
   }
 
-  printTicket(_workspaceOid: string, _doc: Document): Observable<PrintResponse[]> {
+  printTicket(workspaceOid: string, doc: Document): Observable<PrintResponse[]> {
     const requestUrl = `${this.config.baseUrl}/print/ticket`;
-    const params = new HttpParams()
-      .set('documentId', _doc.id)
-      .set('workspaceOid', _workspaceOid);
-    return this.http.post<PrintResponse[]>(requestUrl, null, { params: params });
+    return this.http.post<PrintResponse[]>(requestUrl, null, {
+      params: {
+        'documentId': doc.id,
+        workspaceOid
+      }
+    });
   }
 
   printBalance(workspaceOid: string, balanceId: string): Observable<PrintResponse[]> {
     const requestUrl = `${this.config.baseUrl}/print/balance`;
-    const params = new HttpParams()
-      .set('balanceId', balanceId)
-      .set('workspaceOid', workspaceOid);
-    return this.http.post<PrintResponse[]>(requestUrl, null, { params: params });
+    return this.http.post<PrintResponse[]>(requestUrl, null, {
+      params: {
+        balanceId,
+        workspaceOid
+      }
+    });
   }
 }

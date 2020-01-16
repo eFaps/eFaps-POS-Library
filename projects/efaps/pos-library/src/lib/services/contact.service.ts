@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -22,12 +22,12 @@ export class ContactService {
     return this.http.get<Contact[]>(requestUrl);
   }
 
-  public searchContacts(_term: string, _nameSearch: boolean): Observable<Contact[]> {
+  public searchContacts(term: string, _nameSearch: boolean): Observable<Contact[]> {
     const href = this.config.baseUrl + '/contacts';
     const requestUrl = `${href}`;
-    const params = new HttpParams().set('term', _term)
-      .set('nameSearch', _nameSearch.toString());
-    return this.http.get<Contact[]>(requestUrl, { params: params });
+    return this.http.get<Contact[]>(requestUrl, {
+      params: { term, 'nameSearch': _nameSearch.toString() }
+    });
   }
 
   public createContact(_contact: Contact): Observable<Contact> {
