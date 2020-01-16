@@ -25,6 +25,7 @@ export class BalanceService {
   constructor(private http: HttpClient, private authService: AuthService,
     private config: ConfigService, private workspaceService: WorkspaceService) {
     this.setup();
+    this.load();
   }
 
   private setup() {
