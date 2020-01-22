@@ -30,7 +30,12 @@ export class CollectService {
   }
 
   getCollectOrder(collectOrderId: string): Observable<CollectOrder> {
-    const requestUrl = `${this.config.baseUrl}/collectors/orders/${collectOrderId}`;
-    return this.http.get<CollectOrder>(requestUrl);
+    const url = `${this.config.baseUrl}/collectors/orders/${collectOrderId}`;
+    return this.http.get<CollectOrder>(url);
+  }
+
+  cancelCollectOrder(collectOrderId: string): Observable<CollectOrder> {
+    const url = `${this.config.baseUrl}/collectors/orders/${collectOrderId}/cancel`;
+    return this.http.post<CollectOrder>(url, null);
   }
 }
