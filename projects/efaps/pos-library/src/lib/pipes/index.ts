@@ -1,2 +1,2 @@
-export * from './pos-currency.pipe';
-export * from './secure.pipe';
+export * from "./pos-currency.pipe";
+export * from "./secure.pipe";

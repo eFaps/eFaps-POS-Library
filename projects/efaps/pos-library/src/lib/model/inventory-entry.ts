@@ -1,5 +1,5 @@
-import { Product } from './product';
-import { Warehouse } from './warehouse';
+import { Product } from "./product";
+import { Warehouse } from "./warehouse";
 
 export interface InventoryEntry {
   id: string;

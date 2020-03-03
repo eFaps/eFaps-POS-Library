@@ -1,38 +1,35 @@
-import { Injectable } from '@angular/core';
-import { LocalStorage } from 'ngx-store';
-import { Observable, forkJoin } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { LocalStorage } from "ngx-store";
+import { Observable, forkJoin } from "rxjs";
 
-import { Position, Spot, SpotsLayout, Workspace } from '../model';
-import { DocumentService } from './document.service';
-import { WorkspaceService } from './workspace.service';
+import { Position, Spot, SpotsLayout, Workspace } from "../model";
+import { DocumentService } from "./document.service";
+import { WorkspaceService } from "./workspace.service";
 
 @Injectable({
-  providedIn: 'root',
-  deps: [
-    DocumentService,
-    WorkspaceService
-  ]
+  providedIn: "root",
+  deps: [DocumentService, WorkspaceService]
 })
 export class SpotService {
-
   @LocalStorage() public positions: any = {};
   private workspace: Workspace;
 
-  constructor(private documentService: DocumentService,
-    private workspaceService: WorkspaceService) {
-
+  constructor(
+    private documentService: DocumentService,
+    private workspaceService: WorkspaceService
+  ) {
     workspaceService.currentWorkspace.subscribe({
-      next: workspace => this.workspace = workspace
+      next: workspace => (this.workspace = workspace)
     });
   }
 
   public getSpots(): Observable<Spot[]> {
-    return new Observable((observer) => {
+    return new Observable(observer => {
       this.documentService.getOrders4Spots().subscribe(_orders => {
         const spots: Spot[] = [];
         for (let i = 0; i < this.workspaceService.getSpotSize(); i++) {
-          const orders = _orders.filter(o => o.spot && o.spot.id === ('' + i));
-          spots.push({ id: '' + i, label: 'M ' + (i + 1), orders: orders });
+          const orders = _orders.filter(o => o.spot && o.spot.id === "" + i);
+          spots.push({ id: "" + i, label: "M " + (i + 1), orders: orders });
         }
         observer.next(spots);
         observer.complete();
@@ -43,20 +40,24 @@ export class SpotService {
   public getLayout(): Observable<SpotsLayout> {
     let layout: SpotsLayout = {
       floors: this.workspace.floors
-    }
-    return new Observable((observer) => {
+    };
+    return new Observable(observer => {
       this.documentService.getOrders4Spots().subscribe(_orders => {
         layout.floors.forEach(floor => {
-          floor.spots.sort((s1, s2) => {
-            return s1.label.localeCompare(s2.label);
-          }).forEach(spot => {
-            if (spot.oid) {
-              spot.id = spot.oid;
-            }
-            const orders = _orders.filter(o => o.spot && o.spot.id === spot.id);
-            spot.orders = orders;
-            spot.position = this.positions[spot.id];
-          })
+          floor.spots
+            .sort((s1, s2) => {
+              return s1.label.localeCompare(s2.label);
+            })
+            .forEach(spot => {
+              if (spot.oid) {
+                spot.id = spot.oid;
+              }
+              const orders = _orders.filter(
+                o => o.spot && o.spot.id === spot.id
+              );
+              spot.orders = orders;
+              spot.position = this.positions[spot.id];
+            });
         });
         observer.next(layout);
         observer.complete();

@@ -1,71 +1,71 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import jwtDecode from 'jwt-decode';
-import { LocalStorage } from 'ngx-store';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import jwtDecode from "jwt-decode";
+import { LocalStorage } from "ngx-store";
+import { BehaviorSubject, Observable } from "rxjs";
+import { map } from "rxjs/operators";
 
-import { Roles, Tokens } from '../model';
-import { ConfigService } from './config.service';
+import { Roles, Tokens } from "../model";
+import { ConfigService } from "./config.service";
 
 @Injectable({
-  providedIn: 'root',
-  deps: [
-    HttpClient,
-    ConfigService
-  ]
+  providedIn: "root",
+  deps: [HttpClient, ConfigService]
 })
 export class AuthService {
   @LocalStorage() public currentUser: any;
 
-  private eventSource = new BehaviorSubject<string>('');
+  private eventSource = new BehaviorSubject<string>("");
   currentEvent = this.eventSource.asObservable();
 
   private refreshing = false;
 
-  constructor(private http: HttpClient, private config: ConfigService) {
-  }
+  constructor(private http: HttpClient, private config: ConfigService) {}
 
   login(username: string, password: string): Observable<boolean> {
     const href = `${this.config.baseUrl}/authenticate`;
-    return this.http.post<Tokens>(href, { userName: username, password: password })
-      .pipe(map((response) => {
-        if (response.accessToken) {
-          this.currentUser = {
-            username: username,
-            tokens: response
-          };
-          this.currentUser.save();
-          this.eventSource.next('login');
-          this.refreshing = false;
-          return true;
-        } else {
-          return false;
-        }
-      }));
+    return this.http
+      .post<Tokens>(href, { userName: username, password: password })
+      .pipe(
+        map(response => {
+          if (response.accessToken) {
+            this.currentUser = {
+              username: username,
+              tokens: response
+            };
+            this.currentUser.save();
+            this.eventSource.next("login");
+            this.refreshing = false;
+            return true;
+          } else {
+            return false;
+          }
+        })
+      );
   }
 
   private refreshToken() {
     this.refreshing = true;
     const href = `${this.config.baseUrl}/refreshauth`;
-    this.http.post<Tokens>(href, { refreshToken: this.getRefreshToken() }).subscribe({
-      next: response => {
-        if (response.accessToken) {
-          this.currentUser.tokens = response;
-          this.currentUser.save();
-          this.eventSource.next('refresh');
-        } else {
-          this.logout();
+    this.http
+      .post<Tokens>(href, { refreshToken: this.getRefreshToken() })
+      .subscribe({
+        next: response => {
+          if (response.accessToken) {
+            this.currentUser.tokens = response;
+            this.currentUser.save();
+            this.eventSource.next("refresh");
+          } else {
+            this.logout();
+          }
+          this.refreshing = false;
         }
-        this.refreshing = false;
-      }
-    });
+      });
   }
-
 
   logout(): void {
     this.currentUser = null;
-    this.eventSource.next('logout');
+    this.eventSource.next("logout");
   }
 
   getAccessToken(): string {
@@ -83,7 +83,9 @@ export class AuthService {
   private getTokenExpirationDate(_token: string): Date {
     const decoded = <any>jwtDecode(_token);
 
-    if (decoded.exp === undefined) { return null; }
+    if (decoded.exp === undefined) {
+      return null;
+    }
 
     const date = new Date(0);
     date.setUTCSeconds(decoded.exp);
@@ -91,13 +93,22 @@ export class AuthService {
   }
 
   isTokenExpired(_token?: string): boolean {
-    if (!_token) { _token = this.getAccessToken(); }
-    if (!_token) { return true; }
+    if (!_token) {
+      _token = this.getAccessToken();
+    }
+    if (!_token) {
+      return true;
+    }
 
     const date = this.getTokenExpirationDate(_token);
-    if (date === undefined) { return false; }
+    if (date === undefined) {
+      return false;
+    }
 
-    if (!this.refreshing && (date.valueOf() - new Date().valueOf()) < (2 * 60 * 1000)) {
+    if (
+      !this.refreshing &&
+      date.valueOf() - new Date().valueOf() < 2 * 60 * 1000
+    ) {
       this.refreshToken();
     }
     return !(date.valueOf() > new Date().valueOf());

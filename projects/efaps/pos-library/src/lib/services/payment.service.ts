@@ -1,18 +1,15 @@
-import { Injectable } from '@angular/core';
-import { Decimal } from 'decimal.js';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { Decimal } from "decimal.js";
+import { BehaviorSubject } from "rxjs";
 
-import { Document, Payment } from '../model/index';
-import { PosService } from './pos.service';
+import { Document, Payment } from "../model/index";
+import { PosService } from "./pos.service";
 
 @Injectable({
-  providedIn: 'root',
-  deps: [
-    PosService,
-  ]
+  providedIn: "root",
+  deps: [PosService]
 })
 export class PaymentService {
-
   private document: Document;
   private documentSource = new BehaviorSubject<Document>(this.document);
   currentDocument = this.documentSource.asObservable();
@@ -49,7 +46,9 @@ export class PaymentService {
     _payments.forEach((_payment: Payment) => {
       total = total.plus(new Decimal(_payment.amount));
     });
-    this.totalSource.next(total.toDecimalPlaces(2, Decimal.ROUND_HALF_UP).toNumber());
+    this.totalSource.next(
+      total.toDecimalPlaces(2, Decimal.ROUND_HALF_UP).toNumber()
+    );
   }
 
   reset() {

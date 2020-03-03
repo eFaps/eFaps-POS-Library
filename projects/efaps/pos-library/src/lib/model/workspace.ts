@@ -1,6 +1,6 @@
-import { DocumentType } from './document';
-import { SpotConfig, Floor } from './spot';
-import { Discount } from './discount';
+import { DocumentType } from "./document";
+import { SpotConfig, Floor } from "./spot";
+import { Discount } from "./discount";
 
 export interface Workspace {
   oid: string;
@@ -21,7 +21,7 @@ export interface Workspace {
 
 export interface PrintCmd {
   printerOid: string;
-  target: 'JOB' | 'PRELIMINARY' | 'TICKET' | 'COPY' | 'BALANCE';
+  target: "JOB" | "PRELIMINARY" | "TICKET" | "COPY" | "BALANCE";
   targetOid: string;
 }
 
@@ -31,13 +31,13 @@ export interface Card {
 }
 
 export enum PosLayout {
-  GRID = 'GRID',
-  LIST = 'LIST',
-  BOTH = 'BOTH',
+  GRID = "GRID",
+  LIST = "LIST",
+  BOTH = "BOTH"
 }
 
 export enum PosGridSize {
-  SMALL = 'SMALL',
-  MEDIUM = 'MEDIUM',
-  LARGE = 'LARGE',
+  SMALL = "SMALL",
+  MEDIUM = "MEDIUM",
+  LARGE = "LARGE"
 }

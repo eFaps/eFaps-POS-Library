@@ -1,25 +1,25 @@
-import { HttpClient, HttpHandler } from '@angular/common/http';
-import { TestBed, inject } from '@angular/core/testing';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHandler } from "@angular/common/http";
+import { TestBed, inject } from "@angular/core/testing";
+import { Observable } from "rxjs";
 
-import { AuthService } from './auth.service';
-import { BalanceService } from './balance.service';
-import { ConfigService } from './config.service';
-import { WorkspaceService } from './workspace.service';
+import { AuthService } from "./auth.service";
+import { BalanceService } from "./balance.service";
+import { ConfigService } from "./config.service";
+import { WorkspaceService } from "./workspace.service";
 
 class AuthServiceStub {
   currentEvent = new Observable(observer => {
-    observer.next('nothing');
+    observer.next("nothing");
   });
 }
-class ConfigServiceStub { }
+class ConfigServiceStub {}
 class WorkspaceServiceStub {
   currentWorkspace = new Observable(observer => {
     observer.next();
   });
 }
 
-describe('BalanceService', () => {
+describe("BalanceService", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -33,7 +33,10 @@ describe('BalanceService', () => {
     });
   });
 
-  it('should be created', inject([BalanceService], (service: BalanceService) => {
-    expect(service).toBeTruthy();
-  }));
+  it("should be created", inject(
+    [BalanceService],
+    (service: BalanceService) => {
+      expect(service).toBeTruthy();
+    }
+  ));
 });

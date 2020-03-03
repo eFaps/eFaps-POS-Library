@@ -1,11 +1,11 @@
-import { Discount } from './discount';
-import { Payment } from './payment';
-import { Product } from './product';
-import { Spot } from './spot';
-import { TaxEntry} from './tax';
+import { Discount } from "./discount";
+import { Payment } from "./payment";
+import { Product } from "./product";
+import { Spot } from "./spot";
+import { TaxEntry } from "./tax";
 
 export interface Document {
-  type?: 'ORDER' | 'RECEIPT' | 'INVOICE' | 'TICKET';
+  type?: "ORDER" | "RECEIPT" | "INVOICE" | "TICKET";
   id: string;
   oid: string;
   number: string;
@@ -30,17 +30,11 @@ export interface Order extends Document {
   spot?: Spot;
 }
 /* tslint:disable-next-line */
-export interface Receipt extends Payable {
-
-}
+export interface Receipt extends Payable {}
 /* tslint:disable-next-line */
-export interface Invoice extends Payable {
-
-}
+export interface Invoice extends Payable {}
 /* tslint:disable-next-line */
-export interface Ticket extends Payable {
-
-}
+export interface Ticket extends Payable {}
 
 export interface DocItem {
   index: number;
@@ -67,7 +61,7 @@ export enum DocStatus {
 }
 
 export interface DocumentHead {
-  type?: 'ORDER' | 'RECEIPT' | 'INVOICE' | 'TICKET';
+  type?: "ORDER" | "RECEIPT" | "INVOICE" | "TICKET";
   id: string;
   number: string;
   netTotal: number;
@@ -75,7 +69,7 @@ export interface DocumentHead {
 }
 
 export interface PayableHead extends DocumentHead {
-  order?: DocumentHead
+  order?: DocumentHead;
 }
 
 export interface OrderWrapper extends Order {

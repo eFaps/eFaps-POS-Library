@@ -1,29 +1,28 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, Observable } from "rxjs";
+import { tap } from "rxjs/operators";
 
-import { Balance, BalanceSummary } from '../model';
-import { AuthService } from './auth.service';
-import { ConfigService } from './config.service';
-import { WorkspaceService } from './workspace.service';
+import { Balance, BalanceSummary } from "../model";
+import { AuthService } from "./auth.service";
+import { ConfigService } from "./config.service";
+import { WorkspaceService } from "./workspace.service";
 
 @Injectable({
-  providedIn: 'root',
-  deps: [
-    HttpClient,
-    AuthService,
-    ConfigService,
-    WorkspaceService
-  ]
+  providedIn: "root",
+  deps: [HttpClient, AuthService, ConfigService, WorkspaceService]
 })
 export class BalanceService {
   private balance: Balance;
   private balanceSource = new BehaviorSubject<Balance>(this.balance);
   currentBalance = this.balanceSource.asObservable();
 
-  constructor(private http: HttpClient, private authService: AuthService,
-    private config: ConfigService, private workspaceService: WorkspaceService) {
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+    private config: ConfigService,
+    private workspaceService: WorkspaceService
+  ) {
     this.setup();
     this.load();
   }
@@ -31,10 +30,10 @@ export class BalanceService {
   private setup() {
     this.authService.currentEvent.subscribe(event => {
       switch (event) {
-        case 'login':
+        case "login":
           this.load();
           break;
-        case 'logout':
+        case "logout":
           this.balanceSource.next(null);
       }
     });
@@ -62,17 +61,22 @@ export class BalanceService {
 
   private getCurrent(_createNew?: boolean): Observable<Balance> {
     const requestUrl = `${this.config.baseUrl}/balance/current`;
-    return this.http.get<Balance>(requestUrl, { params: { 'createNew': _createNew.toString() } });
+    return this.http.get<Balance>(requestUrl, {
+      params: { createNew: _createNew.toString() }
+    });
   }
 
   init() {
-    this.getCurrent(true).subscribe(_balance => this.balanceSource.next(_balance));
+    this.getCurrent(true).subscribe(_balance =>
+      this.balanceSource.next(_balance)
+    );
   }
 
   close(balance: Balance): Observable<Balance> {
     const url = `${this.config.baseUrl}/balance/${balance.id}`;
-    return this.http.put<Balance>(url, balance)
-      .pipe(tap(() => this.balanceSource.next(null)))
+    return this.http
+      .put<Balance>(url, balance)
+      .pipe(tap(() => this.balanceSource.next(null)));
   }
 
   getSummary(balance: Balance): Observable<BalanceSummary> {

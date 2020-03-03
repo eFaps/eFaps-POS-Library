@@ -1,21 +1,17 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Decimal } from 'decimal.js';
-import { Observable } from 'rxjs';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Decimal } from "decimal.js";
+import { Observable } from "rxjs";
 
-import { CollectOrder, Collector } from '../model/collector';
-import { ConfigService } from './config.service';
+import { CollectOrder, Collector } from "../model/collector";
+import { ConfigService } from "./config.service";
 
 @Injectable({
-  providedIn: 'root',
-  deps: [
-    HttpClient,
-    ConfigService
-  ]
+  providedIn: "root",
+  deps: [HttpClient, ConfigService]
 })
 export class CollectService {
-
-  constructor(private http: HttpClient, private config: ConfigService) { }
+  constructor(private http: HttpClient, private config: ConfigService) {}
 
   getCollectors() {
     const requestUrl = `${this.config.baseUrl}/collectors/`;
@@ -23,10 +19,12 @@ export class CollectService {
   }
 
   startCollect(key: string, amount: number) {
-    const amountStr = new Decimal(amount).toDecimalPlaces(2, Decimal.ROUND_HALF_UP).toString();
+    const amountStr = new Decimal(amount)
+      .toDecimalPlaces(2, Decimal.ROUND_HALF_UP)
+      .toString();
     const collectOrder = { amount: amountStr };
     const url = `${this.config.baseUrl}/collectors/${key}/start`;
-    return this.http.post(url, collectOrder, { responseType: 'text' });
+    return this.http.post(url, collectOrder, { responseType: "text" });
   }
 
   getCollectOrder(collectOrderId: string): Observable<CollectOrder> {

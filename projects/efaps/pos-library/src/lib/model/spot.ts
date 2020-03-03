@@ -1,9 +1,9 @@
-import { Order } from './document';
+import { Order } from "./document";
 
 export enum SpotConfig {
-  NONE = 'NONE',
-  BASIC = 'BASIC',
-  EXTENDED = 'EXTENDED',
+  NONE = "NONE",
+  BASIC = "BASIC",
+  EXTENDED = "EXTENDED"
 }
 
 export interface Spot {

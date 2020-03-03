@@ -1,4 +1,4 @@
-import { Printer } from './printer';
+import { Printer } from "./printer";
 
 export interface PrintResponse {
   key: string;

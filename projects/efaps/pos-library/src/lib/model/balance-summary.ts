@@ -1,6 +1,6 @@
-import { Balance } from './balance';
-import { PaymentType } from './payment';
-import { TaxEntry } from './tax';
+import { Balance } from "./balance";
+import { PaymentType } from "./payment";
+import { TaxEntry } from "./tax";
 
 export interface BalanceSummary {
   balance: Balance;

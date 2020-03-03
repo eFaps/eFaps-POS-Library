@@ -1,14 +1,13 @@
-import { Injectable } from '@angular/core';
-import { Decimal } from 'decimal.js';
+import { Injectable } from "@angular/core";
+import { Decimal } from "decimal.js";
 
-import { Document, Tax, TaxEntry, TaxType } from '../model';
+import { Document, Tax, TaxEntry, TaxType } from "../model";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class TaxService {
-
-  constructor() { }
+  constructor() {}
 
   calcTax(net: Decimal, quantity: Decimal, ...taxes: Tax[]): Decimal {
     let amount = new Decimal(0);
@@ -18,7 +17,9 @@ export class TaxService {
           amount = amount.add(quantity.mul(new Decimal(tax.amount)));
           break;
         case TaxType.ADVALOREM:
-          amount = amount.add(net.mul(new Decimal(tax.percent).div(new Decimal(100))));
+          amount = amount.add(
+            net.mul(new Decimal(tax.percent).div(new Decimal(100)))
+          );
           break;
       }
     });
@@ -34,14 +35,18 @@ export class TaxService {
           taxValues.set(_taxEntry.tax.name, {
             tax: _taxEntry.tax,
             base: 0,
-            amount: 0,
+            amount: 0
           });
         }
         const ce = taxValues.get(_taxEntry.tax.name);
-        ce.amount = new Decimal(ce.amount).plus(new Decimal(_taxEntry.amount))
-          .toDecimalPlaces(2, Decimal.ROUND_HALF_UP).toNumber();
-        ce.base = new Decimal(ce.base).plus(new Decimal(_taxEntry.base))
-          .toDecimalPlaces(2, Decimal.ROUND_HALF_UP).toNumber();
+        ce.amount = new Decimal(ce.amount)
+          .plus(new Decimal(_taxEntry.amount))
+          .toDecimalPlaces(2, Decimal.ROUND_HALF_UP)
+          .toNumber();
+        ce.base = new Decimal(ce.base)
+          .plus(new Decimal(_taxEntry.base))
+          .toDecimalPlaces(2, Decimal.ROUND_HALF_UP)
+          .toNumber();
         taxValues.set(_taxEntry.tax.name, ce);
       });
     });

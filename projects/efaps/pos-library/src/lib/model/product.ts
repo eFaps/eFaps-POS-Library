@@ -1,4 +1,4 @@
-import { Tax } from './tax';
+import { Tax } from "./tax";
 
 export interface Product {
   oid: string;

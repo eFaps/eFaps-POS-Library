@@ -1,12 +1,12 @@
-import { HttpClient, HttpHandler } from '@angular/common/http';
-import { TestBed, inject } from '@angular/core/testing';
+import { HttpClient, HttpHandler } from "@angular/common/http";
+import { TestBed, inject } from "@angular/core/testing";
 
-import { AuthService } from './auth.service';
-import { ConfigService } from './config.service';
+import { AuthService } from "./auth.service";
+import { ConfigService } from "./config.service";
 
 class ConfigServiceStub {}
 
-describe('AuthService', () => {
+describe("AuthService", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -18,7 +18,7 @@ describe('AuthService', () => {
     });
   });
 
-  it('should be created', inject([AuthService], (service: AuthService) => {
+  it("should be created", inject([AuthService], (service: AuthService) => {
     expect(service).toBeTruthy();
   }));
 });

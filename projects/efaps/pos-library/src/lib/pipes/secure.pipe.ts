@@ -4,36 +4,33 @@ import {
   Pipe,
   PipeTransform,
   WrappedValue,
-  Injectable,
-} from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+  Injectable
+} from "@angular/core";
+import { DomSanitizer } from "@angular/platform-browser";
+import { BehaviorSubject, Observable, Subscription } from "rxjs";
 
-import { ConfigService } from '../services/config.service';
-import { ImageService } from '../services/image.service';
+import { ConfigService } from "../services/config.service";
+import { ImageService } from "../services/image.service";
 
 @Injectable({
   providedIn: "root",
-  deps: [
-    ChangeDetectorRef,
-    DomSanitizer,
-    ImageService,
-    ConfigService
-  ]
+  deps: [ChangeDetectorRef, DomSanitizer, ImageService, ConfigService]
 })
 @Pipe({
-  name: 'secure',
+  name: "secure",
   pure: false
 })
 export class SecurePipe implements PipeTransform, OnDestroy {
-  private static defaultImage = 'assets/defaultProdImg.svg';
+  private static defaultImage = "assets/defaultProdImg.svg";
   private latestValue: any = null;
   private latestReturnedValue: any = null;
   private subscription: Subscription = null;
   private obj: Observable<any> = null;
 
   private previousUrl: string;
-  private result: BehaviorSubject<any> = new BehaviorSubject(SecurePipe.defaultImage);
+  private result: BehaviorSubject<any> = new BehaviorSubject(
+    SecurePipe.defaultImage
+  );
   private resultObs: Observable<any> = this.result.asObservable();
   private internalSubscription: Subscription = null;
 
@@ -55,7 +52,7 @@ export class SecurePipe implements PipeTransform, OnDestroy {
   }
 
   transform(_url: string): any {
-    if (_url === 'null') {
+    if (_url === "null") {
       return SecurePipe.defaultImage;
     }
     const obj = this.internalTransform(_url);
@@ -69,10 +66,12 @@ export class SecurePipe implements PipeTransform, OnDestroy {
 
     if (this.previousUrl !== _url) {
       this.previousUrl = _url;
-      this.internalSubscription = this.imageService.loadImage(_url).subscribe(m => {
-        const sanitized = this.sanitizer.bypassSecurityTrustUrl(m);
-        this.result.next(sanitized);
-      });
+      this.internalSubscription = this.imageService
+        .loadImage(_url)
+        .subscribe(m => {
+          const sanitized = this.sanitizer.bypassSecurityTrustUrl(m);
+          this.result.next(sanitized);
+        });
     }
     return this.resultObs;
   }
@@ -103,7 +102,10 @@ export class SecurePipe implements PipeTransform, OnDestroy {
     this.subscription = _obj.subscribe({
       next: function(value) {
         return _this._updateLatestValue(_obj, value);
-      }, error: (e: any) => { throw e; }
+      },
+      error: (e: any) => {
+        throw e;
+      }
     });
   }
 

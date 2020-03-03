@@ -1,21 +1,17 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Cacheable } from 'ngx-cacheable';
-import { Observable, forkJoin } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { ConfigService } from './config.service';
-import { Category, PosCategory, Product } from '../model/index';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Cacheable } from "ngx-cacheable";
+import { Observable, forkJoin } from "rxjs";
+import { map } from "rxjs/operators";
+import { ConfigService } from "./config.service";
+import { Category, PosCategory, Product } from "../model/index";
 
 @Injectable({
-  providedIn: 'root',
-  deps: [
-    HttpClient,
-    ConfigService
-  ]
+  providedIn: "root",
+  deps: [HttpClient, ConfigService]
 })
 export class ProductService {
-
-  constructor(private http: HttpClient, private config: ConfigService) { }
+  constructor(private http: HttpClient, private config: ConfigService) {}
 
   @Cacheable()
   public getProducts(): Observable<Product[]> {
@@ -29,10 +25,7 @@ export class ProductService {
   }
 
   public getPosCategories(): Observable<PosCategory[]> {
-    return forkJoin([
-      this.getCategories(),
-      this.getProducts()
-    ]).pipe(
+    return forkJoin([this.getCategories(), this.getProducts()]).pipe(
       map((data: any[]) => {
         const categories: Category[] = data[0];
         const products: Product[] = data[1];
@@ -41,16 +34,19 @@ export class ProductService {
           posCategories.push({
             oid: _category.oid,
             name: _category.name,
-            products: products.filter(_product => _product.categoryOids.includes(_category.oid))
+            products: products.filter(_product =>
+              _product.categoryOids.includes(_category.oid)
+            )
           });
         });
         return posCategories;
-      }));
+      })
+    );
   }
 
   @Cacheable()
   public getCategories(): Observable<Category[]> {
-    const href = this.config.baseUrl + '/categories';
+    const href = this.config.baseUrl + "/categories";
     const requestUrl = `${href}`;
     return this.http.get<Category[]>(requestUrl);
   }

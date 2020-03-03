@@ -1,23 +1,17 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { LocalStorage } from 'ngx-store';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { LocalStorage } from "ngx-store";
+import { BehaviorSubject, Observable } from "rxjs";
 
-import { PosLayout, SpotConfig, Workspace } from '../model/index';
-import { AuthService } from './auth.service';
-import { CollectService } from './collect.service';
-import { CompanyService } from './company.service';
-import { ConfigService } from './config.service';
+import { PosLayout, SpotConfig, Workspace } from "../model/index";
+import { AuthService } from "./auth.service";
+import { CollectService } from "./collect.service";
+import { CompanyService } from "./company.service";
+import { ConfigService } from "./config.service";
 
 @Injectable({
-  providedIn: 'root',
-  deps: [
-    HttpClient,
-    AuthService,
-    ConfigService,
-    CompanyService,
-    CollectService
-  ]
+  providedIn: "root",
+  deps: [HttpClient, AuthService, ConfigService, CompanyService, CollectService]
 })
 export class WorkspaceService {
   SpotConfig = SpotConfig;
@@ -27,11 +21,13 @@ export class WorkspaceService {
   @LocalStorage() workspaces: any = {};
   private autoPayment = false;
 
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     private auth: AuthService,
     private config: ConfigService,
     private companyService: CompanyService,
-    private collectService: CollectService) { }
+    private collectService: CollectService
+  ) {}
 
   public getWorkspaces(): Observable<Workspace[]> {
     const url = `${this.config.baseUrl}/workspaces`;
@@ -52,7 +48,9 @@ export class WorkspaceService {
       if (!this.workspaces[this.companyService.currentCompany.key]) {
         this.workspaces[this.companyService.currentCompany.key] = {};
       }
-      workspaceOid = this.workspaces[this.companyService.currentCompany.key][this.auth.getCurrentUsername()];
+      workspaceOid = this.workspaces[this.companyService.currentCompany.key][
+        this.auth.getCurrentUsername()
+      ];
     } else {
       workspaceOid = this.workspaces[this.auth.getCurrentUsername()];
     }
@@ -69,7 +67,6 @@ export class WorkspaceService {
           }
         );
       });
-
     }
     return new Promise<boolean>(resolve => resolve(false));
   }
@@ -83,13 +80,16 @@ export class WorkspaceService {
     this.currentSource.next(_workspace);
     this.storeCurrentWorkspace(_workspace.oid);
     this.collectService.getCollectors().subscribe({
-      next: collectors => this.autoPayment = collectors && collectors.length > 0
+      next: collectors =>
+        (this.autoPayment = collectors && collectors.length > 0)
     });
   }
 
   private storeCurrentWorkspace(_oid: string) {
     if (this.companyService.hasCompany()) {
-      this.workspaces[this.companyService.currentCompany.key][this.auth.getCurrentUsername()] = _oid;
+      this.workspaces[this.companyService.currentCompany.key][
+        this.auth.getCurrentUsername()
+      ] = _oid;
     } else {
       this.workspaces[this.auth.getCurrentUsername()] = _oid;
     }
@@ -97,30 +97,33 @@ export class WorkspaceService {
   }
 
   public getLanguage() {
-    return 'es';
+    return "es";
   }
 
   public showSpots() {
-    return this.current
-      && this.current.spotConfig
-      && this.current.spotConfig != SpotConfig.NONE;
+    return (
+      this.current &&
+      this.current.spotConfig &&
+      this.current.spotConfig != SpotConfig.NONE
+    );
   }
 
   public getSpotSize(): number {
-    return this.current
-      && this.current.spotCount;
+    return this.current && this.current.spotCount;
   }
 
   public showInventory() {
-    return this.current
-      && this.current.warehouseOid
-      && this.current.warehouseOid.length > 0;
+    return (
+      this.current &&
+      this.current.warehouseOid &&
+      this.current.warehouseOid.length > 0
+    );
   }
 
   public allowPayment() {
-    return this.current
-      && this.current.docTypes
-      && this.current.docTypes.length > 0;
+    return (
+      this.current && this.current.docTypes && this.current.docTypes.length > 0
+    );
   }
 
   public hasAutoPayment() {

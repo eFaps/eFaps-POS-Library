@@ -1,14 +1,14 @@
-import { HttpClient, HttpHandler } from '@angular/common/http';
-import { TestBed, inject } from '@angular/core/testing';
+import { HttpClient, HttpHandler } from "@angular/common/http";
+import { TestBed, inject } from "@angular/core/testing";
 
-import { AuthService } from './auth.service';
-import { ConfigService } from './config.service';
-import { WorkspaceService } from './workspace.service';
+import { AuthService } from "./auth.service";
+import { ConfigService } from "./config.service";
+import { WorkspaceService } from "./workspace.service";
 
 class ConfigServiceStub {}
-class AuthServiceStub { }
+class AuthServiceStub {}
 
-describe('WorkspaceService', () => {
+describe("WorkspaceService", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -16,12 +16,15 @@ describe('WorkspaceService', () => {
         HttpHandler,
         WorkspaceService,
         { provide: AuthService, useClass: AuthServiceStub },
-        { provide: ConfigService, useClass: ConfigServiceStub },
+        { provide: ConfigService, useClass: ConfigServiceStub }
       ]
     });
   });
 
-  it('should be created', inject([WorkspaceService], (service: WorkspaceService) => {
-    expect(service).toBeTruthy();
-  }));
+  it("should be created", inject(
+    [WorkspaceService],
+    (service: WorkspaceService) => {
+      expect(service).toBeTruthy();
+    }
+  ));
 });

@@ -1,13 +1,13 @@
-import { HttpClient, HttpHandler } from '@angular/common/http';
-import { TestBed, inject } from '@angular/core/testing';
-import { DomSanitizer } from '@angular/platform-browser';
+import { HttpClient, HttpHandler } from "@angular/common/http";
+import { TestBed, inject } from "@angular/core/testing";
+import { DomSanitizer } from "@angular/platform-browser";
 
-import { ConfigService } from './config.service';
-import { ImageService } from './image.service';
+import { ConfigService } from "./config.service";
+import { ImageService } from "./image.service";
 
 class ConfigServiceStub {}
 
-describe('ImageService', () => {
+describe("ImageService", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -15,12 +15,12 @@ describe('ImageService', () => {
         HttpClient,
         HttpHandler,
         ImageService,
-        { provide: ConfigService, useClass: ConfigServiceStub },
+        { provide: ConfigService, useClass: ConfigServiceStub }
       ]
     });
   });
 
-  it('should be created', inject([ImageService], (service: ImageService) => {
+  it("should be created", inject([ImageService], (service: ImageService) => {
     expect(service).toBeTruthy();
   }));
 });

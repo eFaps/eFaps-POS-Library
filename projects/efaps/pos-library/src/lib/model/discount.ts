@@ -1,11 +1,11 @@
 export interface Discount {
-  type: DiscountType,
-  value: number,
-  productOid: string,
-  label: string
+  type: DiscountType;
+  value: number;
+  productOid: string;
+  label: string;
 }
 
 export enum DiscountType {
-  PERCENT = 'PERCENT',
-  AMOUNT = 'AMOUNT'
+  PERCENT = "PERCENT",
+  AMOUNT = "AMOUNT"
 }
