@@ -18,11 +18,11 @@ export class CollectService {
     return this.http.get<Collector[]>(requestUrl);
   }
 
-  startCollect(key: string, amount: number) {
+  startCollect(key: string, amount: number, details: any) {
     const amountStr = new Decimal(amount)
       .toDecimalPlaces(2, Decimal.ROUND_HALF_UP)
       .toString();
-    const collectOrder = { amount: amountStr };
+    const collectOrder = { amount: amountStr, details: details };
     const url = `${this.config.baseUrl}/collectors/${key}/start`;
     return this.http.post(url, collectOrder, { responseType: "text" });
   }
