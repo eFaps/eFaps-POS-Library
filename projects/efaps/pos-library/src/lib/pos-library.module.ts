@@ -40,7 +40,7 @@ import { WorkspaceService } from "./services/workspace.service";
   exports: [PosCurrencyPipe, SecurePipe]
 })
 export class PosLibraryModule {
-  static forRoot(config: PosConfig): ModuleWithProviders {
+  static forRoot(config: PosConfig): ModuleWithProviders<PosLibraryModule> {
     return {
       ngModule: PosLibraryModule,
       providers: [
