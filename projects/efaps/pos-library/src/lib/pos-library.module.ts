@@ -30,6 +30,7 @@ import { PrintService } from "./services/print.service";
 import { ProductService } from "./services/product.service";
 import { SpotService } from "./services/spot.service";
 import { TaxService } from "./services/tax.service";
+import { TaxpayerService } from './services/taxpayer.service';
 import { UserService } from "./services/user.service";
 import { UtilsService } from "./services/utils.service";
 import { WorkspaceService } from "./services/workspace.service";
@@ -69,6 +70,7 @@ export class PosLibraryModule {
         SpotService,
         StompRService,
         TaxService,
+        TaxpayerService,
         UserService,
         UtilsService,
         WorkspaceGuard,
