@@ -1,12 +1,19 @@
 {
   "name": "@efaps/pos-library",
-  "version": "0.5.0",
+  "version": "0.5.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eFaps/eFaps-POS-Library.git"
+  },
+  "author": "eFaps",
+  "license": "Apache 2.0",
+  "homepage": "https://github.com/eFaps/eFaps-POS-Library",
   "publishConfig": {
     "access": "public"
   },
   "peerDependencies": {
     "@angular/common": "^9.0.0",
-    "@angular/core": "^9.0.0" ,
+    "@angular/core": "^9.0.0",
     "parse-decimal-number": "^1.0.0"
   }
 }
