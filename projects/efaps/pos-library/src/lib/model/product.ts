@@ -3,6 +3,7 @@ import { Tax } from "./tax";
 export interface Product {
   oid: string;
   sku: string;
+  type: ProductType;
   description: string;
   imageOid: string;
   netPrice: number;
@@ -33,4 +34,11 @@ export interface IndicationSet {
 export interface Indication {
   oid: string;
   value: string;
+}
+
+export enum ProductType {
+  STANDART,
+  SERVICE,
+  TEXT,
+  OTHER
 }
