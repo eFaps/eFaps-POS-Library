@@ -11,9 +11,11 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: npm install
-      - run: npm run build
-      - name: Publish Step
+      - name: Install
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Publish to npm
         id: publish
         uses: JS-DevTools/npm-publish@v1
         with:
