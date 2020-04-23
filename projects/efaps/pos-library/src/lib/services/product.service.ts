@@ -3,8 +3,9 @@ import { Injectable } from "@angular/core";
 import { Cacheable } from "ngx-cacheable";
 import { Observable, forkJoin } from "rxjs";
 import { map } from "rxjs/operators";
+
+import { Category, PosCategory, Product, ProductType } from "../model/index";
 import { ConfigService } from "./config.service";
-import { Category, PosCategory, Product } from "../model/index";
 
 @Injectable({
   providedIn: "root",
@@ -64,5 +65,14 @@ export class ProductService {
   public getProductsByCategory(_oid: string): Observable<Product[]> {
     const requestUrl = `${this.config.baseUrl}/products?category=${_oid}`;
     return this.http.get<Product[]>(requestUrl);
+  }
+
+  static isStockable(product: Product): boolean {
+    switch (product.type) {
+      case ProductType.STANDART:
+        return true;
+      default:
+        return false;
+    }
   }
 }
