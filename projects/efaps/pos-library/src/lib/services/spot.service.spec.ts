@@ -1,6 +1,6 @@
 import { HttpClient, HttpHandler } from "@angular/common/http";
 import { TestBed, inject } from "@angular/core/testing";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 
 import { AuthService } from "./auth.service";
 import { ConfigService } from "./config.service";
