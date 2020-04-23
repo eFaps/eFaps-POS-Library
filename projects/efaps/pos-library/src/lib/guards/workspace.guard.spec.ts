@@ -8,6 +8,7 @@ import {
   ConfigService,
   WorkspaceService
 } from "../services/index";
+import { PosConfigToken } from "../services/pos-config.token";
 import { WorkspaceGuard } from "./workspace.guard";
 
 describe("WorkspaceGuard", () => {
@@ -21,7 +22,8 @@ describe("WorkspaceGuard", () => {
         WorkspaceService,
         HttpClient,
         HttpHandler,
-        LocalStorageService
+        LocalStorageService,
+        { provide: PosConfigToken, useValue: {} }
       ]
     });
   });

@@ -8,6 +8,7 @@ import { DocumentService } from "./document.service";
 import { PaymentService } from "./payment.service";
 import { PosService } from "./pos.service";
 import { WorkspaceService } from "./workspace.service";
+import { PosConfigToken } from './pos-config.token';
 
 describe("PaymentService", () => {
   beforeEach(() => {
@@ -21,7 +22,8 @@ describe("PaymentService", () => {
         PaymentService,
         LocalStorageService,
         PosService,
-        WorkspaceService
+        WorkspaceService,
+        { provide: PosConfigToken, useValue: {} },
       ]
     });
   });

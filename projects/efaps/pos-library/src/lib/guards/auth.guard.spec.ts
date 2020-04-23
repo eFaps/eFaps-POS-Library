@@ -3,9 +3,10 @@ import { TestBed, inject } from "@angular/core/testing";
 import { RouterTestingModule } from "@angular/router/testing";
 import { LocalStorageService } from "ngx-store";
 
-import { AuthGuard } from "./auth.guard";
 import { AuthService } from "../services/auth.service";
 import { ConfigService } from "../services/config.service";
+import { PosConfigToken } from "../services/pos-config.token";
+import { AuthGuard } from "./auth.guard";
 
 describe("AuthGuard", () => {
   beforeEach(() => {
@@ -17,7 +18,8 @@ describe("AuthGuard", () => {
         ConfigService,
         HttpClient,
         HttpHandler,
-        LocalStorageService
+        LocalStorageService,
+        { provide: PosConfigToken, useValue: {} }
       ]
     });
   });
