@@ -8,6 +8,7 @@ import {
   Document,
   Order,
   Product,
+  ProductType,
   TaxType
 } from "../model";
 import { DocumentService } from "./document.service";
@@ -133,6 +134,7 @@ export class DiscountService {
     return {
       oid: discount.productOid,
       sku: "",
+      type: ProductType.TEXT,
       description: "Descuento",
       imageOid: "",
       netPrice: 0,
