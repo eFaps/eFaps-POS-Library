@@ -37,8 +37,8 @@ export interface Indication {
 }
 
 export enum ProductType {
-  STANDART,
-  SERVICE,
-  TEXT,
-  OTHER
+  STANDART = "STANDART",
+  SERVICE = "SERVICE",
+  TEXT = "TEXT",
+  OTHER = "OTHER"
 }
