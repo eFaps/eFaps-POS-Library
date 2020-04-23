@@ -19,8 +19,8 @@ jobs:
         with:
           token: ${{ secrets.NPM_TOKEN }}
           package: ./dist/efaps/pos-library/package.json
-      - if: steps.publish.type != 'none'
-        name: Create Release
+      - name: Create Release
+        if: steps.publish.type != 'none'
         id: create_release
         uses: actions/create-release@v1
         env:
