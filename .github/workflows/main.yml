@@ -13,7 +13,20 @@ jobs:
           node-version: 12
       - run: npm install
       - run: npm run build
-      - uses: JS-DevTools/npm-publish@v1
+      - name: Publish Step
+        id: publish
+        uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
           package: ./dist/efaps/pos-library/package.json
+      - if: steps.publish.type != 'none'
+        name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
