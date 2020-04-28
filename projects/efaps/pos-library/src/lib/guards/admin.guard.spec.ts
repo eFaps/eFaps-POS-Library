@@ -1,7 +1,6 @@
 import { HttpClient, HttpHandler } from "@angular/common/http";
 import { TestBed, inject } from "@angular/core/testing";
 import { RouterTestingModule } from "@angular/router/testing";
-import { LocalStorageService } from "ngx-store";
 
 import { AuthService } from "../services/auth.service";
 import { ConfigService } from "../services/config.service";
@@ -18,7 +17,6 @@ describe("AdminGuard", () => {
         ConfigService,
         HttpClient,
         HttpHandler,
-        LocalStorageService,
         { provide: PosConfigToken, useValue: {} },
       ]
     });
