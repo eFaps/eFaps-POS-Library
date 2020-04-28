@@ -24,7 +24,7 @@
     "decimal.js": "^10.2.0",
     "jwt-decode": "^2.2.0",
     "ngx-cacheable": "^1.4.1",
-    "ngx-store": "^2.1.0",
+    "ngx-store": "https://github.com/jan-moxter/ngx-store/releases/download/3.0.2/ngx-store-3.0.2.tgz",
     "parse-decimal-number": "^1.0.0",
     "rxjs": "^6.5.5",
     "tslib": "^1.10.0",
