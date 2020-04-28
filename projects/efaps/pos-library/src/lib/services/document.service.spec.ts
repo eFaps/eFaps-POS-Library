@@ -1,6 +1,6 @@
-import { HttpClient, HttpHandler } from "@angular/common/http";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { TestBed, inject } from "@angular/core/testing";
-import { Observable } from 'rxjs';
+import { Observable } from "rxjs";
 
 import { AuthService } from "./auth.service";
 import { ConfigService } from "./config.service";
@@ -18,9 +18,8 @@ class WorkspaceServiceStub {
 describe("DocumentService", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       providers: [
-        HttpClient,
-        HttpHandler,
         DocumentService,
         { provide: ConfigService, useClass: ConfigServiceStub },
         { provide: AuthService, useClass: AuthServiceStub },

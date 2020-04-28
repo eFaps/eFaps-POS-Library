@@ -1,4 +1,4 @@
-import { HttpClient, HttpHandler } from "@angular/common/http";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { TestBed, inject } from "@angular/core/testing";
 import { StompRService } from "@stomp/ng2-stompjs";
 import { Observable } from "rxjs";
@@ -17,9 +17,8 @@ class AuthServiceStub {
 describe("MsgService", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       providers: [
-        HttpClient,
-        HttpHandler,
         MsgService,
         StompRService,
         { provide: AuthService, useClass: AuthServiceStub },

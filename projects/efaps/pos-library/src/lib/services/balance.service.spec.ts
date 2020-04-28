@@ -1,5 +1,5 @@
-import { HttpClient, HttpHandler } from "@angular/common/http";
-import { TestBed, inject } from "@angular/core/testing";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { TestBed } from "@angular/core/testing";
 import { Observable } from "rxjs";
 
 import { AuthService } from "./auth.service";
@@ -22,10 +22,8 @@ class WorkspaceServiceStub {
 describe("BalanceService", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       providers: [
-        HttpClient,
-        HttpHandler,
-        BalanceService,
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: ConfigService, useClass: ConfigServiceStub },
         { provide: WorkspaceService, useClass: WorkspaceServiceStub }
@@ -33,10 +31,8 @@ describe("BalanceService", () => {
     });
   });
 
-  it("should be created", inject(
-    [BalanceService],
-    (service: BalanceService) => {
-      expect(service).toBeTruthy();
-    }
-  ));
+  it("should be created", () => {
+    const service: BalanceService = TestBed.get(BalanceService);
+    expect(service).toBeTruthy();
+  });
 });

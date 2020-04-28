@@ -1,4 +1,4 @@
-import { HttpClient, HttpHandler } from "@angular/common/http";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { TestBed, inject } from "@angular/core/testing";
 
 import { AdminService } from "./admin.service";
@@ -9,9 +9,8 @@ class ConfigServiceStub {}
 describe("AdminService", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       providers: [
-        HttpClient,
-        HttpHandler,
         AdminService,
         { provide: ConfigService, useClass: ConfigServiceStub }
       ]

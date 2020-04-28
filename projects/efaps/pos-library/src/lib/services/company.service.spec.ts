@@ -1,17 +1,16 @@
-import { HttpClient, HttpHandler } from '@angular/common/http';
+import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { TestBed } from "@angular/core/testing";
 
-import { PosConfigToken } from '../services/pos-config.token';
+import { PosConfigToken } from "../services/pos-config.token";
 import { CompanyService } from "./company.service";
 
 describe("CompanyService", () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    providers: [
-      HttpClient,
-      HttpHandler,
-      { provide: PosConfigToken, useValue: {} },
-    ]
-  }));
+  beforeEach(() =>
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [{ provide: PosConfigToken, useValue: {} }]
+    })
+  );
 
   it("should be created", () => {
     const service: CompanyService = TestBed.get(CompanyService);

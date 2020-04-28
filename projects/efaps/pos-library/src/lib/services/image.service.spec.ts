@@ -1,4 +1,4 @@
-import { HttpClient, HttpHandler } from "@angular/common/http";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { TestBed, inject } from "@angular/core/testing";
 import { DomSanitizer } from "@angular/platform-browser";
 
@@ -10,10 +10,9 @@ class ConfigServiceStub {}
 describe("ImageService", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       providers: [
         DomSanitizer,
-        HttpClient,
-        HttpHandler,
         ImageService,
         { provide: ConfigService, useClass: ConfigServiceStub }
       ]

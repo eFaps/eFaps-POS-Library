@@ -1,4 +1,4 @@
-import { HttpClient, HttpHandler } from "@angular/common/http";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { TestBed, inject } from "@angular/core/testing";
 
 import { AuthService } from "./auth.service";
@@ -7,21 +7,20 @@ import { DocumentService } from "./document.service";
 import { PaymentService } from "./payment.service";
 import { PosService } from "./pos.service";
 import { WorkspaceService } from "./workspace.service";
-import { PosConfigToken } from './pos-config.token';
+import { PosConfigToken } from "./pos-config.token";
 
 describe("PaymentService", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       providers: [
-        HttpClient,
-        HttpHandler,
         AuthService,
         ConfigService,
         DocumentService,
         PaymentService,
         PosService,
         WorkspaceService,
-        { provide: PosConfigToken, useValue: {} },
+        { provide: PosConfigToken, useValue: {} }
       ]
     });
   });

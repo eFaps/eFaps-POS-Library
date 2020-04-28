@@ -1,4 +1,4 @@
-import { HttpClient, HttpHandler } from "@angular/common/http";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { TestBed, inject } from "@angular/core/testing";
 
 import { AuthService } from "./auth.service";
@@ -11,9 +11,8 @@ class AuthServiceStub {}
 describe("WorkspaceService", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       providers: [
-        HttpClient,
-        HttpHandler,
         WorkspaceService,
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: ConfigService, useClass: ConfigServiceStub }

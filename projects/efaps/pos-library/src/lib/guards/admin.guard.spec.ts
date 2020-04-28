@@ -4,7 +4,7 @@ import { RouterTestingModule } from "@angular/router/testing";
 
 import { AuthService } from "../services/auth.service";
 import { ConfigService } from "../services/config.service";
-import { PosConfigToken } from '../services/pos-config.token';
+import { PosConfigToken } from "../services/pos-config.token";
 import { AdminGuard } from "./admin.guard";
 
 describe("AdminGuard", () => {
@@ -17,7 +17,7 @@ describe("AdminGuard", () => {
         ConfigService,
         HttpClient,
         HttpHandler,
-        { provide: PosConfigToken, useValue: {} },
+        { provide: PosConfigToken, useValue: {} }
       ]
     });
   });
