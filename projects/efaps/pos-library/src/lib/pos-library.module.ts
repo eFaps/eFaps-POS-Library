@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ModuleWithProviders, NgModule } from "@angular/core";
-import { StompRService } from "@stomp/ng2-stompjs";
+import { RxStompService } from "@stomp/ng2-stompjs";
 
 import { AdminGuard } from "./guards/admin.guard";
 import { AuthGuard } from "./guards/auth.guard";
@@ -68,7 +68,7 @@ export class PosLibraryModule {
         PrintService,
         ProductService,
         SpotService,
-        StompRService,
+        RxStompService,
         TaxService,
         TaxpayerService,
         UserService,
