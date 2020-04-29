@@ -2,6 +2,14 @@
   "$schema": "../../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../../dist/efaps/pos-library",
   "lib": {
-    "entryFile": "src/public-api.ts"
+    "entryFile": "src/public-api.ts",
+    "umdModuleIds": {
+      "@efaps/ngx-store": "@efaps/ngx-store",
+      "jwt-decode": "jwt-decode",
+      "decimal.js": "decimal.js",
+      "parse-decimal-number": "parse-decimal-number",
+      "ngx-cacheable": "ngx-cacheable",
+      "@stomp/ng2-stompjs": "@stomp/ng2-stompjs"
+    }
   }
 }
