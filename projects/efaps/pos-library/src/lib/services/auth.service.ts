@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import jwtDecode from "jwt-decode";
-import { LocalStorage } from "ngx-store";
+import { LocalStorage } from "@efaps/ngx-store";
 import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 

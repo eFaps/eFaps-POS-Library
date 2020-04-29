@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { LocalStorage } from "ngx-store";
+import { LocalStorage } from "@efaps/ngx-store";
 import { Observable, forkJoin } from "rxjs";
 
 import { Position, Spot, SpotsLayout, Workspace } from "../model";
