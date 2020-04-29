@@ -1,6 +1,6 @@
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { TestBed, inject } from "@angular/core/testing";
-import { StompRService } from "@stomp/ng2-stompjs";
+import { RxStompService } from "@stomp/ng2-stompjs";
 import { Observable } from "rxjs";
 
 import { AuthService } from "./auth.service";
@@ -20,7 +20,7 @@ describe("MsgService", () => {
       imports: [HttpClientTestingModule],
       providers: [
         MsgService,
-        StompRService,
+        RxStompService,
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: ConfigService, useClass: ConfigServiceStub }
       ]
