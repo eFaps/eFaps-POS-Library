@@ -1,19 +1,19 @@
 import { Injectable } from "@angular/core";
-import { StompConfig, StompRService } from "@stomp/ng2-stompjs";
+import { RxStompService, InjectableRxStompConfig } from "@stomp/ng2-stompjs";
 
 import { AuthService } from "./auth.service";
 import { ConfigService } from "./config.service";
 
 @Injectable({
   providedIn: "root",
-  deps: [ConfigService, StompRService, AuthService]
+  deps: [ConfigService, RxStompService, AuthService]
 })
 export class MsgService {
   ordersEdited = new Set();
 
   constructor(
     private configService: ConfigService,
-    private stompService: StompRService,
+    private stompService: RxStompService,
     private authService: AuthService
   ) {
     this.authService.currentEvent.subscribe(() => {
@@ -23,32 +23,30 @@ export class MsgService {
 
   init() {
     if (!this.stompService.connected()) {
-      const stompConfig: StompConfig = {
-        url: this.configService.socketUrl,
-        headers: {
+      const stompConfig: InjectableRxStompConfig = {
+        brokerURL: this.configService.socketUrl,
+        connectHeaders: {
           login: this.authService.currentUser.token
         },
-        heartbeat_in: 0,
-        heartbeat_out: 20000,
-        reconnect_delay: 5000,
-        debug: true
+        heartbeatIncoming: 0,
+        heartbeatOutgoing: 20000,
+        reconnectDelay: 5000,
+        debug: str => {
+          console.log(new Date(), str);
+        }
       };
-      this.stompService.config = stompConfig;
-      this.stompService.initAndConnect();
-      this.stompService
-        .subscribe("/app/orders/start.edit")
-        .subscribe(message => {
-          JSON.parse(message.body).forEach(orderId => {
-            this.ordersEdited.add(orderId);
-          });
+      this.stompService.configure(stompConfig);
+      this.stompService.activate();
+      this.stompService.watch("/app/orders/start.edit").subscribe(message => {
+        JSON.parse(message.body).forEach(orderId => {
+          this.ordersEdited.add(orderId);
         });
+      });
+      this.stompService.watch("/topic/orders/start.edit").subscribe(message => {
+        this.ordersEdited.add(message.body);
+      });
       this.stompService
-        .subscribe("/topic/orders/start.edit")
-        .subscribe(message => {
-          this.ordersEdited.add(message.body);
-        });
-      this.stompService
-        .subscribe("/topic/orders/finish.edit")
+        .watch("/topic/orders/finish.edit")
         .subscribe(message => {
           this.ordersEdited.delete(message.body);
         });
@@ -57,22 +55,28 @@ export class MsgService {
 
   disconnect() {
     if (this.stompService.connected()) {
-      this.stompService.disconnect();
+      this.stompService.deactivate();
     }
   }
 
   publishStartEditOrder(orderId: string) {
     this.init();
-    this.stompService.publish("/app/orders/start.edit", orderId);
+    this.stompService.publish({
+      destination: "/app/orders/start.edit",
+      body: orderId
+    });
   }
 
   publishFinishEditOrder(orderId: string) {
     this.init();
-    this.stompService.publish("/app/orders/finish.edit", orderId);
+    this.stompService.publish({
+      destination: "/app/orders/finish.edit",
+      body: orderId
+    });
   }
 
   subscribeToCollectOrder(collectOrderId: string) {
     this.init();
-    return this.stompService.subscribe(`/topic/collectOrder/${collectOrderId}`);
+    return this.stompService.watch(`/topic/collectOrder/${collectOrderId}`);
   }
 }
