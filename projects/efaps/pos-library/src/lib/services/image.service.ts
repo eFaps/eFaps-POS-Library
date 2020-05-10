@@ -55,6 +55,6 @@ export class ImageService {
     this.cache.forEach((value: string, _key: string) => {
       URL.revokeObjectURL(value);
     });
-    this.cache.clear()
+    this.cache.clear();
   }
 }
