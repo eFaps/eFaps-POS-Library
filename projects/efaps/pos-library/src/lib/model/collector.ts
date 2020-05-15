@@ -9,3 +9,8 @@ export interface CollectOrder {
   id?: string;
   state?: "INVALID" | "PENDING" | "SUCCESS" | "CANCELED";
 }
+
+export interface CollectStart {
+  collectOrderId: string;
+  details: any;
+}

@@ -3,7 +3,11 @@ import { Injectable } from "@angular/core";
 import { Decimal } from "decimal.js";
 import { Observable } from "rxjs";
 
-import { CollectOrder, Collector } from "../model/collector";
+import {
+  CollectOrder,
+  CollectStart,
+  Collector
+} from "../model/collector";
 import { ConfigService } from "./config.service";
 
 @Injectable({
@@ -18,13 +22,17 @@ export class CollectService {
     return this.http.get<Collector[]>(requestUrl);
   }
 
-  startCollect(key: string, amount: number, details: any) {
+  startCollect(
+    key: string,
+    amount: number,
+    details: any
+  ): Observable<CollectStart> {
     const amountStr = new Decimal(amount)
       .toDecimalPlaces(2, Decimal.ROUND_HALF_UP)
       .toString();
     const collectOrder = { amount: amountStr, details: details };
     const url = `${this.config.baseUrl}/collectors/${key}/start`;
-    return this.http.post(url, collectOrder, { responseType: "text" });
+    return this.http.post<CollectStart>(url, collectOrder);
   }
 
   getCollectOrder(collectOrderId: string): Observable<CollectOrder> {
