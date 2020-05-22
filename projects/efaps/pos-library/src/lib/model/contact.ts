@@ -7,9 +7,9 @@ export interface Contact {
 }
 
 export enum IdentificationType {
-  RUC,
-  DNI,
-  CE,
-  PASSPORT,
-  OTHER
+  RUC = "RUC",
+  DNI = "DNI",
+  CE = "CE",
+  PASSPORT = "PASSPORT",
+  OTHER = "OTHER",
 }
