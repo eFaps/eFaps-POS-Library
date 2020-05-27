@@ -4,6 +4,7 @@ export interface Contact {
   name: string;
   idType: IdentificationType;
   idNumber: string;
+  email?: string;
 }
 
 export enum IdentificationType {
