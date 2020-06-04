@@ -100,9 +100,11 @@ export class BalanceService {
           observer.complete();
         },
         error: error => {
-          if (error.status !== 404) {
+          if (error.status == 404) {
             observer.next(false);
             observer.complete();
+          } else {
+            observer.error(error)
           }
         }
       });
