@@ -88,4 +88,24 @@ export class BalanceService {
     const url = `${this.config.baseUrl}/balance`;
     return this.http.get<Balance[]>(url);
   }
+
+  /*
+   * this should only  be used to veriy against the sever not to init
+   */
+  hasCurrent(): Observable<Boolean> {
+    return new Observable(observer => {
+      this.getCurrent(false).subscribe({
+        next: _balance => {
+          observer.next(true);
+          observer.complete();
+        },
+        error: error => {
+          if (error.status !== 404) {
+            observer.next(false);
+            observer.complete();
+          }
+        }
+      });
+    });
+  }
 }
