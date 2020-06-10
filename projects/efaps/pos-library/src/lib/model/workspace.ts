@@ -17,6 +17,7 @@ export interface Workspace {
   gridSize: PosGridSize;
   gridShowPrice: boolean;
   floors: Floor[];
+  categoryOids?: String[];
 }
 
 export interface PrintCmd {
