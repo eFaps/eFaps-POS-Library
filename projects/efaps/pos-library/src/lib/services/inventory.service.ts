@@ -7,7 +7,7 @@ import { ConfigService } from "./config.service";
 
 @Injectable({
   providedIn: "root",
-  deps: [HttpClient, ConfigService]
+  deps: [HttpClient, ConfigService],
 })
 export class InventoryService {
   constructor(private config: ConfigService, private http: HttpClient) {}
@@ -20,7 +20,7 @@ export class InventoryService {
   public getInventory(warehouseOid: string): Observable<InventoryEntry[]> {
     const requestUrl = `${this.config.baseUrl}/inventory`;
     return this.http.get<InventoryEntry[]>(requestUrl, {
-      params: { warehouseOid }
+      params: { warehouseOid },
     });
   }
 
@@ -29,7 +29,7 @@ export class InventoryService {
   ): Observable<InventoryEntry[]> {
     const requestUrl = `${this.config.baseUrl}/inventory`;
     return this.http.get<InventoryEntry[]>(requestUrl, {
-      params: { productOid }
+      params: { productOid },
     });
   }
 }

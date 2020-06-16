@@ -7,7 +7,7 @@ import { PageRequest, Page } from "../model/pageable";
 
 @Injectable({
   providedIn: "root",
-  deps: [HttpClient, ConfigService]
+  deps: [HttpClient, ConfigService],
 })
 export class TaxpayerService {
   constructor(private http: HttpClient, private config: ConfigService) {}

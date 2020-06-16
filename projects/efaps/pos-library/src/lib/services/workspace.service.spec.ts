@@ -15,8 +15,8 @@ describe("WorkspaceService", () => {
       providers: [
         WorkspaceService,
         { provide: AuthService, useClass: AuthServiceStub },
-        { provide: ConfigService, useClass: ConfigServiceStub }
-      ]
+        { provide: ConfigService, useClass: ConfigServiceStub },
+      ],
     });
   });
 

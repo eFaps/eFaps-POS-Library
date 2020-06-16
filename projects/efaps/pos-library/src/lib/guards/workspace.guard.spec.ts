@@ -5,7 +5,7 @@ import { RouterTestingModule } from "@angular/router/testing";
 import {
   AuthService,
   ConfigService,
-  WorkspaceService
+  WorkspaceService,
 } from "../services/index";
 import { PosConfigToken } from "../services/pos-config.token";
 import { WorkspaceGuard } from "./workspace.guard";
@@ -21,8 +21,8 @@ describe("WorkspaceGuard", () => {
         WorkspaceService,
         HttpClient,
         HttpHandler,
-        { provide: PosConfigToken, useValue: {} }
-      ]
+        { provide: PosConfigToken, useValue: {} },
+      ],
     });
   });
 

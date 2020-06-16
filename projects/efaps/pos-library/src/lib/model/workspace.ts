@@ -34,11 +34,11 @@ export interface Card {
 export enum PosLayout {
   GRID = "GRID",
   LIST = "LIST",
-  BOTH = "BOTH"
+  BOTH = "BOTH",
 }
 
 export enum PosGridSize {
   SMALL = "SMALL",
   MEDIUM = "MEDIUM",
-  LARGE = "LARGE"
+  LARGE = "LARGE",
 }

@@ -10,7 +10,7 @@ import { WorkspaceService } from "./workspace.service";
 
 @Injectable({
   providedIn: "root",
-  deps: [HttpClient, AuthService, ConfigService, WorkspaceService]
+  deps: [HttpClient, AuthService, ConfigService, WorkspaceService],
 })
 export class BalanceService {
   private balance: Balance;
@@ -28,7 +28,7 @@ export class BalanceService {
   }
 
   private setup() {
-    this.authService.currentEvent.subscribe(event => {
+    this.authService.currentEvent.subscribe((event) => {
       switch (event) {
         case "login":
           this.load();
@@ -37,7 +37,7 @@ export class BalanceService {
           this.balanceSource.next(null);
       }
     });
-    this.workspaceService.currentWorkspace.subscribe(ws => {
+    this.workspaceService.currentWorkspace.subscribe((ws) => {
       if (ws) {
         this.load();
       } else {
@@ -48,26 +48,26 @@ export class BalanceService {
 
   private load() {
     this.getCurrent(false).subscribe({
-      next: balance => {
+      next: (balance) => {
         this.balanceSource.next(balance);
       },
-      error: error => {
+      error: (error) => {
         if (error.status !== 404) {
           console.log(error);
         }
-      }
+      },
     });
   }
 
   private getCurrent(_createNew?: boolean): Observable<Balance> {
     const requestUrl = `${this.config.baseUrl}/balance/current`;
     return this.http.get<Balance>(requestUrl, {
-      params: { createNew: _createNew.toString() }
+      params: { createNew: _createNew.toString() },
     });
   }
 
   init() {
-    this.getCurrent(true).subscribe(_balance =>
+    this.getCurrent(true).subscribe((_balance) =>
       this.balanceSource.next(_balance)
     );
   }
@@ -93,20 +93,20 @@ export class BalanceService {
    * this should only  be used to veriy against the sever not to init
    */
   hasCurrent(): Observable<Boolean> {
-    return new Observable(observer => {
+    return new Observable((observer) => {
       this.getCurrent(false).subscribe({
-        next: _balance => {
+        next: (_balance) => {
           observer.next(true);
           observer.complete();
         },
-        error: error => {
+        error: (error) => {
           if (error.status == 404) {
             observer.next(false);
             observer.complete();
           } else {
-            observer.error(error)
+            observer.error(error);
           }
-        }
+        },
       });
     });
   }

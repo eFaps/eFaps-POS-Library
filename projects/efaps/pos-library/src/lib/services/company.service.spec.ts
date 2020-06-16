@@ -8,7 +8,7 @@ describe("CompanyService", () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [{ provide: PosConfigToken, useValue: {} }]
+      providers: [{ provide: PosConfigToken, useValue: {} }],
     })
   );
 

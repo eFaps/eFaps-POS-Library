@@ -3,16 +3,12 @@ import { Injectable } from "@angular/core";
 import { Decimal } from "decimal.js";
 import { Observable } from "rxjs";
 
-import {
-  CollectOrder,
-  CollectStart,
-  Collector
-} from "../model/collector";
+import { CollectOrder, CollectStart, Collector } from "../model/collector";
 import { ConfigService } from "./config.service";
 
 @Injectable({
   providedIn: "root",
-  deps: [HttpClient, ConfigService]
+  deps: [HttpClient, ConfigService],
 })
 export class CollectService {
   constructor(private http: HttpClient, private config: ConfigService) {}

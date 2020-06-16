@@ -52,13 +52,13 @@ export interface DocItem {
 export enum DocumentType {
   RECEIPT,
   INVOICE,
-  TICKET
+  TICKET,
 }
 
 export enum DocStatus {
   OPEN,
   CLOSED,
-  CANCELED
+  CANCELED,
 }
 
 export interface DocumentHead {

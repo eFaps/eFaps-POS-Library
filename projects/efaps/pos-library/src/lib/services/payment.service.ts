@@ -7,7 +7,7 @@ import { PosService } from "./pos.service";
 
 @Injectable({
   providedIn: "root",
-  deps: [PosService]
+  deps: [PosService],
 })
 export class PaymentService {
   private document: Document;
@@ -25,7 +25,7 @@ export class PaymentService {
   currency: string;
 
   constructor(private posService: PosService) {
-    this.posService.currentCurrency.subscribe(_data => {
+    this.posService.currentCurrency.subscribe((_data) => {
       if (_data) {
         this.currency = _data;
       }

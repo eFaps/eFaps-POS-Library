@@ -7,7 +7,7 @@ import { ConfigService } from "./config.service";
 
 @Injectable({
   providedIn: "root",
-  deps: [HttpClient, ConfigService]
+  deps: [HttpClient, ConfigService],
 })
 export class ContactService {
   constructor(private http: HttpClient, private config: ConfigService) {}
@@ -25,7 +25,7 @@ export class ContactService {
     const href = this.config.baseUrl + "/contacts";
     const requestUrl = `${href}`;
     return this.http.get<Contact[]>(requestUrl, {
-      params: { term, nameSearch: _nameSearch.toString() }
+      params: { term, nameSearch: _nameSearch.toString() },
     });
   }
 

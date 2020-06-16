@@ -38,7 +38,7 @@ import { WorkspaceService } from "./services/workspace.service";
 @NgModule({
   declarations: [PosCurrencyPipe, SecurePipe],
   imports: [CommonModule],
-  exports: [PosCurrencyPipe, SecurePipe]
+  exports: [PosCurrencyPipe, SecurePipe],
 })
 export class PosLibraryModule {
   static forRoot(config: PosConfig): ModuleWithProviders<PosLibraryModule> {
@@ -47,7 +47,7 @@ export class PosLibraryModule {
       providers: [
         {
           provide: PosConfigToken,
-          useValue: config
+          useValue: config,
         },
         ConfigService,
         AdminService,
@@ -78,14 +78,14 @@ export class PosLibraryModule {
         {
           provide: HTTP_INTERCEPTORS,
           useClass: JwtInterceptor,
-          multi: true
+          multi: true,
         },
         {
           provide: HTTP_INTERCEPTORS,
           useClass: CompanyInterceptor,
-          multi: true
-        }
-      ]
+          multi: true,
+        },
+      ],
     };
   }
 }

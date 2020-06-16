@@ -3,7 +3,7 @@ export enum PaymentType {
   FREE,
   CARD,
   CHANGE,
-  AUTO
+  AUTO,
 }
 
 export interface Payment {

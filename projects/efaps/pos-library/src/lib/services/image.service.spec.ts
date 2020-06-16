@@ -14,8 +14,8 @@ describe("ImageService", () => {
       providers: [
         DomSanitizer,
         ImageService,
-        { provide: ConfigService, useClass: ConfigServiceStub }
-      ]
+        { provide: ConfigService, useClass: ConfigServiceStub },
+      ],
     });
   });
 

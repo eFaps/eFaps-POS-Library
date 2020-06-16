@@ -9,7 +9,7 @@ import { MsgService } from "./msg.service";
 
 class ConfigServiceStub {}
 class AuthServiceStub {
-  currentEvent = new Observable(observer => {
+  currentEvent = new Observable((observer) => {
     observer.next();
   });
 }
@@ -22,8 +22,8 @@ describe("MsgService", () => {
         MsgService,
         RxStompService,
         { provide: AuthService, useClass: AuthServiceStub },
-        { provide: ConfigService, useClass: ConfigServiceStub }
-      ]
+        { provide: ConfigService, useClass: ConfigServiceStub },
+      ],
     });
   });
 

@@ -6,7 +6,7 @@ import { ConfigService } from "./config.service";
 
 @Injectable({
   providedIn: "root",
-  deps: [ConfigService, RxStompService, AuthService]
+  deps: [ConfigService, RxStompService, AuthService],
 })
 export class MsgService {
   ordersEdited = new Set();
@@ -26,28 +26,30 @@ export class MsgService {
       const stompConfig: InjectableRxStompConfig = {
         brokerURL: this.configService.socketUrl,
         connectHeaders: {
-          login: this.authService.currentUser.token
+          login: this.authService.currentUser.token,
         },
         heartbeatIncoming: 0,
         heartbeatOutgoing: 20000,
         reconnectDelay: 5000,
-        debug: str => {
+        debug: (str) => {
           console.log(new Date(), str);
-        }
+        },
       };
       this.stompService.configure(stompConfig);
       this.stompService.activate();
-      this.stompService.watch("/app/orders/start.edit").subscribe(message => {
-        JSON.parse(message.body).forEach(orderId => {
+      this.stompService.watch("/app/orders/start.edit").subscribe((message) => {
+        JSON.parse(message.body).forEach((orderId) => {
           this.ordersEdited.add(orderId);
         });
       });
-      this.stompService.watch("/topic/orders/start.edit").subscribe(message => {
-        this.ordersEdited.add(message.body);
-      });
+      this.stompService
+        .watch("/topic/orders/start.edit")
+        .subscribe((message) => {
+          this.ordersEdited.add(message.body);
+        });
       this.stompService
         .watch("/topic/orders/finish.edit")
-        .subscribe(message => {
+        .subscribe((message) => {
           this.ordersEdited.delete(message.body);
         });
     }
@@ -63,7 +65,7 @@ export class MsgService {
     this.init();
     this.stompService.publish({
       destination: "/app/orders/start.edit",
-      body: orderId
+      body: orderId,
     });
   }
 
@@ -71,7 +73,7 @@ export class MsgService {
     this.init();
     this.stompService.publish({
       destination: "/app/orders/finish.edit",
-      body: orderId
+      body: orderId,
     });
   }
 

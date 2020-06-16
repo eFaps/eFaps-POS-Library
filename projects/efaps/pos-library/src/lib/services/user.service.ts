@@ -7,7 +7,7 @@ import { ConfigService } from "./config.service";
 
 @Injectable({
   providedIn: "root",
-  deps: [HttpClient, ConfigService]
+  deps: [HttpClient, ConfigService],
 })
 export class UserService {
   constructor(private http: HttpClient, private config: ConfigService) {}

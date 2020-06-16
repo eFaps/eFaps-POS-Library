@@ -12,8 +12,8 @@ describe("InventoryService", () => {
       imports: [HttpClientTestingModule],
       providers: [
         InventoryService,
-        { provide: ConfigService, useClass: ConfigServiceStub }
-      ]
+        { provide: ConfigService, useClass: ConfigServiceStub },
+      ],
     });
   });
 

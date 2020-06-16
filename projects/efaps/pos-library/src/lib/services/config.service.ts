@@ -6,7 +6,7 @@ import { PosConfig } from "../model";
 import { PosConfigToken } from "./pos-config.token";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class ConfigService {
   public baseUrl: string;
@@ -40,7 +40,7 @@ export class ConfigService {
     }
     return new Observable((subscriber: Subscriber<string>) => {
       const requestUrl = `${this.baseUrl}/config/system/${key}`;
-      this.http.get<string>(requestUrl).subscribe(value => {
+      this.http.get<string>(requestUrl).subscribe((value) => {
         this.systemConfig.set(key, "" + value);
         subscriber.next(value);
       });

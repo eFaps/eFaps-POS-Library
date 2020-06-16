@@ -12,7 +12,7 @@ class AuthServiceStub {}
 class ConfigServiceStub {}
 class DocumentServiceStub {}
 class WorkspaceServiceStub {
-  currentWorkspace = new Observable(observer => {
+  currentWorkspace = new Observable((observer) => {
     observer.next();
   });
   public getSpotSize(): number {
@@ -29,8 +29,8 @@ describe("SpotService", () => {
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: ConfigService, useClass: ConfigServiceStub },
         { provide: DocumentService, useClass: DocumentServiceStub },
-        { provide: WorkspaceService, useClass: WorkspaceServiceStub }
-      ]
+        { provide: WorkspaceService, useClass: WorkspaceServiceStub },
+      ],
     });
   });
 

@@ -12,8 +12,8 @@ describe("AuthService", () => {
       imports: [HttpClientTestingModule],
       providers: [
         AuthService,
-        { provide: ConfigService, useClass: ConfigServiceStub }
-      ]
+        { provide: ConfigService, useClass: ConfigServiceStub },
+      ],
     });
   });
 

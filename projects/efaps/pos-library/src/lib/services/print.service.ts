@@ -7,7 +7,7 @@ import { ConfigService } from "./config.service";
 
 @Injectable({
   providedIn: "root",
-  deps: [HttpClient, ConfigService]
+  deps: [HttpClient, ConfigService],
 })
 export class PrintService {
   constructor(private http: HttpClient, private config: ConfigService) {}
@@ -17,8 +17,8 @@ export class PrintService {
     return this.http.post<PrintResponse[]>(requestUrl, null, {
       params: {
         documentId: order.id,
-        workspaceOid
-      }
+        workspaceOid,
+      },
     });
   }
 
@@ -35,8 +35,8 @@ export class PrintService {
     return this.http.post<PrintResponse[]>(requestUrl, null, {
       params: {
         documentId: doc.id,
-        workspaceOid
-      }
+        workspaceOid,
+      },
     });
   }
 
@@ -45,8 +45,8 @@ export class PrintService {
     return this.http.post<PrintResponse[]>(requestUrl, null, {
       params: {
         documentId: doc.id,
-        workspaceOid
-      }
+        workspaceOid,
+      },
     });
   }
 
@@ -58,8 +58,8 @@ export class PrintService {
     return this.http.post<PrintResponse[]>(requestUrl, null, {
       params: {
         documentId: doc.id,
-        workspaceOid
-      }
+        workspaceOid,
+      },
     });
   }
 
@@ -71,8 +71,8 @@ export class PrintService {
     return this.http.post<PrintResponse[]>(requestUrl, null, {
       params: {
         balanceId,
-        workspaceOid
-      }
+        workspaceOid,
+      },
     });
   }
 }

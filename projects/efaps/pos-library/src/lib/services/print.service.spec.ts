@@ -12,8 +12,8 @@ describe("PrintService", () => {
       imports: [HttpClientTestingModule],
       providers: [
         PrintService,
-        { provide: ConfigService, useClass: ConfigServiceStub }
-      ]
+        { provide: ConfigService, useClass: ConfigServiceStub },
+      ],
     });
   });
 

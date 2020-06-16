@@ -8,13 +8,13 @@ import { ConfigService } from "./config.service";
 import { WorkspaceService } from "./workspace.service";
 
 class AuthServiceStub {
-  currentEvent = new Observable(observer => {
+  currentEvent = new Observable((observer) => {
     observer.next("nothing");
   });
 }
 class ConfigServiceStub {}
 class WorkspaceServiceStub {
-  currentWorkspace = new Observable(observer => {
+  currentWorkspace = new Observable((observer) => {
     observer.next();
   });
 }
@@ -26,8 +26,8 @@ describe("BalanceService", () => {
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: ConfigService, useClass: ConfigServiceStub },
-        { provide: WorkspaceService, useClass: WorkspaceServiceStub }
-      ]
+        { provide: WorkspaceService, useClass: WorkspaceServiceStub },
+      ],
     });
   });
 

@@ -13,5 +13,5 @@ export interface TaxEntry {
 
 export enum TaxType {
   ADVALOREM = "ADVALOREM",
-  PERUNIT = "PERUNIT"
+  PERUNIT = "PERUNIT",
 }

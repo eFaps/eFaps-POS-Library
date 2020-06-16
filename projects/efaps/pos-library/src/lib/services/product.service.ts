@@ -9,7 +9,7 @@ import { ConfigService } from "./config.service";
 
 @Injectable({
   providedIn: "root",
-  deps: [HttpClient, ConfigService]
+  deps: [HttpClient, ConfigService],
 })
 export class ProductService {
   constructor(private http: HttpClient, private config: ConfigService) {}
@@ -31,13 +31,13 @@ export class ProductService {
         const categories: Category[] = data[0];
         const products: Product[] = data[1];
         const posCategories: PosCategory[] = [];
-        categories.forEach(_category => {
+        categories.forEach((_category) => {
           posCategories.push({
             oid: _category.oid,
             name: _category.name,
-            products: products.filter(_product =>
+            products: products.filter((_product) =>
               _product.categoryOids.includes(_category.oid)
-            )
+            ),
           });
         });
         return posCategories;

@@ -6,7 +6,7 @@ import { ConfigService } from "./config.service";
 
 @Injectable({
   providedIn: "root",
-  deps: [HttpClient, ConfigService]
+  deps: [HttpClient, ConfigService],
 })
 export class ImageService {
   private cache: Map<string, string> = new Map<string, string>();
@@ -19,7 +19,7 @@ export class ImageService {
     }
     return new Observable((subscriber: Subscriber<string>) => {
       const url = `${this.config.baseUrl}/images/${oid}`;
-      this.http.get(url, { responseType: "blob" }).subscribe(m => {
+      this.http.get(url, { responseType: "blob" }).subscribe((m) => {
         const objectUrl = URL.createObjectURL(m);
         this.cache.set(oid, objectUrl);
         subscriber.next(objectUrl);
@@ -28,7 +28,7 @@ export class ImageService {
   }
 
   private getFromCache(oid: string): Observable<string> {
-    return new Observable(subscriber => {
+    return new Observable((subscriber) => {
       subscriber.next(this.cache.get(oid));
       subscriber.complete();
     });
@@ -40,7 +40,7 @@ export class ImageService {
     }
     const url = `${this.config.baseUrl}/images/${oid}`;
     return new Observable<String>((subscriber: Subscriber<String>) => {
-      this.http.get(url, { responseType: "blob" }).subscribe(blob => {
+      this.http.get(url, { responseType: "blob" }).subscribe((blob) => {
         var reader = new FileReader();
         reader.readAsDataURL(blob);
         reader.onloadend = () => {

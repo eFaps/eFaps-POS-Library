@@ -8,7 +8,7 @@ import { WorkspaceService } from "./workspace.service";
 
 @Injectable({
   providedIn: "root",
-  deps: [DocumentService, WorkspaceService]
+  deps: [DocumentService, WorkspaceService],
 })
 export class SpotService {
   @LocalStorage() public positions: any = {};
@@ -19,16 +19,16 @@ export class SpotService {
     private workspaceService: WorkspaceService
   ) {
     workspaceService.currentWorkspace.subscribe({
-      next: workspace => (this.workspace = workspace)
+      next: (workspace) => (this.workspace = workspace),
     });
   }
 
   public getSpots(): Observable<Spot[]> {
-    return new Observable(observer => {
-      this.documentService.getOrders4Spots().subscribe(_orders => {
+    return new Observable((observer) => {
+      this.documentService.getOrders4Spots().subscribe((_orders) => {
         const spots: Spot[] = [];
         for (let i = 0; i < this.workspaceService.getSpotSize(); i++) {
-          const orders = _orders.filter(o => o.spot && o.spot.id === "" + i);
+          const orders = _orders.filter((o) => o.spot && o.spot.id === "" + i);
           spots.push({ id: "" + i, label: "M " + (i + 1), orders: orders });
         }
         observer.next(spots);
@@ -39,21 +39,21 @@ export class SpotService {
 
   public getLayout(): Observable<SpotsLayout> {
     let layout: SpotsLayout = {
-      floors: this.workspace.floors
+      floors: this.workspace.floors,
     };
-    return new Observable(observer => {
-      this.documentService.getOrders4Spots().subscribe(_orders => {
-        layout.floors.forEach(floor => {
+    return new Observable((observer) => {
+      this.documentService.getOrders4Spots().subscribe((_orders) => {
+        layout.floors.forEach((floor) => {
           floor.spots
             .sort((s1, s2) => {
               return s1.label.localeCompare(s2.label);
             })
-            .forEach(spot => {
+            .forEach((spot) => {
               if (spot.oid) {
                 spot.id = spot.oid;
               }
               const orders = _orders.filter(
-                o => o.spot && o.spot.id === spot.id
+                (o) => o.spot && o.spot.id === spot.id
               );
               spot.orders = orders;
               spot.position = this.positions[spot.id];
@@ -73,7 +73,7 @@ export class SpotService {
   public swap(origin: Spot, target: Spot) {
     const orders = origin.orders;
     const obsv = [];
-    orders.forEach(order => {
+    orders.forEach((order) => {
       order.spot = { id: target.id, label: target.label };
       obsv.push(this.documentService.updateOrder(order));
     });

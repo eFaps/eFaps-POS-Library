@@ -17,8 +17,8 @@ describe("AdminGuard", () => {
         ConfigService,
         HttpClient,
         HttpHandler,
-        { provide: PosConfigToken, useValue: {} }
-      ]
+        { provide: PosConfigToken, useValue: {} },
+      ],
     });
   });
 

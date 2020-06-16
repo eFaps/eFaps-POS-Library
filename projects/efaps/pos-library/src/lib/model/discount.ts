@@ -7,5 +7,5 @@ export interface Discount {
 
 export enum DiscountType {
   PERCENT = "PERCENT",
-  AMOUNT = "AMOUNT"
+  AMOUNT = "AMOUNT",
 }

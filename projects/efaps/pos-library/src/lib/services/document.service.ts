@@ -10,14 +10,14 @@ import {
   Payable,
   PayableHead,
   Receipt,
-  Ticket
+  Ticket,
 } from "../model";
 import { ConfigService } from "./config.service";
 import { WorkspaceService } from "./workspace.service";
 
 @Injectable({
   providedIn: "root",
-  deps: [HttpClient, ConfigService, WorkspaceService]
+  deps: [HttpClient, ConfigService, WorkspaceService],
 })
 export class DocumentService {
   private wsoid: string;
@@ -27,7 +27,7 @@ export class DocumentService {
     private config: ConfigService,
     workspaceService: WorkspaceService
   ) {
-    workspaceService.currentWorkspace.subscribe(_ws => {
+    workspaceService.currentWorkspace.subscribe((_ws) => {
       if (_ws) {
         this.wsoid = _ws.oid;
       }
@@ -87,7 +87,7 @@ export class DocumentService {
   public getReceipt(id: string): Observable<Receipt> {
     const url = `${this.config.baseUrl}/documents/receipts/${id}`;
     return this.http.get<Receipt>(url).pipe(
-      map(doc => {
+      map((doc) => {
         doc.type = "RECEIPT";
         return doc;
       })
@@ -97,7 +97,7 @@ export class DocumentService {
   public getInvoice(id: string): Observable<Invoice> {
     const url = `${this.config.baseUrl}/documents/invoices/${id}`;
     return this.http.get<Invoice>(url).pipe(
-      map(doc => {
+      map((doc) => {
         doc.type = "INVOICE";
         return doc;
       })
@@ -107,7 +107,7 @@ export class DocumentService {
   public getTicket(id: string): Observable<Ticket> {
     const url = `${this.config.baseUrl}/documents/tickets/${id}`;
     return this.http.get<Ticket>(url).pipe(
-      map(doc => {
+      map((doc) => {
         doc.type = "TICKET";
         return doc;
       })
@@ -128,8 +128,8 @@ export class DocumentService {
     return this.http
       .get<Receipt[]>(url, { params: { balanceOid } })
       .pipe(
-        map(docs => {
-          docs.map(doc => {
+        map((docs) => {
+          docs.map((doc) => {
             doc.type = "RECEIPT";
           });
           return [...docs];
@@ -143,8 +143,8 @@ export class DocumentService {
     return this.http
       .get<Invoice[]>(url, { params: { balanceOid } })
       .pipe(
-        map(docs => {
-          docs.map(doc => {
+        map((docs) => {
+          docs.map((doc) => {
             doc.type = "INVOICE";
           });
           return [...docs];
@@ -158,8 +158,8 @@ export class DocumentService {
     return this.http
       .get<Ticket[]>(url, { params: { balanceOid } })
       .pipe(
-        map(docs => {
-          docs.map(doc => {
+        map((docs) => {
+          docs.map((doc) => {
             doc.type = "TICKET";
           });
           return [...docs];
@@ -180,8 +180,8 @@ export class DocumentService {
     return this.http
       .get<PayableHead[]>(url, { params: { term: _term } })
       .pipe(
-        map(docs => {
-          docs.map(doc => {
+        map((docs) => {
+          docs.map((doc) => {
             doc.type = "RECEIPT";
           });
           return [...docs];
@@ -194,8 +194,8 @@ export class DocumentService {
     return this.http
       .get<PayableHead[]>(url, { params: { term: _term } })
       .pipe(
-        map(docs => {
-          docs.map(doc => {
+        map((docs) => {
+          docs.map((doc) => {
             doc.type = "INVOICE";
           });
           return [...docs];
@@ -208,8 +208,8 @@ export class DocumentService {
     return this.http
       .get<PayableHead[]>(url, { params: { term: _term } })
       .pipe(
-        map(docs => {
-          docs.map(doc => {
+        map((docs) => {
+          docs.map((doc) => {
             doc.type = "TICKET";
           });
           return [...docs];

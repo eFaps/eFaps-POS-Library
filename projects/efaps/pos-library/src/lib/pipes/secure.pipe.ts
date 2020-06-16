@@ -4,7 +4,7 @@ import {
   Pipe,
   PipeTransform,
   WrappedValue,
-  Injectable
+  Injectable,
 } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 import { BehaviorSubject, Observable, Subscription } from "rxjs";
@@ -14,11 +14,11 @@ import { ImageService } from "../services/image.service";
 
 @Injectable({
   providedIn: "root",
-  deps: [ChangeDetectorRef, DomSanitizer, ImageService, ConfigService]
+  deps: [ChangeDetectorRef, DomSanitizer, ImageService, ConfigService],
 })
 @Pipe({
   name: "secure",
-  pure: false
+  pure: false,
 })
 export class SecurePipe implements PipeTransform, OnDestroy {
   private static defaultImage = "assets/defaultProdImg.svg";
@@ -68,7 +68,7 @@ export class SecurePipe implements PipeTransform, OnDestroy {
       this.previousUrl = _url;
       this.internalSubscription = this.imageService
         .loadImage(_url)
-        .subscribe(m => {
+        .subscribe((m) => {
           const sanitized = this.sanitizer.bypassSecurityTrustUrl(m);
           this.result.next(sanitized);
         });
@@ -100,12 +100,12 @@ export class SecurePipe implements PipeTransform, OnDestroy {
     this.obj = _obj;
 
     this.subscription = _obj.subscribe({
-      next: function(value) {
+      next: function (value) {
         return _this._updateLatestValue(_obj, value);
       },
       error: (e: any) => {
         throw e;
-      }
+      },
     });
   }
 

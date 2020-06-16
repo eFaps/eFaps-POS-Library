@@ -12,8 +12,8 @@ describe("AdminService", () => {
       imports: [HttpClientTestingModule],
       providers: [
         AdminService,
-        { provide: ConfigService, useClass: ConfigServiceStub }
-      ]
+        { provide: ConfigService, useClass: ConfigServiceStub },
+      ],
     });
   });
 

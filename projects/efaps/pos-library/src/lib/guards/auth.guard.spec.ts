@@ -17,8 +17,8 @@ describe("AuthGuard", () => {
         ConfigService,
         HttpClient,
         HttpHandler,
-        { provide: PosConfigToken, useValue: {} }
-      ]
+        { provide: PosConfigToken, useValue: {} },
+      ],
     });
   });
 

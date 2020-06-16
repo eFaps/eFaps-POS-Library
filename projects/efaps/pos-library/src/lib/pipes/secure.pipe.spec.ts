@@ -7,11 +7,14 @@ describe("SecurePipe", () => {
       null,
       null,
       null,
-      new ConfigService({
-        baseUrl: "urle",
-        socketUrl: "url",
-        defaultProdImg: "123"
-      }, null)
+      new ConfigService(
+        {
+          baseUrl: "urle",
+          socketUrl: "url",
+          defaultProdImg: "123",
+        },
+        null
+      )
     );
     expect(pipe).toBeTruthy();
   });

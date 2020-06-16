@@ -9,14 +9,14 @@ import {
   Order,
   Product,
   ProductType,
-  TaxType
+  TaxType,
 } from "../model";
 import { DocumentService } from "./document.service";
 import { TaxService } from "./tax.service";
 
 @Injectable({
   providedIn: "root",
-  deps: [TaxService, DocumentService]
+  deps: [TaxService, DocumentService],
 })
 export class DiscountService {
   constructor(
@@ -27,7 +27,7 @@ export class DiscountService {
   applyDiscount(order: Order, discount: Discount): Document {
     if (order.discount) {
       order.items = order.items.filter(
-        item => item.product.oid != order.discount.productOid
+        (item) => item.product.oid != order.discount.productOid
       );
       order.discount = null;
       this.recalculate(order);
@@ -53,7 +53,7 @@ export class DiscountService {
 
     order = this.applyPercent(order, {
       ...discount,
-      value: percentage.toNumber()
+      value: percentage.toNumber(),
     });
     order.discount = discount;
     return order;
@@ -83,10 +83,10 @@ export class DiscountService {
       netUnitPrice: net.toNumber(),
       crossPrice: cross.toNumber(),
       crossUnitPrice: cross.toNumber(),
-      taxes: []
+      taxes: [],
     };
 
-    order.taxes.forEach(taxEntry => {
+    order.taxes.forEach((taxEntry) => {
       switch (taxEntry.tax.type) {
         case TaxType.PERUNIT:
           break;
@@ -102,7 +102,7 @@ export class DiscountService {
           item.taxes.push({
             tax: taxEntry.tax,
             base: base.toNumber(),
-            amount: amount.toNumber()
+            amount: amount.toNumber(),
           });
           break;
       }
@@ -115,7 +115,7 @@ export class DiscountService {
   private recalculate(order: Order): Order {
     let crossTotal = new Decimal(0);
     let netTotal = new Decimal(0);
-    order.items.forEach(item => {
+    order.items.forEach((item) => {
       crossTotal = crossTotal.plus(new Decimal(item.crossPrice));
       netTotal = netTotal.plus(new Decimal(item.netPrice));
     });
@@ -142,7 +142,7 @@ export class DiscountService {
       categoryOids: [],
       taxes: [],
       relations: [],
-      indicationSets: []
+      indicationSets: [],
     };
   }
 }

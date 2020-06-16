@@ -2,7 +2,7 @@ import {
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
-  HttpRequest
+  HttpRequest,
 } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
@@ -11,14 +11,14 @@ import { CompanyService } from "../services/company.service";
 
 @Injectable({
   providedIn: "root",
-  deps: [CompanyService]
+  deps: [CompanyService],
 })
 export class CompanyInterceptor implements HttpInterceptor {
   private currentCompany;
 
   constructor(companyService: CompanyService) {
     companyService.company.subscribe({
-      next: company => (this.currentCompany = company)
+      next: (company) => (this.currentCompany = company),
     });
   }
 
@@ -29,8 +29,8 @@ export class CompanyInterceptor implements HttpInterceptor {
     if (this.currentCompany && this.currentCompany.key) {
       request = request.clone({
         setHeaders: {
-          "X-CONTEXT-COMPANY": this.currentCompany.key
-        }
+          "X-CONTEXT-COMPANY": this.currentCompany.key,
+        },
       });
     }
     return next.handle(request);

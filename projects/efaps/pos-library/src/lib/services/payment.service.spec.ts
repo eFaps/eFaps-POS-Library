@@ -20,8 +20,8 @@ describe("PaymentService", () => {
         PaymentService,
         PosService,
         WorkspaceService,
-        { provide: PosConfigToken, useValue: {} }
-      ]
+        { provide: PosConfigToken, useValue: {} },
+      ],
     });
   });
 

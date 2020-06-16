@@ -40,5 +40,5 @@ export enum ProductType {
   STANDART = "STANDART",
   SERVICE = "SERVICE",
   TEXT = "TEXT",
-  OTHER = "OTHER"
+  OTHER = "OTHER",
 }
