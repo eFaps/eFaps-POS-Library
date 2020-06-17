@@ -4,15 +4,33 @@ import { Cacheable } from "ngx-cacheable";
 import { Observable, forkJoin } from "rxjs";
 import { map } from "rxjs/operators";
 
-import { Category, PosCategory, Product, ProductType } from "../model/index";
+import {
+  Category,
+  PosCategory,
+  Product,
+  ProductType,
+  Workspace
+} from "../model";
 import { ConfigService } from "./config.service";
+import { WorkspaceService } from "./workspace.service";
 
 @Injectable({
   providedIn: "root",
-  deps: [HttpClient, ConfigService],
+  deps: [HttpClient, ConfigService]
 })
 export class ProductService {
-  constructor(private http: HttpClient, private config: ConfigService) {}
+  workspace: Workspace;
+  constructor(
+    private http: HttpClient,
+    private config: ConfigService,
+    workspaceService: WorkspaceService
+  ) {
+    workspaceService.currentWorkspace.subscribe({
+      next: workspace => {
+        this.workspace = workspace;
+      }
+    });
+  }
 
   @Cacheable()
   public getProducts(): Observable<Product[]> {
@@ -31,13 +49,13 @@ export class ProductService {
         const categories: Category[] = data[0];
         const products: Product[] = data[1];
         const posCategories: PosCategory[] = [];
-        categories.forEach((_category) => {
+        categories.forEach(_category => {
           posCategories.push({
             oid: _category.oid,
             name: _category.name,
-            products: products.filter((_product) =>
+            products: products.filter(_product =>
               _product.categoryOids.includes(_category.oid)
-            ),
+            )
           });
         });
         return posCategories;
@@ -49,7 +67,24 @@ export class ProductService {
   public getCategories(): Observable<Category[]> {
     const href = this.config.baseUrl + "/categories";
     const requestUrl = `${href}`;
-    return this.http.get<Category[]>(requestUrl);
+    return this.http.get<Category[]>(requestUrl).pipe(
+      map(categories => {
+        return categories.filter(category => {
+          if (
+            this.workspace &&
+            this.workspace.categoryOids &&
+            this.workspace.categoryOids.length > 0
+          ) {
+            return (
+              this.workspace.categoryOids.findIndex(
+                oid => oid === category.oid
+              ) > -1
+            );
+          }
+          return true;
+        });
+      })
+    );
   }
 
   public getProduct(_oid: string): Observable<Product> {
