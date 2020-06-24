@@ -3,6 +3,7 @@ export enum PaymentType {
   FREE,
   CARD,
   CHANGE,
+  ELECTRONIC,
   AUTO,
 }
 
@@ -11,4 +12,5 @@ export interface Payment {
   amount: number;
   cardTypeId?: number;
   cardLabel?: string;
+  mappingKey?: string;
 }
