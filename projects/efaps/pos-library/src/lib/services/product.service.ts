@@ -8,14 +8,14 @@ import {
   PosCategory,
   Product,
   ProductType,
-  Workspace
+  Workspace,
 } from "../model";
 import { ConfigService } from "./config.service";
 import { WorkspaceService } from "./workspace.service";
 
 @Injectable({
   providedIn: "root",
-  deps: [HttpClient, ConfigService]
+  deps: [HttpClient, ConfigService],
 })
 export class ProductService {
   workspace: Workspace;
@@ -25,9 +25,9 @@ export class ProductService {
     workspaceService: WorkspaceService
   ) {
     workspaceService.currentWorkspace.subscribe({
-      next: workspace => {
+      next: (workspace) => {
         this.workspace = workspace;
-      }
+      },
     });
   }
 
@@ -47,13 +47,13 @@ export class ProductService {
         const categories: Category[] = data[0];
         const products: Product[] = data[1];
         const posCategories: PosCategory[] = [];
-        categories.forEach(_category => {
+        categories.forEach((_category) => {
           posCategories.push({
             oid: _category.oid,
             name: _category.name,
-            products: products.filter(_product =>
+            products: products.filter((_product) =>
               _product.categoryOids.includes(_category.oid)
-            )
+            ),
           });
         });
         return posCategories;
@@ -65,8 +65,8 @@ export class ProductService {
     const href = this.config.baseUrl + "/categories";
     const requestUrl = `${href}`;
     return this.http.get<Category[]>(requestUrl).pipe(
-      map(categories => {
-        return categories.filter(category => {
+      map((categories) => {
+        return categories.filter((category) => {
           if (
             this.workspace &&
             this.workspace.categoryOids &&
@@ -74,7 +74,7 @@ export class ProductService {
           ) {
             return (
               this.workspace.categoryOids.findIndex(
-                oid => oid === category.oid
+                (oid) => oid === category.oid
               ) > -1
             );
           }
