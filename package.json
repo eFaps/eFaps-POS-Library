@@ -24,7 +24,6 @@
     "@stomp/ng2-stompjs": "^7.2.0",
     "decimal.js": "^10.2.0",
     "jwt-decode": "^2.2.0",
-    "ngx-cacheable": "^1.4.2",
     "parse-decimal-number": "^1.0.0",
     "rxjs": "^6.6.0",
     "tslib": "^2.0.0",

@@ -1,6 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Cacheable } from "ngx-cacheable";
 import { Observable, forkJoin } from "rxjs";
 import { map } from "rxjs/operators";
 
@@ -32,7 +31,6 @@ export class ProductService {
     });
   }
 
-  @Cacheable()
   public getProducts(): Observable<Product[]> {
     const requestUrl = `${this.config.baseUrl}/products`;
     return this.http.get<Product[]>(requestUrl);
@@ -63,7 +61,6 @@ export class ProductService {
     );
   }
 
-  @Cacheable()
   public getCategories(): Observable<Category[]> {
     const href = this.config.baseUrl + "/categories";
     const requestUrl = `${href}`;
