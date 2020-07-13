@@ -8,7 +8,7 @@ import { ImageService } from "./image.service";
 
 @Injectable({
   providedIn: "root",
-  deps: [HttpClient, ConfigService],
+  deps: [HttpClient, ConfigService]
 })
 export class AdminService {
   constructor(

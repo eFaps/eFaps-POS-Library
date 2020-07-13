@@ -8,7 +8,6 @@
       "jwt-decode": "jwt-decode",
       "decimal.js": "decimal.js",
       "parse-decimal-number": "parse-decimal-number",
-      "ngx-cacheable": "ngx-cacheable",
       "@stomp/ng2-stompjs": "@stomp/ng2-stompjs"
     }
   }
