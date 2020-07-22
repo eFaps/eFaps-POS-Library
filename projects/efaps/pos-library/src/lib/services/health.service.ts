@@ -21,7 +21,9 @@ export class HealthService {
   public monitor(interval: number): Observable<Health> {
     setInterval(() => {
       this.getHealth().subscribe({
-        next: health => this.healthSource.next(health)
+        next: health => this.healthSource.next(health),
+        error: err => this.healthSource.next(null),
+        complete: () => this.healthSource.next(null),
       });
     }, interval * 1000);
     return this.currentHealth;
