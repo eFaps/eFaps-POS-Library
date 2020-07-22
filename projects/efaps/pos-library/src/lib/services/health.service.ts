@@ -22,8 +22,7 @@ export class HealthService {
     setInterval(() => {
       this.getHealth().subscribe({
         next: health => this.healthSource.next(health),
-        error: err => this.healthSource.next(null),
-        complete: () => this.healthSource.next(null),
+        error: err => this.healthSource.next(null)
       });
     }, interval * 1000);
     return this.currentHealth;
