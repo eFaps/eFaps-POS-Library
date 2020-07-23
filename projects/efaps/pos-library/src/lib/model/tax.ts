@@ -4,7 +4,8 @@ export interface Tax {
   catKey: string;
   type: TaxType;
   name: string;
-  percent: number;
+  percent?: number;
+  amount?: number;
 }
 
 export interface TaxEntry {
