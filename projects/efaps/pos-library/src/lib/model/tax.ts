@@ -1,8 +1,10 @@
 export interface Tax {
+  oid: string;
+  key: string;
+  catKey: string;
   type: TaxType;
   name: string;
   percent: number;
-  amount: number;
 }
 
 export interface TaxEntry {
