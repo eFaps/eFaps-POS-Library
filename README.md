@@ -1,5 +1,8 @@
 # eFaps-POS-Library
 
+![Release](https://github.com/eFaps/eFaps-POS-Library/workflows/Release/badge.svg?branch=master)
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.5.
 
 ## Development server
