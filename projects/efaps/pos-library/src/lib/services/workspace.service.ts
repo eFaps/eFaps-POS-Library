@@ -21,7 +21,7 @@ import { ConfigService } from "./config.service";
 })
 export class WorkspaceService {
   SpotConfig = SpotConfig;
-  private current: Workspace;
+  private current: Workspace = null;
   private currentSource = new BehaviorSubject<Workspace>(this.current);
   currentWorkspace = this.currentSource.asObservable();
   @LocalStorage() workspaces: any = {};

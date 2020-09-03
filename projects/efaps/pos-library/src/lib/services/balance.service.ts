@@ -13,7 +13,7 @@ import { WorkspaceService } from "./workspace.service";
   deps: [HttpClient, AuthService, ConfigService, WorkspaceService],
 })
 export class BalanceService {
-  private balance: Balance;
+  private balance: Balance = null;
   private balanceSource = new BehaviorSubject<Balance>(this.balance);
   currentBalance = this.balanceSource.asObservable();
 

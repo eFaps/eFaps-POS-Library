@@ -11,7 +11,7 @@ import { ConfigService } from "./config.service";
   deps: [HttpClient, ConfigService],
 })
 export class CompanyService {
-  @LocalStorage() public currentCompany: Company;
+  @LocalStorage() public currentCompany: Company = null;
 
   private currentSource = new BehaviorSubject<Company>(this.currentCompany);
   company = this.currentSource.asObservable();
