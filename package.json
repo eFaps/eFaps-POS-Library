@@ -23,7 +23,7 @@
     "@efaps/ngx-store": "^4.0.2",
     "@stomp/ng2-stompjs": "^7.2.0",
     "decimal.js": "^10.2.1",
-    "jwt-decode": "^2.2.0",
+    "jwt-decode": "^3.0.0",
     "parse-decimal-number": "^1.0.0",
     "rxjs": "^6.6.3",
     "tslib": "^2.0.1",
