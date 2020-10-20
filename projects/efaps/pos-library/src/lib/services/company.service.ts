@@ -1,6 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { LocalStorage } from "@efaps/ngx-store";
 import { BehaviorSubject, Observable } from "rxjs";
 
 import { Company } from "../model";
@@ -11,7 +10,7 @@ import { ConfigService } from "./config.service";
   deps: [HttpClient, ConfigService],
 })
 export class CompanyService {
-  @LocalStorage() public currentCompany: Company = null;
+  public currentCompany: Company = null;
 
   private currentSource = new BehaviorSubject<Company>(this.currentCompany);
   company = this.currentSource.asObservable();

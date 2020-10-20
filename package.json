@@ -1,6 +1,6 @@
 {
   "name": "pos-library",
-  "version": "2.1.8",
+  "version": "3.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -20,7 +20,6 @@
     "@angular/platform-browser": "^10.1.4",
     "@angular/platform-browser-dynamic": "^10.1.4",
     "@angular/router": "^10.1.4",
-    "@efaps/ngx-store": "^4.0.2",
     "@stomp/ng2-stompjs": "^7.2.0",
     "decimal.js": "^10.2.1",
     "jwt-decode": "^3.0.0",

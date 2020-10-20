@@ -1,6 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { LocalStorage } from "@efaps/ngx-store";
 import { BehaviorSubject, Observable } from "rxjs";
 
 import { PosLayout, SpotConfig, Workspace } from "../model/index";
@@ -24,7 +23,7 @@ export class WorkspaceService {
   private current: Workspace = null;
   private currentSource = new BehaviorSubject<Workspace>(this.current);
   currentWorkspace = this.currentSource.asObservable();
-  @LocalStorage() workspaces: any = {};
+  workspaces: any = {};
   private autoPayment = false;
 
   constructor(

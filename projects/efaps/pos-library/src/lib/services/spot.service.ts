@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { LocalStorage } from "@efaps/ngx-store";
 import { Observable, forkJoin } from "rxjs";
 
 import { Position, Spot, SpotsLayout, Workspace } from "../model";
@@ -11,7 +10,7 @@ import { WorkspaceService } from "./workspace.service";
   deps: [DocumentService, WorkspaceService],
 })
 export class SpotService {
-  @LocalStorage() public positions: any = {};
+  public positions: any = {};
   private workspace: Workspace;
 
   constructor(

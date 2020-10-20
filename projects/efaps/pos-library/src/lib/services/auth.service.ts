@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import jwtDecode from "jwt-decode";
-import { LocalStorage } from "@efaps/ngx-store";
 import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
@@ -13,7 +12,7 @@ import { ConfigService } from "./config.service";
   deps: [HttpClient, ConfigService],
 })
 export class AuthService {
-  @LocalStorage() public currentUser: any;
+  public currentUser: any;
 
   private eventSource = new BehaviorSubject<string>("");
   currentEvent = this.eventSource.asObservable();
