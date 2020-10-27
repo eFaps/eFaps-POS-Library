@@ -26,7 +26,7 @@ export class MsgService {
       const stompConfig: InjectableRxStompConfig = {
         brokerURL: this.configService.socketUrl,
         connectHeaders: {
-          login: this.authService.currentUser.token,
+          login: this.authService.currentUser.tokens.accessToken,
         },
         heartbeatIncoming: 0,
         heartbeatOutgoing: 20000,

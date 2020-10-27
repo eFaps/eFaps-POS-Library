@@ -24,3 +24,4 @@ export * from "./user";
 export * from "./versions";
 export * from "./warehouse";
 export * from "./workspace";
+export * from "./persistence";

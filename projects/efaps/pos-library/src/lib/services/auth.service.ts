@@ -4,7 +4,7 @@ import jwtDecode from "jwt-decode";
 import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
-import { Roles, Tokens } from "../model";
+import { CurrentUser, Roles, Tokens } from "../model";
 import { ConfigService } from "./config.service";
 
 @Injectable({
@@ -12,7 +12,7 @@ import { ConfigService } from "./config.service";
   deps: [HttpClient, ConfigService],
 })
 export class AuthService {
-  public currentUser: any;
+  public currentUser: CurrentUser;
 
   private eventSource = new BehaviorSubject<string>("");
   currentEvent = this.eventSource.asObservable();
@@ -28,10 +28,8 @@ export class AuthService {
       .pipe(
         map((response) => {
           if (response.accessToken) {
-            this.currentUser = {
-              username: username,
-              tokens: response,
-            };
+            this.currentUser.username = username
+            this.currentUser.tokens = response
             this.currentUser.save();
             this.eventSource.next("login");
             this.refreshing = false;
