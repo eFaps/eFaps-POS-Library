@@ -8,7 +8,7 @@ import { ConfigService } from "./config.service";
 
 @Injectable({
   providedIn: "root",
-  deps: [HttpClient, ConfigService],
+  deps: [HttpClient, ConfigService]
 })
 export class CollectService {
   constructor(private http: HttpClient, private config: ConfigService) {}
@@ -21,12 +21,17 @@ export class CollectService {
   startCollect(
     key: string,
     amount: number,
-    details: any
+    details: any,
+    orderId?: string
   ): Observable<CollectStart> {
     const amountStr = new Decimal(amount)
       .toDecimalPlaces(2, Decimal.ROUND_HALF_UP)
       .toString();
-    const collectOrder = { amount: amountStr, details: details };
+    const collectOrder = {
+      amount: amountStr,
+      details: details,
+      orderId: orderId
+    };
     const url = `${this.config.baseUrl}/collectors/${key}/start`;
     return this.http.post<CollectStart>(url, collectOrder);
   }
