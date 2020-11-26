@@ -7,7 +7,7 @@ import { ConfigService } from "./config.service";
 
 @Injectable({
   providedIn: "root",
-  deps: [HttpClient, ConfigService],
+  deps: [HttpClient, ConfigService]
 })
 export class CompanyService {
   public currentCompany: Company = null;
@@ -15,7 +15,15 @@ export class CompanyService {
   private currentSource = new BehaviorSubject<Company>(this.currentCompany);
   company = this.currentSource.asObservable();
 
-  constructor(private http: HttpClient, private config: ConfigService) {}
+  constructor(private http: HttpClient, private config: ConfigService) {
+    if (config.persistence) {
+      const persisted: any = config.persistence.currentCompany();
+      this.currentCompany = {
+        label: persisted.label,
+        key: persisted.key
+      };
+    }
+  }
 
   public getCompanies(): Observable<Company[]> {
     const href = this.config.baseUrl + "/companies";

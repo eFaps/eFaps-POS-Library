@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Observable, Subscriber } from "rxjs";
 
-import { PosConfig } from "../model";
+import { PersistenceService, PosConfig } from "../model";
 import { PosConfigToken } from "./pos-config.token";
 
 @Injectable({
@@ -11,6 +11,7 @@ import { PosConfigToken } from "./pos-config.token";
 export class ConfigService {
   public baseUrl: string;
   public defaultProdImg: string;
+  public persistence: PersistenceService;
   private _socketUrl: string;
   private systemConfig: Map<string, string> = new Map();
 
@@ -21,6 +22,7 @@ export class ConfigService {
     this.baseUrl = config.baseUrl;
     this._socketUrl = config.socketUrl;
     this.defaultProdImg = config.defaultProdImg;
+    this.persistence = config.persistence;
   }
 
   get socketUrl() {

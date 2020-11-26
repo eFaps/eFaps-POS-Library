@@ -7,23 +7,18 @@ import { AuthService } from "./auth.service";
 import { CollectService } from "./collect.service";
 import { CompanyService } from "./company.service";
 import { ConfigService } from "./config.service";
+import { PersistenceObject } from "../model";
 
 @Injectable({
   providedIn: "root",
-  deps: [
-    HttpClient,
-    AuthService,
-    ConfigService,
-    CompanyService,
-    CollectService,
-  ],
+  deps: [HttpClient, AuthService, ConfigService, CompanyService, CollectService]
 })
 export class WorkspaceService {
   SpotConfig = SpotConfig;
   private current: Workspace = null;
   private currentSource = new BehaviorSubject<Workspace>(this.current);
   currentWorkspace = this.currentSource.asObservable();
-  workspaces: any = {};
+  workspaces: PersistenceObject;
   private autoPayment = false;
 
   constructor(
@@ -32,7 +27,11 @@ export class WorkspaceService {
     private config: ConfigService,
     private companyService: CompanyService,
     private collectService: CollectService
-  ) {}
+  ) {
+    if (config.persistence) {
+      this.workspaces = config.persistence.workspaces();
+    }
+  }
 
   public getWorkspaces(): Observable<Workspace[]> {
     const url = `${this.config.baseUrl}/workspaces`;
@@ -46,7 +45,7 @@ export class WorkspaceService {
 
   public hasCurrent(): Promise<boolean> {
     if (this.currentSource.getValue()) {
-      return new Promise<boolean>((resolve) => resolve(true));
+      return new Promise<boolean>(resolve => resolve(true));
     }
     var workspaceOid;
     if (this.companyService.hasCompany()) {
@@ -61,19 +60,19 @@ export class WorkspaceService {
     }
 
     if (workspaceOid) {
-      return new Promise<boolean>((resolve) => {
+      return new Promise<boolean>(resolve => {
         this.getWorkspace(workspaceOid).subscribe(
-          (_ws) => {
+          _ws => {
             this.setCurrent(_ws);
             resolve(true);
           },
-          (_error) => {
+          _error => {
             resolve(false);
           }
         );
       });
     }
-    return new Promise<boolean>((resolve) => resolve(false));
+    return new Promise<boolean>(resolve => resolve(false));
   }
 
   public logout() {
@@ -85,8 +84,8 @@ export class WorkspaceService {
     this.currentSource.next(_workspace);
     this.storeCurrentWorkspace(_workspace.oid);
     this.collectService.getCollectors().subscribe({
-      next: (collectors) =>
-        (this.autoPayment = collectors && collectors.length > 0),
+      next: collectors =>
+        (this.autoPayment = collectors && collectors.length > 0)
     });
   }
 

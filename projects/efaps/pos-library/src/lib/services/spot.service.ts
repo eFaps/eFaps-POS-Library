@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable, forkJoin } from "rxjs";
 
 import { Position, Spot, SpotsLayout, Workspace } from "../model";
+import { ConfigService } from "./config.service";
 import { DocumentService } from "./document.service";
 import { WorkspaceService } from "./workspace.service";
 
@@ -15,8 +16,12 @@ export class SpotService {
 
   constructor(
     private documentService: DocumentService,
-    private workspaceService: WorkspaceService
+    private workspaceService: WorkspaceService,
+    config: ConfigService,
   ) {
+    if (config.persistence) {
+      this.positions = config.persistence.spotPositions();
+    }
     workspaceService.currentWorkspace.subscribe({
       next: (workspace) => (this.workspace = workspace),
     });
