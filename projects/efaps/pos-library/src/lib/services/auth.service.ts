@@ -28,8 +28,8 @@ export class AuthService {
       .pipe(
         map((response) => {
           if (response.accessToken) {
-            this.currentUser.username = username
-            this.currentUser.tokens = response
+            this.currentUser.username = username;
+            this.currentUser.tokens = response;
             this.currentUser.save();
             this.eventSource.next("login");
             this.refreshing = false;

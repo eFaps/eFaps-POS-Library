@@ -7,7 +7,7 @@ import { ConfigService } from "./config.service";
 
 @Injectable({
   providedIn: "root",
-  deps: [HttpClient, ConfigService]
+  deps: [HttpClient, ConfigService],
 })
 export class CompanyService {
   public currentCompany: Company = null;
@@ -20,7 +20,7 @@ export class CompanyService {
       const persisted: any = config.persistence.currentCompany();
       this.currentCompany = {
         label: persisted.label,
-        key: persisted.key
+        key: persisted.key,
       };
     }
   }

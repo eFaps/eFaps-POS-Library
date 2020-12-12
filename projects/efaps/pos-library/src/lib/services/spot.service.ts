@@ -17,7 +17,7 @@ export class SpotService {
   constructor(
     private documentService: DocumentService,
     private workspaceService: WorkspaceService,
-    config: ConfigService,
+    config: ConfigService
   ) {
     if (config.persistence) {
       this.positions = config.persistence.spotPositions();

@@ -29,7 +29,7 @@ import { WorkspaceService } from "./workspace.service";
   ],
 })
 export class PosService {
-  private order: Order  = null;
+  private order: Order = null;
   private orderSource = new BehaviorSubject<Order>(this.order);
   currentOrder = this.orderSource.asObservable();
 

@@ -1,9 +1,9 @@
 export interface Health {
-  status: HealthStatus
+  status: HealthStatus;
 }
 
 export enum HealthStatus {
   GREEN = "GREEN",
   YELLOW = "YELLOW",
-  RED = "RED"
+  RED = "RED",
 }

@@ -8,7 +8,7 @@ import { ConfigService } from "./config.service";
 
 @Injectable({
   providedIn: "root",
-  deps: [HttpClient, ConfigService]
+  deps: [HttpClient, ConfigService],
 })
 export class CollectService {
   constructor(private http: HttpClient, private config: ConfigService) {}
@@ -30,7 +30,7 @@ export class CollectService {
     const collectOrder = {
       amount: amountStr,
       details: details,
-      orderId: orderId
+      orderId: orderId,
     };
     const url = `${this.config.baseUrl}/collectors/${key}/start`;
     return this.http.post<CollectStart>(url, collectOrder);

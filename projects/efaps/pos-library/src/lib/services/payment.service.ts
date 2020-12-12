@@ -10,7 +10,7 @@ import { PosService } from "./pos.service";
   deps: [PosService],
 })
 export class PaymentService {
-  private document: Document = null;;
+  private document: Document = null;
   private documentSource = new BehaviorSubject<Document>(this.document);
   currentDocument = this.documentSource.asObservable();
 

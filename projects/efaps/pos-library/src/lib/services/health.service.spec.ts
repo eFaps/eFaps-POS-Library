@@ -12,7 +12,7 @@ describe("HealthService", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [{ provide: ConfigService, useClass: ConfigServiceStub }]
+      providers: [{ provide: ConfigService, useClass: ConfigServiceStub }],
     });
     service = TestBed.inject(HealthService);
   });
