@@ -18,6 +18,7 @@ export interface Document {
   contactOid?: string;
   workspaceOid?: string;
   discount: Discount;
+  note?: string;
 }
 
 export interface Payable extends Document {
@@ -31,11 +32,11 @@ export interface Order extends Document {
   shoutout?: string;
 }
 /* tslint:disable-next-line */
-export interface Receipt extends Payable {}
+export interface Receipt extends Payable { }
 /* tslint:disable-next-line */
-export interface Invoice extends Payable {}
+export interface Invoice extends Payable { }
 /* tslint:disable-next-line */
-export interface Ticket extends Payable {}
+export interface Ticket extends Payable { }
 
 export interface DocItem {
   index: number;
