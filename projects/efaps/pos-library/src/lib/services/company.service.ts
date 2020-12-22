@@ -10,19 +10,19 @@ import { ConfigService } from "./config.service";
   deps: [HttpClient, ConfigService],
 })
 export class CompanyService {
-  public currentCompany: Company = null;
+  public _currentCompany: Company = null;
 
   private currentSource = new BehaviorSubject<Company>(this.currentCompany);
   company = this.currentSource.asObservable();
 
   constructor(private http: HttpClient, private config: ConfigService) {
     if (config.persistence) {
-      const persisted: any = config.persistence.currentCompany();
-      this.currentCompany = {
-        label: persisted.label,
-        key: persisted.key,
-      };
+      this._currentCompany = <any>config.persistence.currentCompany();
     }
+  }
+
+  get currentCompany() {
+    return this._currentCompany.key == null ? null : this._currentCompany;
   }
 
   public getCompanies(): Observable<Company[]> {
@@ -32,11 +32,11 @@ export class CompanyService {
   }
 
   setCurrentCompany(company: Company): any {
-    this.currentCompany = company;
+    this._currentCompany = company;
     this.currentSource.next(company);
   }
 
   hasCompany(): boolean {
-    return this.currentCompany != null;
+    return this.currentCompany != null && this._currentCompany.key != null;
   }
 }
