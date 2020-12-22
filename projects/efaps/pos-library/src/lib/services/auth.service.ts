@@ -68,11 +68,19 @@ export class AuthService {
   }
 
   getAccessToken(): string {
-    return this.currentUser && this.currentUser.tokens.accessToken;
+    return (
+      this.currentUser &&
+      this.currentUser.tokens &&
+      this.currentUser.tokens.accessToken
+    );
   }
 
   private getRefreshToken(): string {
-    return this.currentUser && this.currentUser.tokens.refreshToken;
+    return (
+      this.currentUser &&
+      this.currentUser.tokens &&
+      this.currentUser.tokens.refreshToken
+    );
   }
 
   getCurrentUsername(): string {
