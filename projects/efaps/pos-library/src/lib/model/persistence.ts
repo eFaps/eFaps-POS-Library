@@ -1,6 +1,7 @@
 import { Tokens } from "./tokens";
 
 export interface PersistenceService {
+  currentUser(): CurrentUser;
   currentCompany(): PersistenceObject;
   spotPositions(): PersistenceObject;
   workspaces(): PersistenceObject;
@@ -10,7 +11,11 @@ export interface PersistenceObject {
   save();
 }
 
-export interface CurrentUser extends PersistenceObject {
+export interface CleanableObject {
+  clean();
+}
+
+export interface CurrentUser extends PersistenceObject, CleanableObject {
   username: string;
   tokens: Tokens;
 }
