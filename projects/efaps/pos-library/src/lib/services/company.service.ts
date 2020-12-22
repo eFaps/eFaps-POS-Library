@@ -33,6 +33,9 @@ export class CompanyService {
 
   setCurrentCompany(company: Company): any {
     this._currentCompany = company;
+    if (this.config.persistence) {
+      (<any>this._currentCompany).save();
+    }
     this.currentSource.next(company);
   }
 
