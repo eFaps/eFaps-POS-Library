@@ -61,7 +61,7 @@ export class BarcodeScannerService {
       latency: 50,
       minLength: 3,
       endKeys: ["Enter"],
-      validKey: "^(\w|\d)$"
+      validKey: "^(\\w|\\d)$"
     };
   }
 }
