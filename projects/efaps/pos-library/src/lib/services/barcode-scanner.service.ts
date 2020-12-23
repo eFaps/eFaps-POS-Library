@@ -17,8 +17,9 @@ export class BarcodeScannerService {
     latency: 50,
     minLength: 3,
     endKeys: ["Enter"],
-    validKey: /^(\w|\d)$/
+    validKey: "^(\w|\d)$"
   };
+  private validKeyRegex = new RegExp(this.options.validKey);
 
   constructor() { }
 
@@ -27,7 +28,7 @@ export class BarcodeScannerService {
     const timeDiff = timeStamp - this.prevTime;
     this.prevTime = timeStamp;
     if (!(event.altKey || event.ctrlKey)) {
-      const isValid = this.options.validKey.test(key);
+      const isValid = this.validKeyRegex.test(key);
       const isEndKey = this.options.endKeys.includes(key);
       if (timeDiff > this.options.latency) {
         // Maybe a normal key press or start of barcode
@@ -52,6 +53,7 @@ export class BarcodeScannerService {
 
   setOptions(options: BarcodeOptions) {
     this.options = Object.assign(this.options, options);
+    this.validKeyRegex = new RegExp(this.options.validKey);
   }
 
   getDefaultOptions(): BarcodeOptions {
