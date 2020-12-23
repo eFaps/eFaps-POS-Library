@@ -1,6 +1,7 @@
 export * from "./health";
 export * from "./balance-summary";
 export * from "./balance";
+export * from "./barcode";
 export * from "./category";
 export * from "./collector";
 export * from "./company";
