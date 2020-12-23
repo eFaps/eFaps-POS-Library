@@ -53,4 +53,13 @@ export class BarcodeScannerService {
   setOptions(options: BarcodeOptions) {
     this.options = Object.assign(this.options, options);
   }
+
+  getDefaultOptions(): BarcodeOptions {
+    return {
+      latency: 50,
+      minLength: 3,
+      endKeys: ["Enter"],
+      validKey: /^(\w|\d)$/
+    };
+  }
 }
