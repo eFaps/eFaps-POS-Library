@@ -32,14 +32,15 @@ export class CompanyService {
   }
 
   setCurrentCompany(company: Company): any {
-    this._currentCompany = company;
+    this._currentCompany.key = company.key;
+    this._currentCompany.label = company.label;
     if (this.config.persistence) {
       (<any>this._currentCompany).save();
     }
-    this.currentSource.next(company);
+    this.currentSource.next(this._currentCompany);
   }
 
   hasCompany(): boolean {
-    return this.currentCompany != null && this._currentCompany.key != null;
+    return this.currentCompany != null;
   }
 }
