@@ -27,13 +27,18 @@ export interface RelationEntry {
 export interface IndicationSet {
   oid: string;
   name: string;
+  description?: string;
   required: boolean;
+  multiple: boolean;
+  imageOid?: string;
   indications: Indication[];
 }
 
 export interface Indication {
   oid: string;
   value: string;
+  description?: string;
+  imageOid?: string;
 }
 
 export enum ProductType {
