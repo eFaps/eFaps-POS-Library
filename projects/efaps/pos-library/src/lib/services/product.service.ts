@@ -99,6 +99,11 @@ export class ProductService {
     return this.http.get<Product[]>(requestUrl);
   }
 
+  public getProductsByBarcode(_barcode: string): Observable<Product[]> {
+    const requestUrl = `${this.config.baseUrl}/products?barcode=${_barcode}`;
+    return this.http.get<Product[]>(requestUrl);
+  }
+
   static isStockable(product: Product): boolean {
     switch (product.type) {
       case ProductType.STANDART:

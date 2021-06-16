@@ -12,6 +12,7 @@ export interface Product {
   taxes: Tax[];
   relations: ProductRelation[];
   indicationSets: IndicationSet[];
+  barcodes: String[];
 }
 
 export interface ProductRelation {
