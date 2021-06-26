@@ -8,6 +8,8 @@ export interface CollectOrder {
   collected?: string;
   id?: string;
   state?: "INVALID" | "PENDING" | "SUCCESS" | "CANCELED";
+  orderId?: string;
+  collectorKey?: string;
 }
 
 export interface CollectStart {
