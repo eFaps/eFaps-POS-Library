@@ -6,9 +6,9 @@ import { TaxEntry } from "./tax";
 
 export interface Document {
   type?: "ORDER" | "RECEIPT" | "INVOICE" | "TICKET";
-  id: string;
-  oid: string;
-  number: string;
+  id: string | null;
+  oid: string | null;
+  number: string | null;
   currency: string;
   items: DocItem[];
   status: DocStatus;
@@ -17,7 +17,7 @@ export interface Document {
   taxes: TaxEntry[];
   contactOid?: string;
   workspaceOid?: string;
-  discount: Discount;
+  discount: Discount | null;
   note?: string;
 }
 
@@ -32,11 +32,11 @@ export interface Order extends Document {
   shoutout?: string;
 }
 /* tslint:disable-next-line */
-export interface Receipt extends Payable {}
+export interface Receipt extends Payable { }
 /* tslint:disable-next-line */
-export interface Invoice extends Payable {}
+export interface Invoice extends Payable { }
 /* tslint:disable-next-line */
-export interface Ticket extends Payable {}
+export interface Ticket extends Payable { }
 
 export interface DocItem {
   index: number;
