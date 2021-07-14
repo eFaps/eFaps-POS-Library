@@ -1,6 +1,6 @@
 export interface Contact {
-  id: string;
-  oid: string;
+  id: string | null;
+  oid: string | null;
   name: string;
   idType: IdentificationType;
   idNumber: string;
