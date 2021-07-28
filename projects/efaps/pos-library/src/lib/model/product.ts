@@ -21,6 +21,7 @@ export interface Barcode {
 }
 
 export interface ProductRelation {
+  type: ProductRelationType;
   label: string;
   productOid: string;
 }
@@ -52,4 +53,11 @@ export enum ProductType {
   SERVICE = "SERVICE",
   TEXT = "TEXT",
   OTHER = "OTHER",
+  PARTLIST = "PARTLIST"
+}
+
+export enum ProductRelationType {
+  ALTERNATIVE = "ALTERNATIVE",
+  SALESBOM = "SALESBOM",
+  OTHER = "OTHER"
 }
