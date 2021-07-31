@@ -12,6 +12,7 @@ export * from "./health.service";
 export * from "./image.service";
 export * from "./inventory.service";
 export * from "./msg.service";
+export * from "./part-list.service";
 export * from "./payment.service";
 export * from "./pos-config.token";
 export * from "./pos.service";

@@ -104,6 +104,11 @@ export class ProductService {
     return this.http.get<Product[]>(requestUrl);
   }
 
+  public getProductsByType(type: ProductType): Observable<Product[]> {
+    const requestUrl = `${this.config.baseUrl}/products?type=${type}`;
+    return this.http.get<Product[]>(requestUrl);
+  }
+
   static isStockable(product: Product): boolean {
     switch (product.type) {
       case ProductType.STANDART:
