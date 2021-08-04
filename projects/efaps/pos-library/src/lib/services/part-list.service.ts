@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ProductService } from "./product.service";
-import { Product, ProductType, Workspace, Item } from "../model";
-import { Observable } from "rxjs";
+import { Product, ProductType, Item, ProductRelationType } from "../model";
 
 @Injectable({
   providedIn: "root",
@@ -23,6 +22,22 @@ export class PartListService {
   }
 
   public updateTicket(ticket: Item[]) {
-    console.log("llllllllllll")
+    const comp = [];
+
+    ticket.forEach((item) => {
+      comp.push(item.quantity + item.product.oid);
+    });
+    console.log("combinations: " + comp);
+    this.partLists.forEach((partList) => {
+      const comp2 = [];
+      partList.relations.forEach((relation) => {
+        if (ProductRelationType.SALESBOM == relation.type) {
+          comp2.push(relation.quantity + relation.productOid);
+        }
+      })
+      console.log("comp2: " + comp2);
+    });
+
+    //arr1.every(elem => arr2.includes(elem)
   }
 }

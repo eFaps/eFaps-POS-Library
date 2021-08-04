@@ -24,6 +24,7 @@ export interface ProductRelation {
   type: ProductRelationType;
   label: string;
   productOid: string;
+  quantity: number;
 }
 
 export interface RelationEntry {

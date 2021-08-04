@@ -15,6 +15,7 @@ import {
 } from "../model";
 import { ConfigService } from "./config.service";
 import { DocumentService } from "./document.service";
+import { PartListService } from "./part-list.service";
 import { TaxService } from "./tax.service";
 import { WorkspaceService } from "./workspace.service";
 
@@ -60,7 +61,8 @@ export class PosService {
     private config: ConfigService,
     private workspaceService: WorkspaceService,
     private documentService: DocumentService,
-    private taxService: TaxService
+    private taxService: TaxService,
+    private partListService: PartListService,
   ) {
     this.workspaceService.currentWorkspace.subscribe(data => {
       if (data) {
@@ -112,6 +114,7 @@ export class PosService {
   }
 
   changeTicket(ticket: Item[]) {
+    this.partListService.updateTicket(ticket);
     this.calculateItems(ticket);
     this.calculateTotals(ticket);
     this.ticketSource.next(ticket);
