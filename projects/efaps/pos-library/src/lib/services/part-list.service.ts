@@ -25,18 +25,24 @@ export class PartListService {
     const comp = [];
 
     ticket.forEach((item) => {
-      comp.push(item.quantity + item.product.oid);
+      comp.push(item.quantity + "-" + item.product.oid);
     });
     console.log("combinations: " + comp);
+    const comp3 = [];
     this.partLists.forEach((partList) => {
       const comp2 = [];
       partList.relations.forEach((relation) => {
         if (ProductRelationType.SALESBOM == relation.type) {
-          comp2.push(relation.quantity + relation.productOid);
+          comp2.push(relation.quantity + "-" + relation.productOid);
         }
       })
       console.log("comp2: " + comp2);
+      comp3.push({
+        partList,
+        combinations: comp2
+      })
     });
+    console.log("comp3: " + comp3);
 
     //arr1.every(elem => arr2.includes(elem)
   }
