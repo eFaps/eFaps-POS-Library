@@ -4,7 +4,7 @@ import { Product, ProductType, Item, ProductRelationType } from "../model";
 
 @Injectable({
   providedIn: "root",
-  deps: [ProductService],
+  deps: [ProductService]
 })
 export class PartListService {
   partLists: Product[];
@@ -21,45 +21,50 @@ export class PartListService {
     });
   }
 
-  public updateTicket(ticket: Item[]) {
+  public updateTicket(ticket: Item[]): Item[] {
     const comp = [];
 
-    ticket.forEach((item) => {
+    ticket.forEach(item => {
       comp.push(item.quantity + "-" + item.product.oid);
     });
     console.log("combinations: " + comp);
     const comp3 = [];
-    this.partLists.forEach((partList) => {
+    this.partLists.forEach(partList => {
       const comp2 = [];
-      partList.relations.forEach((relation) => {
+      partList.relations.forEach(relation => {
         if (ProductRelationType.SALESBOM == relation.type) {
           comp2.push(relation.quantity + "-" + relation.productOid);
         }
-      })
+      });
       console.log("comp2: " + comp2);
       comp3.push({
         partList,
         combinations: comp2
-      })
+      });
     });
     console.log("comp3: " + comp3);
 
-    comp3.forEach(pl => {
-      const hit = pl.combinations.every(elem => comp.includes(elem))
-      console.log("hit: " + hit);
-    });
-
     const plHit = comp3.find(pl => {
       return pl.combinations.every(elem => comp.includes(elem));
-    })
+    });
     if (plHit) {
-      plHit.partList.relations.forEach((relation) => {
+      plHit.partList.relations.forEach(relation => {
         if (ProductRelationType.SALESBOM == relation.type) {
           ticket = ticket.filter(item => {
-            return item.quantity != relation.quantity || item.product.oid != relation.productOid
+            return (
+              item.quantity != relation.quantity ||
+              item.product.oid != relation.productOid
+            );
           });
         }
-      })
+      });
+      ticket.push({
+        product: plHit.partList,
+        quantity: 1,
+        price: plHit.partListcrossPrice,
+        remark: ''
+      });
     }
+    return ticket;
   }
 }
