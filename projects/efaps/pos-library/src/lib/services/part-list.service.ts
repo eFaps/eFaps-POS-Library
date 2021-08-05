@@ -37,14 +37,24 @@ export class PartListService {
         return pl.combinations.every(elem => ticketComb.includes(elem));
       });
       if (plHit) {
+        const newTicket = [];
         plHit.partList.relations.forEach(relation => {
           if (ProductRelationType.SALESBOM == relation.type) {
-            ticket = ticket.filter(item => {
-              return (
-                item.quantity != relation.quantity ||
-                item.product.oid != relation.productOid
-              );
+            let currentQuantity: number = relation.quantity;
+            ticket.forEach(item => {
+              if (item.product.oid == relation.productOid) {
+                if (currentQuantity => item.quantity) {
+                  currentQuantity = currentQuantity - item.quantity;
+                } else {
+                  item.quantity = item.quantity - currentQuantity;
+                  currentQuantity = 0;
+                  newTicket.push(item);
+                }
+              } else {
+                newTicket.push(item);
+              }
             });
+            ticket = newTicket;
           }
         });
         ticket.push({
