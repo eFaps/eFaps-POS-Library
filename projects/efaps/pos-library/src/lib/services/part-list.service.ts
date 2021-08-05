@@ -44,6 +44,11 @@ export class PartListService {
     });
     console.log("comp3: " + comp3);
 
+    comp3.forEach(pl => {
+      const hit = pl.combinations.every(elem => comp.includes(elem))
+      console.log("hit: " + hit);
+    });
+
     //arr1.every(elem => arr2.includes(elem)
   }
 }
