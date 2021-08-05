@@ -114,7 +114,7 @@ export class PosService {
   }
 
   changeTicket(ticket: Item[]) {
-    this.partListService.updateTicket(ticket);
+    ticket = this.partListService.updateTicket(ticket);
     this.calculateItems(ticket);
     this.calculateTotals(ticket);
     this.ticketSource.next(ticket);
