@@ -49,6 +49,16 @@ export class PartListService {
       console.log("hit: " + hit);
     });
 
+    const plHit = comp3.find(pl => {
+      return pl.combinations.every(elem => comp.includes(elem));
+    })
+    plHit.partList.relations.forEach((relation) => {
+      if (ProductRelationType.SALESBOM == relation.type) {
+        ticket = ticket.filter(item => {
+          return item.quantity != relation.quantity || item.product.oid != relation.productOid
+        });
+      }
+    })
     //arr1.every(elem => arr2.includes(elem)
   }
 }
