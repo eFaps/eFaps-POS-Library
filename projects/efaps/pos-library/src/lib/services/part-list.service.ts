@@ -37,8 +37,8 @@ export class PartListService {
         return pl.combinations.every(elem => ticketComb.includes(elem));
       });
       if (plHit) {
-        const newTicket = [];
         plHit.partList.relations.forEach(relation => {
+          const newTicket = [];
           if (ProductRelationType.SALESBOM == relation.type) {
             let currentQuantity: number = relation.quantity;
             ticket.forEach(item => {
