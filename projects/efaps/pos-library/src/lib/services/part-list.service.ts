@@ -30,10 +30,7 @@ export class PartListService {
       this.loadPartLists();
     }
     if (this.partLists.length > 0) {
-      const ticketComb = [];
-      ticket.forEach(item => {
-        ticketComb.push(item.quantity + "-" + item.product.oid);
-      });
+      const ticketComb = this.getTicketComb(ticket);
       const plComb = this.getPartListCombinations();
 
       const plHit = plComb.find(pl => {
@@ -60,6 +57,23 @@ export class PartListService {
       }
     }
     return ticket;
+  }
+
+  public getTicketComb(ticket: Item[]): string[] {
+    const ticketMap = new Map<string, number>();
+    ticket.forEach(item => {
+      let quantity = 0;
+      if (ticketMap.has(item.product.oid)) {
+        quantity = quantity + ticketMap.get(item.product.oid);
+      }
+      quantity = quantity + item.quantity;
+      ticketMap.set(item.product.oid, quantity);
+    });
+    const ticketComp = [];
+    ticketMap.forEach((value, key) => {
+      ticketComp.push(value + "-" + key);
+    });
+    return ticketComp;
   }
 
   public getPartListCombinations() {
