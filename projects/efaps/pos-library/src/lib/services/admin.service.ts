@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { ReplaySubject } from "rxjs";
 
 import { Versions } from "../model/versions";
 import { ConfigService } from "./config.service";
@@ -11,7 +12,7 @@ import { ImageService } from "./image.service";
   deps: [HttpClient, ConfigService],
 })
 export class AdminService {
-  private reloadSubject = new BehaviorSubject<void>();
+  private reloadSubject = new ReplaySubject<void>();
   reloadEvent = this.reloadSubject.asObservable();
 
   constructor(

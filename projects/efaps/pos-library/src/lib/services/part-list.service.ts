@@ -1,7 +1,10 @@
 import { Injectable } from "@angular/core";
-import { ProductService } from "./product.service";
-import { Product, ProductType, Item, ProductRelationType } from "../model";
 import { BehaviorSubject } from "rxjs";
+
+import { Item, Product, ProductRelationType, ProductType } from "../model";
+import { AdminService } from "./admin.service";
+import { AuthService } from "./auth.service";
+import { ProductService } from "./product.service";
 
 @Injectable({
   providedIn: "root",
