@@ -24,6 +24,7 @@ export class AdminService {
   reload(): Observable<any> {
     this.imageService.clear();
     const url = `${this.config.baseUrl}/admin/sync`;
+    this.reloadSubject.next();
     return this.http.get(url);
   }
 
