@@ -116,10 +116,13 @@ export class PosService {
   }
 
   changeTicket(ticket: Item[]) {
-    ticket = this.partListService.updateTicket(ticket);
-    this.calculateItems(ticket);
-    this.calculateTotals(ticket);
-    this.ticketSource.next(ticket);
+    this.partListService.updateTicket(ticket).subscribe({
+      next: (ticket) => {
+        this.calculateItems(ticket);
+        this.calculateTotals(ticket);
+        this.ticketSource.next(ticket);
+      }
+    });
   }
 
   private calculateItems(ticket: Item[]) {

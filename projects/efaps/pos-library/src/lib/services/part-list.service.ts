@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
-
+import { BehaviorSubject, Observable } from "rxjs";
+import { map } from "rxjs/operators";
 import { Item, Product, ProductRelationType, ProductType } from "../model";
 import { AdminService } from "./admin.service";
 import { AuthService } from "./auth.service";
@@ -40,21 +40,24 @@ export class PartListService {
     });
   }
 
-  public void reset() {
+  public reset() {
     this.partLists == undefined;
     this.partListComb = [];
   }
 
-  public updateTicket(ticket: Item[]): Item[] {
+  public updateTicket(ticket: Item[]): Observable<Item[]> {
     if (this.partLists == undefined) {
-      this.productService.getProductsByType(ProductType.PARTLIST).subscribe({
-        next: (products) => {
+      return this.productService.getProductsByType(ProductType.PARTLIST).pipe(
+        map((products) => {
           this.partLists = products;
-          this.updateTicketInternal();
-        },
-      });
+          return this.updateTicketInternal(ticket);
+        })
+      );
     } else {
-      this.updateTicketInternal();
+      const items = this.updateTicketInternal(ticket);
+      return new Observable((observer) => {
+        observer.next(items);
+      });
     }
   }
 
