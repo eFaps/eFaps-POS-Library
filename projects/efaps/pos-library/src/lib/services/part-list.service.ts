@@ -41,7 +41,7 @@ export class PartListService {
   }
 
   public reset() {
-    this.partLists == undefined;
+    this.partLists = undefined;
     this.partListComb = [];
   }
 
