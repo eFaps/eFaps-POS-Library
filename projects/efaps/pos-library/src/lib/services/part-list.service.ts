@@ -21,33 +21,44 @@ export class PartListService {
     authService: AuthService,
     private productService: ProductService
   ) {
-    this.loadPartLists();
-    adminService.reloadEvent.subscribe({
-      next: (_) => {
-        this.partLists == undefined;
-      },
-    });
-    authService.currentEvent.subscribe({
-      next: (event) => {
-        if (event == "logout") {
-          this.partLists == undefined;
-        }
-      },
-    });
-  }
-
-  public loadPartLists() {
     this.productService.getProductsByType(ProductType.PARTLIST).subscribe({
       next: (products) => {
         this.partLists = products;
       },
     });
+    adminService.reloadEvent.subscribe({
+      next: (_) => {
+        this.reset();
+      },
+    });
+    authService.currentEvent.subscribe({
+      next: (event) => {
+        if (event == "logout") {
+          this.reset();
+        }
+      },
+    });
+  }
+
+  public void reset() {
+    this.partLists == undefined;
+    this.partListComb = [];
   }
 
   public updateTicket(ticket: Item[]): Item[] {
     if (this.partLists == undefined) {
-      this.loadPartLists();
+      this.productService.getProductsByType(ProductType.PARTLIST).subscribe({
+        next: (products) => {
+          this.partLists = products;
+          this.updateTicketInternal();
+        },
+      });
+    } else {
+      this.updateTicketInternal();
     }
+  }
+
+  private updateTicketInternal(ticket: Item[]): Item[] {
     if (this.partLists.length > 0) {
       const ticketComb = this.getTicketComb(ticket);
       const plComb = this.getPartListCombinations();
