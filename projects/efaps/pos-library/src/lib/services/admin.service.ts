@@ -11,11 +11,14 @@ import { ImageService } from "./image.service";
   deps: [HttpClient, ConfigService],
 })
 export class AdminService {
+  private reloadSubject = new BehaviorSubject<void>();
+  reloadEvent = this.reloadSubject.asObservable();
+
   constructor(
     private http: HttpClient,
     private config: ConfigService,
     private imageService: ImageService
-  ) {}
+  ) { }
 
   reload(): Observable<any> {
     this.imageService.clear();

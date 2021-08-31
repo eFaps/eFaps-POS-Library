@@ -13,8 +13,20 @@ export class PartListService {
   private partListSource = new BehaviorSubject<Product>(null);
   detectedPartList = this.partListSource.asObservable();
 
-  constructor(private productService: ProductService) {
+  constructor(adminService: AdminService, authService: AuthService, private productService: ProductService) {
     this.loadPartLists();
+    adminService.reloadEvent.subscribe({
+      next: _ => {
+        this.partLists == undefined
+      }
+    });
+    authService.currentEvent.subscribe({
+      next: event => {
+        if (event == "logout") {
+          this.partLists == undefined
+        }
+      }
+    })
   }
 
   public loadPartLists() {
