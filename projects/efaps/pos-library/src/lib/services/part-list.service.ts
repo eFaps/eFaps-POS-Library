@@ -8,7 +8,7 @@ import { ProductService } from "./product.service";
 
 @Injectable({
   providedIn: "root",
-  deps: [ProductService]
+  deps: [AdminService, AuthService, ProductService],
 })
 export class PartListService {
   private partLists: Product[];
@@ -16,27 +16,31 @@ export class PartListService {
   private partListSource = new BehaviorSubject<Product>(null);
   detectedPartList = this.partListSource.asObservable();
 
-  constructor(adminService: AdminService, authService: AuthService, private productService: ProductService) {
+  constructor(
+    adminService: AdminService,
+    authService: AuthService,
+    private productService: ProductService
+  ) {
     this.loadPartLists();
     adminService.reloadEvent.subscribe({
-      next: _ => {
-        this.partLists == undefined
-      }
+      next: (_) => {
+        this.partLists == undefined;
+      },
     });
     authService.currentEvent.subscribe({
-      next: event => {
+      next: (event) => {
         if (event == "logout") {
-          this.partLists == undefined
+          this.partLists == undefined;
         }
-      }
-    })
+      },
+    });
   }
 
   public loadPartLists() {
     this.productService.getProductsByType(ProductType.PARTLIST).subscribe({
-      next: products => {
+      next: (products) => {
         this.partLists = products;
-      }
+      },
     });
   }
 
@@ -48,17 +52,17 @@ export class PartListService {
       const ticketComb = this.getTicketComb(ticket);
       const plComb = this.getPartListCombinations();
 
-      const plHit = plComb.find(pl => {
-        return pl.combinations.every(elem => ticketComb.includes(elem));
+      const plHit = plComb.find((pl) => {
+        return pl.combinations.every((elem) => ticketComb.includes(elem));
       });
       if (plHit) {
-        plHit.partList.relations.forEach(relation => {
+        plHit.partList.relations.forEach((relation) => {
           const newTicket = [];
           if (ProductRelationType.SALESBOM == relation.type) {
             let currentQuantity: number = relation.quantity;
-            ticket.forEach(item => {
+            ticket.forEach((item) => {
               if (item.product.oid == relation.productOid) {
-                if (currentQuantity => item.quantity) {
+                if ((currentQuantity) => item.quantity) {
                   currentQuantity = currentQuantity - item.quantity;
                 } else {
                   item.quantity = item.quantity - currentQuantity;
@@ -76,7 +80,7 @@ export class PartListService {
           product: plHit.partList,
           quantity: 1,
           price: plHit.partListcrossPrice,
-          remark: ""
+          remark: "",
         });
         this.partListSource.next(plHit.partList);
       }
@@ -86,7 +90,7 @@ export class PartListService {
 
   public getTicketComb(ticket: Item[]): string[] {
     const ticketMap = new Map<string, number>();
-    ticket.forEach(item => {
+    ticket.forEach((item) => {
       let quantity = 0;
       if (ticketMap.has(item.product.oid)) {
         quantity = quantity + ticketMap.get(item.product.oid);
@@ -103,16 +107,16 @@ export class PartListService {
 
   public getPartListCombinations() {
     if (this.partLists.length > 0 && this.partListComb.length == 0) {
-      this.partLists.forEach(partList => {
+      this.partLists.forEach((partList) => {
         const comp = [];
-        partList.relations.forEach(relation => {
+        partList.relations.forEach((relation) => {
           if (ProductRelationType.SALESBOM == relation.type) {
             comp.push(relation.quantity + "-" + relation.productOid);
           }
         });
         this.partListComb.push({
           partList,
-          combinations: comp
+          combinations: comp,
         });
       });
     }

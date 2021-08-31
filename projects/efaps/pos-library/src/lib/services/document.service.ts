@@ -125,46 +125,40 @@ export class DocumentService {
   private getReceipts4Balance(_balance: Balance): Observable<Payable[]> {
     const url = `${this.config.baseUrl}/documents/receipts`;
     const balanceOid = _balance.oid ? _balance.oid : _balance.id;
-    return this.http
-      .get<Receipt[]>(url, { params: { balanceOid } })
-      .pipe(
-        map((docs) => {
-          docs.map((doc) => {
-            doc.type = "RECEIPT";
-          });
-          return [...docs];
-        })
-      );
+    return this.http.get<Receipt[]>(url, { params: { balanceOid } }).pipe(
+      map((docs) => {
+        docs.map((doc) => {
+          doc.type = "RECEIPT";
+        });
+        return [...docs];
+      })
+    );
   }
 
   private getInvoices4Balance(_balance: Balance): Observable<Payable[]> {
     const url = `${this.config.baseUrl}/documents/invoices`;
     const balanceOid = _balance.oid ? _balance.oid : _balance.id;
-    return this.http
-      .get<Invoice[]>(url, { params: { balanceOid } })
-      .pipe(
-        map((docs) => {
-          docs.map((doc) => {
-            doc.type = "INVOICE";
-          });
-          return [...docs];
-        })
-      );
+    return this.http.get<Invoice[]>(url, { params: { balanceOid } }).pipe(
+      map((docs) => {
+        docs.map((doc) => {
+          doc.type = "INVOICE";
+        });
+        return [...docs];
+      })
+    );
   }
 
   private getTickets4Balance(_balance: Balance): Observable<Payable[]> {
     const url = `${this.config.baseUrl}/documents/tickets`;
     const balanceOid = _balance.oid ? _balance.oid : _balance.id;
-    return this.http
-      .get<Ticket[]>(url, { params: { balanceOid } })
-      .pipe(
-        map((docs) => {
-          docs.map((doc) => {
-            doc.type = "TICKET";
-          });
-          return [...docs];
-        })
-      );
+    return this.http.get<Ticket[]>(url, { params: { balanceOid } }).pipe(
+      map((docs) => {
+        docs.map((doc) => {
+          doc.type = "TICKET";
+        });
+        return [...docs];
+      })
+    );
   }
 
   public findPayables(_term: string): Observable<PayableHead[]> {
@@ -177,43 +171,37 @@ export class DocumentService {
 
   private findReceipts(_term: string): Observable<PayableHead[]> {
     const url = `${this.config.baseUrl}/documents/receipts`;
-    return this.http
-      .get<PayableHead[]>(url, { params: { term: _term } })
-      .pipe(
-        map((docs) => {
-          docs.map((doc) => {
-            doc.type = "RECEIPT";
-          });
-          return [...docs];
-        })
-      );
+    return this.http.get<PayableHead[]>(url, { params: { term: _term } }).pipe(
+      map((docs) => {
+        docs.map((doc) => {
+          doc.type = "RECEIPT";
+        });
+        return [...docs];
+      })
+    );
   }
 
   private findInvoices(_term: string): Observable<PayableHead[]> {
     const url = `${this.config.baseUrl}/documents/invoices`;
-    return this.http
-      .get<PayableHead[]>(url, { params: { term: _term } })
-      .pipe(
-        map((docs) => {
-          docs.map((doc) => {
-            doc.type = "INVOICE";
-          });
-          return [...docs];
-        })
-      );
+    return this.http.get<PayableHead[]>(url, { params: { term: _term } }).pipe(
+      map((docs) => {
+        docs.map((doc) => {
+          doc.type = "INVOICE";
+        });
+        return [...docs];
+      })
+    );
   }
 
   private findTickets(_term: string): Observable<PayableHead[]> {
     const url = `${this.config.baseUrl}/documents/tickets`;
-    return this.http
-      .get<PayableHead[]>(url, { params: { term: _term } })
-      .pipe(
-        map((docs) => {
-          docs.map((doc) => {
-            doc.type = "TICKET";
-          });
-          return [...docs];
-        })
-      );
+    return this.http.get<PayableHead[]>(url, { params: { term: _term } }).pipe(
+      map((docs) => {
+        docs.map((doc) => {
+          doc.type = "TICKET";
+        });
+        return [...docs];
+      })
+    );
   }
 }

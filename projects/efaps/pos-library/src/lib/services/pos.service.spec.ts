@@ -8,7 +8,11 @@ import { DocumentService } from "./document.service";
 import { PosService } from "./pos.service";
 import { WorkspaceService } from "./workspace.service";
 
-class AuthServiceStub {}
+class AuthServiceStub {
+  currentEvent = new Observable((observer) => {
+    observer.next("nothing");
+  });
+}
 class ConfigServiceStub {}
 class DocumentServiceStub {}
 class WorkspaceServiceStub {

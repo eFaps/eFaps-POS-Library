@@ -9,7 +9,7 @@ import { ConfigService } from "./config.service";
 
 @Injectable({
   providedIn: "root",
-  deps: [HttpClient, ConfigService]
+  deps: [HttpClient, ConfigService],
 })
 export class AuthService {
   private eventSource = new BehaviorSubject<string>("");
@@ -17,7 +17,7 @@ export class AuthService {
 
   private refreshing = false;
 
-  constructor(private http: HttpClient, private config: ConfigService) { }
+  constructor(private http: HttpClient, private config: ConfigService) {}
 
   get currentUser(): CurrentUser {
     return this.config.persistence.currentUser();
@@ -28,7 +28,7 @@ export class AuthService {
     return this.http
       .post<Tokens>(href, { userName: username, password: password })
       .pipe(
-        map(response => {
+        map((response) => {
           if (response.accessToken) {
             this.currentUser.username = username;
             this.currentUser.tokens = response;
@@ -49,7 +49,7 @@ export class AuthService {
     this.http
       .post<Tokens>(href, { refreshToken: this.getRefreshToken() })
       .subscribe({
-        next: response => {
+        next: (response) => {
           if (response.accessToken) {
             this.currentUser.tokens = response;
             this.currentUser.save();
@@ -58,7 +58,7 @@ export class AuthService {
             this.logout();
           }
           this.refreshing = false;
-        }
+        },
       });
   }
 
@@ -127,6 +127,6 @@ export class AuthService {
     }
     const decoded = <any>jwtDecode(this.getAccessToken());
     const roles: string[] = decoded.roles;
-    return roles.find(x => x === Roles[_role]) ? true : false;
+    return roles.find((x) => x === Roles[_role]) ? true : false;
   }
 }

@@ -22,7 +22,9 @@ export class CompanyService {
   }
 
   get currentCompany() {
-    return this._currentCompany && this._currentCompany.key ? this._currentCompany : null;
+    return this._currentCompany && this._currentCompany.key
+      ? this._currentCompany
+      : null;
   }
 
   public getCompanies(): Observable<Company[]> {

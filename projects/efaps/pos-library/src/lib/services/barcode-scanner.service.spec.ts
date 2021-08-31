@@ -1,8 +1,8 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
 
-import { BarcodeScannerService } from './barcode-scanner.service';
+import { BarcodeScannerService } from "./barcode-scanner.service";
 
-describe('BarcodeScannerService', () => {
+describe("BarcodeScannerService", () => {
   let service: BarcodeScannerService;
 
   beforeEach(() => {
@@ -10,7 +10,7 @@ describe('BarcodeScannerService', () => {
     service = TestBed.inject(BarcodeScannerService);
   });
 
-  it('should be created', () => {
+  it("should be created", () => {
     expect(service).toBeTruthy();
   });
 });

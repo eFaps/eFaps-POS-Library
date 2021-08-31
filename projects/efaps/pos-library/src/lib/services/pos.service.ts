@@ -11,7 +11,7 @@ import {
   Tax,
   DocStatus,
   DocItem,
-  TaxEntry
+  TaxEntry,
 } from "../model";
 import { ConfigService } from "./config.service";
 import { DocumentService } from "./document.service";
@@ -26,8 +26,8 @@ import { WorkspaceService } from "./workspace.service";
     ConfigService,
     WorkspaceService,
     DocumentService,
-    TaxService
-  ]
+    TaxService,
+  ],
 })
 export class PosService {
   private order: Order = null;
@@ -62,12 +62,12 @@ export class PosService {
     private workspaceService: WorkspaceService,
     private documentService: DocumentService,
     private taxService: TaxService,
-    private partListService: PartListService,
+    private partListService: PartListService
   ) {
-    this.workspaceService.currentWorkspace.subscribe(data => {
+    this.workspaceService.currentWorkspace.subscribe((data) => {
       if (data) {
         if (!(this.currentPos && this.currentPos.oid === data.posOid)) {
-          this.getPos(data.posOid).subscribe(_pos => {
+          this.getPos(data.posOid).subscribe((_pos) => {
             this.currentPos = _pos;
             this.currencySource.next(_pos.currency);
           });
@@ -75,10 +75,12 @@ export class PosService {
         }
       }
     });
-    this.currentTicket.subscribe(_ticket => this.ticket = _ticket);
-    this.currentNetTotal.subscribe(netTotal => this.netTotal = netTotal);
-    this.currentCrossTotal.subscribe(crossTotal => this.crossTotal = crossTotal);
-    this.currentCurrency.subscribe(currency => this.currency = currency);
+    this.currentTicket.subscribe((_ticket) => (this.ticket = _ticket));
+    this.currentNetTotal.subscribe((netTotal) => (this.netTotal = netTotal));
+    this.currentCrossTotal.subscribe(
+      (crossTotal) => (this.crossTotal = crossTotal)
+    );
+    this.currentCurrency.subscribe((currency) => (this.currency = currency));
   }
 
   public getPoss(): Observable<Pos[]> {
@@ -94,7 +96,7 @@ export class PosService {
   public setOrder(order: Order) {
     if (order.discount) {
       order.items = order.items.filter(
-        item => item.product.oid != order.discount.productOid
+        (item) => item.product.oid != order.discount.productOid
       );
       order.discount = null;
     }
@@ -102,12 +104,12 @@ export class PosService {
     const items: Item[] = [];
     order.items
       .sort((a, b) => (a.index < b.index ? -1 : 1))
-      .forEach(_item => {
+      .forEach((_item) => {
         items.push({
           product: _item.product,
           quantity: _item.quantity,
           price: _item.crossPrice,
-          remark: _item.remark
+          remark: _item.remark,
         });
       });
     this.changeTicket(items);
@@ -133,12 +135,16 @@ export class PosService {
       const netUnitPrice = new Decimal(item.product.netPrice);
       const quantity = new Decimal(item.quantity);
       const netPrice = netUnitPrice.mul(quantity);
-      item.product.taxes.forEach(tax => {
-        taxAmount = taxAmount.add(this.taxService.calcTax(netPrice, quantity, tax).toDecimalPlaces(2, Decimal.ROUND_HALF_UP));
+      item.product.taxes.forEach((tax) => {
+        taxAmount = taxAmount.add(
+          this.taxService
+            .calcTax(netPrice, quantity, tax)
+            .toDecimalPlaces(2, Decimal.ROUND_HALF_UP)
+        );
       });
       return netPrice.add(taxAmount).toDecimalPlaces(2, Decimal.ROUND_HALF_UP);
     } else {
-      if (item.product.taxes.some(tax => tax.type === TaxType.PERUNIT)) {
+      if (item.product.taxes.some((tax) => tax.type === TaxType.PERUNIT)) {
         const net = new Decimal(item.product.netPrice).mul(
           new Decimal(item.quantity)
         );
@@ -162,16 +168,16 @@ export class PosService {
     let net = new Decimal(0);
     let cross = new Decimal(0);
     const taxes = new Map<string, Decimal>();
-    items.forEach(item => {
-      const itemNet = new Decimal(item.product.netPrice).mul(new Decimal(item.quantity));
+    items.forEach((item) => {
+      const itemNet = new Decimal(item.product.netPrice).mul(
+        new Decimal(item.quantity)
+      );
       net = net.plus(itemNet);
       cross = cross.plus(itemNet);
       item.product.taxes.forEach((tax: Tax) => {
-        const taxAmount = this.taxService.calcTax(
-          itemNet,
-          new Decimal(item.quantity),
-          tax
-        ).toDecimalPlaces(2, Decimal.ROUND_HALF_UP);
+        const taxAmount = this.taxService
+          .calcTax(itemNet, new Decimal(item.quantity), tax)
+          .toDecimalPlaces(2, Decimal.ROUND_HALF_UP);
         if (!taxes.has(tax.name)) {
           taxes.set(tax.name, new Decimal(0));
         }
@@ -207,7 +213,7 @@ export class PosService {
       crossTotal: this.crossTotal,
       taxes: this.getTaxEntries(),
       discount: null,
-      payableOid: null
+      payableOid: null,
     });
   }
 
@@ -226,7 +232,7 @@ export class PosService {
           crossUnitPrice: item.product.crossPrice,
           crossPrice: item.price,
           remark: item.remark,
-          taxes: this.getItemTaxEntries(item)
+          taxes: this.getItemTaxEntries(item),
         }
     );
   }
@@ -247,7 +253,7 @@ export class PosService {
       entries.push({
         tax: tax,
         base: base,
-        amount: taxAmount.toNumber()
+        amount: taxAmount.toNumber(),
       });
     });
     return entries;
@@ -256,13 +262,13 @@ export class PosService {
   private getTaxEntries(): TaxEntry[] {
     const taxEntries: TaxEntry[] = [];
     const taxValues: Map<string, TaxEntry> = new Map();
-    this.getDocItems().forEach(item => {
-      item.taxes.forEach(taxEntry => {
+    this.getDocItems().forEach((item) => {
+      item.taxes.forEach((taxEntry) => {
         if (!taxValues.has(taxEntry.tax.name)) {
           taxValues.set(taxEntry.tax.name, {
             tax: taxEntry.tax,
             base: 0,
-            amount: 0
+            amount: 0,
           });
         }
         const ce = taxValues.get(taxEntry.tax.name);
@@ -289,7 +295,7 @@ export class PosService {
         items: this.getDocItems(),
         netTotal: this.netTotal,
         crossTotal: this.crossTotal,
-        taxes: this.getTaxEntries()
+        taxes: this.getTaxEntries(),
       })
     );
   }
@@ -308,14 +314,14 @@ export class PosService {
             .toNumber(),
           crossUnitPrice: item.product.crossPrice,
           crossPrice: item.price,
-          taxes: this.getItemTaxEntries(item)
+          taxes: this.getItemTaxEntries(item),
         }
     );
     return Object.assign(order, {
       items: docItems,
       netTotal: this.netTotal,
       crossTotal: this.crossTotal,
-      taxes: this.getTaxEntries()
+      taxes: this.getTaxEntries(),
     });
   }
 

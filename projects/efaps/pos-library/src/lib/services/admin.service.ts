@@ -19,7 +19,7 @@ export class AdminService {
     private http: HttpClient,
     private config: ConfigService,
     private imageService: ImageService
-  ) { }
+  ) {}
 
   reload(): Observable<any> {
     this.imageService.clear();

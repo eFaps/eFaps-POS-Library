@@ -58,9 +58,10 @@ export class WorkspaceService {
       if (!this.workspaces[this.companyService.currentCompany.key]) {
         this.workspaces[this.companyService.currentCompany.key] = {};
       }
-      workspaceOid = this.workspaces[this.companyService.currentCompany.key][
-        this.auth.getCurrentUsername()
-      ];
+      workspaceOid =
+        this.workspaces[this.companyService.currentCompany.key][
+          this.auth.getCurrentUsername()
+        ];
     } else {
       workspaceOid = this.workspaces[this.auth.getCurrentUsername()];
     }

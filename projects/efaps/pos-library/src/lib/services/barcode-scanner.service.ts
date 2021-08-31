@@ -4,7 +4,7 @@ import { BehaviorSubject } from "rxjs";
 import { BarcodeOptions } from "../model";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class BarcodeScannerService {
   private currentSource = new BehaviorSubject<string>(null);
@@ -17,11 +17,11 @@ export class BarcodeScannerService {
     latency: 50,
     minLength: 3,
     endKeys: ["Enter"],
-    validKey: "^(\\w|\\d)$"
+    validKey: "^(\\w|\\d)$",
   };
   private validKeyRegex = new RegExp(this.options.validKey);
 
-  constructor() { }
+  constructor() {}
 
   handleKeyboardEvent(event: KeyboardEvent): void {
     const { key, timeStamp } = event;
@@ -61,7 +61,7 @@ export class BarcodeScannerService {
       latency: 50,
       minLength: 3,
       endKeys: ["Enter"],
-      validKey: "^(\\w|\\d)$"
+      validKey: "^(\\w|\\d)$",
     };
   }
 }

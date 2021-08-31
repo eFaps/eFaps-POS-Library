@@ -54,11 +54,11 @@ export enum ProductType {
   SERVICE = "SERVICE",
   TEXT = "TEXT",
   OTHER = "OTHER",
-  PARTLIST = "PARTLIST"
+  PARTLIST = "PARTLIST",
 }
 
 export enum ProductRelationType {
   ALTERNATIVE = "ALTERNATIVE",
   SALESBOM = "SALESBOM",
-  OTHER = "OTHER"
+  OTHER = "OTHER",
 }
