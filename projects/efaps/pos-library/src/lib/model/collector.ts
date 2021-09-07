@@ -10,7 +10,7 @@ export interface CollectOrder {
   state?: "INVALID" | "PENDING" | "SUCCESS" | "CANCELED";
   orderId?: string;
   collectorKey?: string;
-  details?: any;
+  additionalInfo?: any;
 }
 
 export interface CollectStart {
