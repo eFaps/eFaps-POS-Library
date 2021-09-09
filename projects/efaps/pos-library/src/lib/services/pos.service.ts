@@ -121,7 +121,7 @@ export class PosService {
         this.calculateItems(ticket);
         this.calculateTotals(ticket);
         this.ticketSource.next(ticket);
-      }
+      },
     });
   }
 

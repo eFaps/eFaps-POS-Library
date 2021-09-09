@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import clone from 'just-clone';
+import clone from "just-clone";
 import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
@@ -75,46 +75,46 @@ export class PartListService {
             salebomcount++;
             let currentQuantity: number = relation.quantity;
             for (let i = 0; i < tempTicket.length; i++) {
-              const item = tempTicket[i]
+              const item = tempTicket[i];
               if (item.product.oid == relation.productOid) {
                 if (item.quantity == currentQuantity) {
-                  toBeRemoved.push(i)
-                  isFound.push(true)
-                  break
+                  toBeRemoved.push(i);
+                  isFound.push(true);
+                  break;
                 } else if (item.quantity > currentQuantity) {
-                  item.quantity = item.quantity - currentQuantity
-                  isFound.push(true)
-                  break
+                  item.quantity = item.quantity - currentQuantity;
+                  isFound.push(true);
+                  break;
                 } else if (item.quantity < currentQuantity) {
-                  toBeRemoved.push(i)
-                  currentQuantity = currentQuantity - item.quantity
+                  toBeRemoved.push(i);
+                  currentQuantity = currentQuantity - item.quantity;
                 }
               }
             }
           }
-          tempTicket = this.cleanUpTicket(tempTicket, toBeRemoved)
-        })
+          tempTicket = this.cleanUpTicket(tempTicket, toBeRemoved);
+        });
         if (salebomcount > 0 && salebomcount == isFound.length) {
           tempTicket.push({
             product: partList,
             quantity: 1,
             price: partList.crossPrice,
             remark: "",
-          })
-          ticket = tempTicket
+          });
+          ticket = tempTicket;
         }
-      })
+      });
     }
     return ticket;
   }
 
   private cleanUpTicket(ticket: Item[], toBeRemoved: number[]): Item[] {
-    const cleanedUpTicket = []
+    const cleanedUpTicket = [];
     for (let i = 0; i < ticket.length; i++) {
       if (!toBeRemoved.includes(i)) {
-        cleanedUpTicket.push(ticket[i])
+        cleanedUpTicket.push(ticket[i]);
       }
     }
-    return cleanedUpTicket
+    return cleanedUpTicket;
   }
 }
