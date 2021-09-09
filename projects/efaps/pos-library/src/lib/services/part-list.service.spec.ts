@@ -183,6 +183,51 @@ const PARTLISTS = [
     }],
     indicationSets: [],
     barcodes: [],
+  },
+  {
+    oid: "123.47",
+    sku: "0815.2564",
+    type: ProductType.PARTLIST,
+    description: "stupid partlis",
+    imageOid: null,
+    netPrice: 12,
+    crossPrice: 14,
+    categoryOids: [],
+    taxes: [],
+    relations: [],
+    indicationSets: [],
+    barcodes: [],
+  },
+  {
+    oid: "123.50",
+    sku: "0815.2564",
+    type: ProductType.PARTLIST,
+    description: "Weired partlist",
+    imageOid: null,
+    netPrice: 12,
+    crossPrice: 14,
+    categoryOids: [],
+    taxes: [],
+    relations: [{
+      type: ProductRelationType.SALESBOM,
+      label: "SalesBOM",
+      productOid: PRODUCTS[1].oid,
+      quantity: 1,
+    },
+    {
+      type: ProductRelationType.SALESBOM,
+      label: "SalesBOM",
+      productOid: PRODUCTS[1].oid,
+      quantity: 2,
+    },
+    {
+      type: ProductRelationType.SALESBOM,
+      label: "SalesBOM",
+      productOid: PRODUCTS[1].oid,
+      quantity: 1,
+    }],
+    indicationSets: [],
+    barcodes: [],
   }
 ]
 
@@ -352,7 +397,7 @@ describe("PartListService", () => {
 
   it("should find a partlist and do not remove other partlists", fakeAsync(() => {
     const service: PartListService = TestBed.get(PartListService);
-    const partlists: Product[] = [PARTLISTS[0], PARTLISTS[2], PARTLISTS[4]];
+    const partlists: Product[] = [PARTLISTS[0], PARTLISTS[2], PARTLISTS[4], PARTLISTS[5]];
     spyOn(productService, 'getProductsByType').and.returnValue(of(partlists));
     const ticket = [{
       product: PRODUCTS[0],
@@ -404,5 +449,70 @@ describe("PartListService", () => {
     });
     tick(1);
   }));
+
+  it("should find a partlist that has weired configuration", fakeAsync(() => {
+    const service: PartListService = TestBed.get(PartListService);
+    const partlists: Product[] = [PARTLISTS[6]];
+    spyOn(productService, 'getProductsByType').and.returnValue(of(partlists));
+    const ticket = [{
+      product: PRODUCTS[1],
+      quantity: 1,
+      price: 11,
+      remark: "text"
+    }, {
+      product: PRODUCTS[1],
+      quantity: 2,
+      price: 11,
+      remark: "text"
+    },
+    {
+      product: PARTLISTS[2],
+      quantity: 1,
+      price: 11,
+      remark: "text"
+    }, {
+      product: PRODUCTS[2],
+      quantity: 2,
+      price: 11,
+      remark: "text"
+    },
+    {
+      product: PRODUCTS[3],
+      quantity: 1,
+      price: 11,
+      remark: "text"
+    },
+    {
+      product: PRODUCTS[3],
+      quantity: 2,
+      price: 11,
+      remark: "text"
+    }, {
+      product: PRODUCTS[1],
+      quantity: 1,
+      price: 11,
+      remark: "text"
+    },{
+      product: PRODUCTS[1],
+      quantity: 2,
+      price: 11,
+      remark: "text"
+    },];
+    service.updateTicket(ticket).subscribe({
+      next: response => {
+        expect(response.length).toEqual(6)
+        expect(response[0].product).toEqual(PARTLISTS[2]);
+        expect(response[1].product).toEqual(ticket[3].product);
+        expect(response[2].product).toEqual(ticket[4].product);
+        expect(response[3].product).toEqual(ticket[5].product);
+        expect(response[4].product).toEqual(ticket[7].product);
+        expect(response[4].quantity).toEqual(ticket[7].quantity);
+        expect(response[5].product).toEqual(partlists[0]);
+
+      }
+    });
+    tick(1);
+  }));
+
 
 });
