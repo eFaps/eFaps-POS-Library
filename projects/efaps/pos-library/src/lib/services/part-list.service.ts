@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
+import clone from 'just-clone';
 import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators";
+
 import { Item, Product, ProductRelationType, ProductType } from "../model";
 import { AdminService } from "./admin.service";
 import { AuthService } from "./auth.service";
@@ -62,78 +64,57 @@ export class PartListService {
   }
 
   private updateTicketInternal(ticket: Item[]): Item[] {
-    if (this.partLists.length > 0) {
-      const ticketComb = this.getTicketComb(ticket);
-      const plComb = this.getPartListCombinations();
-
-      const plHit = plComb.find((pl) => {
-        return pl.combinations.every((elem) => ticketComb.includes(elem));
-      });
-      if (plHit) {
-        plHit.partList.relations.forEach((relation) => {
-          const newTicket = [];
+    if (ticket.length > 0 && this.partLists.length > 0) {
+      this.partLists.forEach((partList) => {
+        let tempTicket = clone(ticket);
+        let isFound = [];
+        let salebomcount = 0;
+        partList.relations.forEach((relation) => {
+          const toBeRemoved = [];
           if (ProductRelationType.SALESBOM == relation.type) {
+            salebomcount++;
             let currentQuantity: number = relation.quantity;
-            ticket.forEach((item) => {
+            for (let i = 0; i < tempTicket.length; i++) {
+              const item = tempTicket[i]
               if (item.product.oid == relation.productOid) {
-                if ((currentQuantity) => item.quantity) {
-                  currentQuantity = currentQuantity - item.quantity;
-                } else {
-                  item.quantity = item.quantity - currentQuantity;
-                  currentQuantity = 0;
-                  newTicket.push(item);
+                if (item.quantity == currentQuantity) {
+                  toBeRemoved.push(i)
+                  isFound.push(true)
+                  break
+                } else if (item.quantity > currentQuantity) {
+                  item.quantity = item.quantity - currentQuantity
+                  isFound.push(true)
+                  break
+                } else if (item.quantity < currentQuantity) {
+                  toBeRemoved.push(i)
+                  currentQuantity = currentQuantity - item.quantity
                 }
-              } else {
-                newTicket.push(item);
               }
-            });
-            ticket = newTicket;
+            }
           }
-        });
-        ticket.push({
-          product: plHit.partList,
-          quantity: 1,
-          price: plHit.partListcrossPrice,
-          remark: "",
-        });
-        this.partListSource.next(plHit.partList);
-      }
+          tempTicket = this.cleanUpTicket(tempTicket, toBeRemoved)
+        })
+        if (salebomcount > 0 && salebomcount == isFound.length) {
+          tempTicket.push({
+            product: partList,
+            quantity: 1,
+            price: partList.crossPrice,
+            remark: "",
+          })
+          ticket = tempTicket
+        }
+      })
     }
     return ticket;
   }
 
-  public getTicketComb(ticket: Item[]): string[] {
-    const ticketMap = new Map<string, number>();
-    ticket.forEach((item) => {
-      let quantity = 0;
-      if (ticketMap.has(item.product.oid)) {
-        quantity = quantity + ticketMap.get(item.product.oid);
+  private cleanUpTicket(ticket: Item[], toBeRemoved: number[]): Item[] {
+    const cleanedUpTicket = []
+    for (let i = 0; i < ticket.length; i++) {
+      if (!toBeRemoved.includes(i)) {
+        cleanedUpTicket.push(ticket[i])
       }
-      quantity = quantity + item.quantity;
-      ticketMap.set(item.product.oid, quantity);
-    });
-    const ticketComp = [];
-    ticketMap.forEach((value, key) => {
-      ticketComp.push(value + "-" + key);
-    });
-    return ticketComp;
-  }
-
-  public getPartListCombinations() {
-    if (this.partLists.length > 0 && this.partListComb.length == 0) {
-      this.partLists.forEach((partList) => {
-        const comp = [];
-        partList.relations.forEach((relation) => {
-          if (ProductRelationType.SALESBOM == relation.type) {
-            comp.push(relation.quantity + "-" + relation.productOid);
-          }
-        });
-        this.partListComb.push({
-          partList,
-          combinations: comp,
-        });
-      });
     }
-    return this.partListComb;
+    return cleanedUpTicket
   }
 }
