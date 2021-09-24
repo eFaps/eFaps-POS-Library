@@ -2,7 +2,7 @@ import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { TestBed, tick, fakeAsync } from "@angular/core/testing";
 import { Observable, of } from "rxjs";
 
-import { Product, ProductType, ProductRelationType } from "../model";
+import { Product, ProductType, ProductRelationType, Currency } from "../model";
 import { AdminService } from "./admin.service";
 import { AuthService } from "./auth.service";
 import { PartListService } from "./part-list.service";
@@ -18,6 +18,7 @@ const PRODUCTS = [
     imageOid: null,
     netPrice: 12,
     crossPrice: 14,
+    currency: Currency.PEN,
     categoryOids: [],
     taxes: [],
     relations: [],
@@ -32,6 +33,7 @@ const PRODUCTS = [
     imageOid: null,
     netPrice: 12,
     crossPrice: 14,
+    currency: Currency.PEN,
     categoryOids: [],
     taxes: [],
     relations: [],
@@ -46,6 +48,7 @@ const PRODUCTS = [
     imageOid: null,
     netPrice: 12,
     crossPrice: 14,
+    currency: Currency.PEN,
     categoryOids: [],
     taxes: [],
     relations: [],
@@ -60,6 +63,7 @@ const PRODUCTS = [
     imageOid: null,
     netPrice: 12,
     crossPrice: 14,
+    currency: Currency.PEN,
     categoryOids: [],
     taxes: [],
     relations: [],
@@ -77,6 +81,7 @@ const PARTLISTS = [
     imageOid: null,
     netPrice: 12,
     crossPrice: 14,
+    currency: Currency.PEN,
     categoryOids: [],
     taxes: [],
     relations: [
@@ -98,6 +103,7 @@ const PARTLISTS = [
     imageOid: null,
     netPrice: 12,
     crossPrice: 14,
+    currency: Currency.PEN,
     categoryOids: [],
     taxes: [],
     relations: [
@@ -119,6 +125,7 @@ const PARTLISTS = [
     imageOid: null,
     netPrice: 12,
     crossPrice: 14,
+    currency: Currency.PEN,
     categoryOids: [],
     taxes: [],
     relations: [
@@ -140,6 +147,7 @@ const PARTLISTS = [
     imageOid: null,
     netPrice: 12,
     crossPrice: 14,
+    currency: Currency.PEN,
     categoryOids: [],
     taxes: [],
     relations: [
@@ -167,6 +175,7 @@ const PARTLISTS = [
     imageOid: null,
     netPrice: 12,
     crossPrice: 14,
+    currency: Currency.PEN,
     categoryOids: [],
     taxes: [],
     relations: [
@@ -200,6 +209,7 @@ const PARTLISTS = [
     imageOid: null,
     netPrice: 12,
     crossPrice: 14,
+    currency: Currency.PEN,
     categoryOids: [],
     taxes: [],
     relations: [],
@@ -214,6 +224,7 @@ const PARTLISTS = [
     imageOid: null,
     netPrice: 12,
     crossPrice: 14,
+    currency: Currency.PEN,
     categoryOids: [],
     taxes: [],
     relations: [
@@ -290,6 +301,8 @@ describe("PartListService", () => {
         product: PRODUCTS[0],
         quantity: 1,
         price: 11,
+        currency: Currency.PEN,
+        exchangeRate: 1,
         remark: "text",
       },
     ];
@@ -310,12 +323,14 @@ describe("PartListService", () => {
         product: PRODUCTS[0],
         quantity: 2,
         price: 11,
+        currency: Currency.PEN,
+        exchangeRate: 1,
         remark: "text",
       },
     ];
     service.updateTicket(ticket).subscribe({
       next: (response) => {
-        expect(PARTLISTS[2]).toEqual(response[0].product);
+        expect(partlists[1]).toEqual(response[0].product);
       },
     });
     tick(1);
@@ -330,6 +345,8 @@ describe("PartListService", () => {
         product: PRODUCTS[0],
         quantity: 2,
         price: 11,
+        currency: Currency.PEN,
+        exchangeRate: 1,
         remark: "text",
       },
     ];
@@ -350,12 +367,16 @@ describe("PartListService", () => {
         product: PRODUCTS[0],
         quantity: 2,
         price: 11,
+        currency: Currency.PEN,
+        exchangeRate: 1,
         remark: "text",
       },
       {
         product: PRODUCTS[1],
         quantity: 2,
         price: 11,
+        currency: Currency.PEN,
+        exchangeRate: 1,
         remark: "text",
       },
     ];
@@ -377,6 +398,8 @@ describe("PartListService", () => {
         product: PRODUCTS[0],
         quantity: 3,
         price: 11,
+        currency: Currency.PEN,
+        exchangeRate: 1,
         remark: "text",
       },
     ];
@@ -400,12 +423,16 @@ describe("PartListService", () => {
         product: PRODUCTS[0],
         quantity: 1,
         price: 11,
+        currency: Currency.PEN,
+        exchangeRate: 1,
         remark: "text",
       },
       {
         product: PRODUCTS[0],
         quantity: 1,
         price: 11,
+        currency: Currency.PEN,
+        exchangeRate: 1,
         remark: "text",
       },
     ];
@@ -432,42 +459,56 @@ describe("PartListService", () => {
         product: PRODUCTS[0],
         quantity: 1,
         price: 11,
+        currency: Currency.PEN,
+        exchangeRate: 1,
         remark: "text",
       },
       {
         product: PRODUCTS[1],
         quantity: 1,
         price: 11,
+        currency: Currency.PEN,
+        exchangeRate: 1,
         remark: "text",
       },
       {
         product: PARTLISTS[2],
         quantity: 1,
         price: 11,
+        currency: Currency.PEN,
+        exchangeRate: 1,
         remark: "text",
       },
       {
         product: PRODUCTS[2],
         quantity: 2,
         price: 11,
+        currency: Currency.PEN,
+        exchangeRate: 1,
         remark: "text",
       },
       {
         product: PRODUCTS[3],
         quantity: 1,
         price: 11,
+        currency: Currency.PEN,
+        exchangeRate: 1,
         remark: "text",
       },
       {
         product: PRODUCTS[3],
         quantity: 2,
         price: 11,
+        currency: Currency.PEN,
+        exchangeRate: 1,
         remark: "text",
       },
       {
         product: PRODUCTS[1],
         quantity: 1,
         price: 11,
+        currency: Currency.PEN,
+        exchangeRate: 1,
         remark: "text",
       },
     ];
@@ -492,48 +533,64 @@ describe("PartListService", () => {
         product: PRODUCTS[1],
         quantity: 1,
         price: 11,
+        currency: Currency.PEN,
+        exchangeRate: 1,
         remark: "text",
       },
       {
         product: PRODUCTS[1],
         quantity: 2,
         price: 11,
+        currency: Currency.PEN,
+        exchangeRate: 1,
         remark: "text",
       },
       {
         product: PARTLISTS[2],
         quantity: 1,
         price: 11,
+        currency: Currency.PEN,
+        exchangeRate: 1,
         remark: "text",
       },
       {
         product: PRODUCTS[2],
         quantity: 2,
         price: 11,
+        currency: Currency.PEN,
+        exchangeRate: 1,
         remark: "text",
       },
       {
         product: PRODUCTS[3],
         quantity: 1,
         price: 11,
+        currency: Currency.PEN,
+        exchangeRate: 1,
         remark: "text",
       },
       {
         product: PRODUCTS[3],
         quantity: 2,
         price: 11,
+        currency: Currency.PEN,
+        exchangeRate: 1,
         remark: "text",
       },
       {
         product: PRODUCTS[1],
         quantity: 1,
         price: 11,
+        currency: Currency.PEN,
+        exchangeRate: 1,
         remark: "text",
       },
       {
         product: PRODUCTS[1],
         quantity: 2,
         price: 11,
+        currency: Currency.PEN,
+        exchangeRate: 1,
         remark: "text",
       },
     ];

@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Decimal } from "decimal.js";
 
 import {
+  Currency,
   Discount,
   DiscountType,
   DocItem,
@@ -22,7 +23,7 @@ export class DiscountService {
   constructor(
     private taxService: TaxService,
     private documentService: DocumentService
-  ) {}
+  ) { }
 
   applyDiscount(order: Order, discount: Discount): Document {
     if (order.discount) {
@@ -77,7 +78,7 @@ export class DiscountService {
       .neg();
     const item: DocItem = {
       index: order.items.length + 1,
-      product: this.getDiscountProduct(discount),
+      product: this.getDiscountProduct(discount, order.currency),
       quantity: 1,
       netPrice: net.toNumber(),
       netUnitPrice: net.toNumber(),
@@ -134,7 +135,7 @@ export class DiscountService {
     return order;
   }
 
-  private getDiscountProduct(discount: Discount): Product {
+  private getDiscountProduct(discount: Discount, currency: Currency): Product {
     return {
       oid: discount.productOid,
       sku: "",
@@ -143,6 +144,7 @@ export class DiscountService {
       imageOid: "",
       netPrice: 0,
       crossPrice: 0,
+      currency: currency,
       categoryOids: [],
       taxes: [],
       relations: [],

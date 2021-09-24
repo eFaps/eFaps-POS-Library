@@ -1,3 +1,4 @@
+import { Currency } from "./currency"
 import { Tax } from "./tax";
 
 export interface Product {
@@ -8,6 +9,7 @@ export interface Product {
   imageOid: string;
   netPrice: number;
   crossPrice: number;
+  currency: Currency;
   categoryOids: string[];
   taxes: Tax[];
   relations: ProductRelation[];

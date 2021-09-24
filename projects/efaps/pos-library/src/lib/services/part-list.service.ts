@@ -57,7 +57,7 @@ export class PartListService {
       );
     } else {
       const items = this.updateTicketInternal(ticket);
-      return new Observable((observer) => {
+      return new Observable<Item[]>((observer) => {
         observer.next(items);
       });
     }
