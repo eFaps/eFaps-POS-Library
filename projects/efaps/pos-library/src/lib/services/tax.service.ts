@@ -36,6 +36,8 @@ export class TaxService {
             tax: _taxEntry.tax,
             base: 0,
             amount: 0,
+            currency: document.currency,
+            exchangeRate: document.exchangeRate,
           });
         }
         const ce = taxValues.get(_taxEntry.tax.name);

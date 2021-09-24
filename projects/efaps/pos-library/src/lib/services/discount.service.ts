@@ -83,6 +83,8 @@ export class DiscountService {
       netUnitPrice: net.toNumber(),
       crossPrice: cross.toNumber(),
       crossUnitPrice: cross.toNumber(),
+      currency: order.currency,
+      exchangeRate: order.exchangeRate,
       taxes: [],
     };
 
@@ -103,6 +105,8 @@ export class DiscountService {
             tax: taxEntry.tax,
             base: base.toNumber(),
             amount: amount.toNumber(),
+            currency: taxEntry.currency,
+            exchangeRate: taxEntry.exchangeRate,
           });
           break;
       }

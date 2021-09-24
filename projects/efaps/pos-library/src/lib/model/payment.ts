@@ -1,3 +1,5 @@
+import { Currency } from "./currency";
+
 export enum PaymentType {
   CASH,
   FREE,
@@ -9,6 +11,7 @@ export enum PaymentType {
 export interface Payment {
   type: PaymentType;
   amount: number;
+  currency: Currency;
   cardTypeId?: number;
   cardLabel?: string;
   mappingKey?: string;

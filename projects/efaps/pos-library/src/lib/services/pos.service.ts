@@ -4,14 +4,15 @@ import { Decimal } from "decimal.js";
 import { BehaviorSubject, Observable } from "rxjs";
 
 import {
+  Currency,
+  DocItem,
+  DocStatus,
   Item,
   Order,
   Pos,
-  TaxType,
   Tax,
-  DocStatus,
-  DocItem,
   TaxEntry,
+  TaxType,
 } from "../model";
 import { ConfigService } from "./config.service";
 import { DocumentService } from "./document.service";
@@ -50,9 +51,13 @@ export class PosService {
   private crossTotalSource = new BehaviorSubject<number>(this.crossTotal);
   currentCrossTotal = this.crossTotalSource.asObservable();
 
-  public currency = "USD";
-  private currencySource = new BehaviorSubject<string>(this.currency);
+  public currency = Currency.USD;
+  private currencySource = new BehaviorSubject<Currency>(this.currency);
   currentCurrency = this.currencySource.asObservable();
+
+  public exchangeRate = 1;
+  private exchangeRateSource = new BehaviorSubject<number>(this.exchangeRate);
+  currentExchangeRate = this.exchangeRateSource.asObservable();
 
   private currentPos: Pos;
 
@@ -81,6 +86,7 @@ export class PosService {
       (crossTotal) => (this.crossTotal = crossTotal)
     );
     this.currentCurrency.subscribe((currency) => (this.currency = currency));
+    this.currentExchangeRate.subscribe((exchangeRate) => (this.exchangeRate = exchangeRate));
   }
 
   public getPoss(): Observable<Pos[]> {
@@ -109,6 +115,8 @@ export class PosService {
           product: _item.product,
           quantity: _item.quantity,
           price: _item.crossPrice,
+          currency: this.currency,
+          exchangeRate: this.exchangeRate,
           remark: _item.remark,
         });
       });
@@ -210,6 +218,7 @@ export class PosService {
       oid: null,
       number: null,
       currency: this.currency,
+      exchangeRate: this.exchangeRate,
       items: this.getDocItems(),
       status: DocStatus.OPEN,
       netTotal: this.netTotal,
@@ -257,6 +266,8 @@ export class PosService {
         tax: tax,
         base: base,
         amount: taxAmount.toNumber(),
+        currency: item.currency,
+        exchangeRate: item.exchangeRate
       });
     });
     return entries;
@@ -272,6 +283,8 @@ export class PosService {
             tax: taxEntry.tax,
             base: 0,
             amount: 0,
+            currency: item.currency,
+            exchangeRate: item.exchangeRate
           });
         }
         const ce = taxValues.get(taxEntry.tax.name);

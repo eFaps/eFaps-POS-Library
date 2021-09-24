@@ -3,17 +3,19 @@ import { Payment } from "./payment";
 import { Product } from "./product";
 import { Spot } from "./spot";
 import { TaxEntry } from "./tax";
+import { Currency } from "./currency";
 
 export interface Document {
   type?: "ORDER" | "RECEIPT" | "INVOICE" | "TICKET";
   id: string | null;
   oid: string | null;
   number: string | null;
-  currency: string;
+  currency: Currency;
   items: DocItem[];
   status: DocStatus;
   netTotal: number;
   crossTotal: number;
+  exchangeRate: number;
   taxes: TaxEntry[];
   contactOid?: string;
   workspaceOid?: string;
@@ -46,6 +48,8 @@ export interface DocItem {
   netUnitPrice: number;
   crossPrice: number;
   crossUnitPrice: number;
+  currency: Currency;
+  exchangeRate: number;
   remark?: string;
   taxes: TaxEntry[];
 }

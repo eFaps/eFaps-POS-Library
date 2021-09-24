@@ -100,6 +100,8 @@ export class PartListService {
             quantity: 1,
             price: partList.crossPrice,
             remark: "",
+            currency: ticket[0].currency,
+            exchangeRate: ticket[0].exchangeRate
           });
           ticket = tempTicket;
         }

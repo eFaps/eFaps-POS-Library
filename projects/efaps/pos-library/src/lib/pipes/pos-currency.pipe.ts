@@ -1,4 +1,8 @@
-import { Pipe, PipeTransform, Injectable } from "@angular/core";
+import { Injectable, Pipe, PipeTransform } from "@angular/core";
+
+import {
+  Currency,
+} from "../model";
 import { UtilsService } from "../services/utils.service";
 
 @Injectable({
@@ -11,9 +15,9 @@ import { UtilsService } from "../services/utils.service";
 export class PosCurrencyPipe implements PipeTransform {
   constructor(private utilsService: UtilsService) {}
 
-  transform(_value: number, _currency: string): any {
+  transform(_value: number, currency: Currency): any {
     return (
-      this.utilsService.getCurrencySymbol(_currency) +
+      this.utilsService.getCurrencySymbol(Currency[currency]) +
       this.utilsService.toString(_value)
     );
   }

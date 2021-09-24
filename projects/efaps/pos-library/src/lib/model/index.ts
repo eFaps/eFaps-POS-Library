@@ -4,6 +4,7 @@ export * from "./balance";
 export * from "./barcode";
 export * from "./category";
 export * from "./collector";
+export * from "./currency";
 export * from "./company";
 export * from "./config";
 export * from "./contact";
