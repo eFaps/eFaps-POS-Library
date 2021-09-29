@@ -21,6 +21,7 @@ export class CollectService {
   startCollect(
     key: string,
     amount: number,
+    currency: Currency,
     details: any,
     orderId?: string
   ): Observable<CollectStart> {
@@ -29,6 +30,7 @@ export class CollectService {
       .toString();
     const collectOrder = {
       amount: amountStr,
+      currency: currency,
       details: details,
       orderId: orderId,
     };
