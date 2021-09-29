@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Decimal } from "decimal.js";
 import { Observable } from "rxjs";
 
-import { CollectOrder, CollectStart, Collector } from "../model/collector";
+import { CollectOrder, CollectStart, Collector, Currency } from "../model";
 import { ConfigService } from "./config.service";
 
 @Injectable({
