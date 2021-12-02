@@ -3,7 +3,6 @@ import {
   OnDestroy,
   Pipe,
   PipeTransform,
-  WrappedValue,
   Injectable,
 } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
@@ -92,7 +91,8 @@ export class SecurePipe implements PipeTransform, OnDestroy {
       return this.latestReturnedValue;
     }
     this.latestReturnedValue = this.latestValue;
-    return WrappedValue.wrap(this.latestValue);
+    // maybe clone?
+    return this.latestValue;
   }
 
   private _subscribe(_obj: Observable<any>) {
