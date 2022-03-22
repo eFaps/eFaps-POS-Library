@@ -5,6 +5,7 @@ import { map } from "rxjs/operators";
 
 import {
   Balance,
+  CreditNote,
   Invoice,
   Order,
   Payable,
@@ -47,6 +48,11 @@ export class DocumentService {
   public createTicket(orderId: string, ticket: Ticket): Observable<Ticket> {
     const url = `${this.config.baseUrl}/workspaces/${this.wsoid}/documents/tickets`;
     return this.http.post<Ticket>(url, ticket, { params: { orderId } });
+  }
+
+  public createCreditNote(creditNote: CreditNote): Observable<CreditNote> {
+    const url = `${this.config.baseUrl}/workspaces/${this.wsoid}/documents/creditnotes`;
+    return this.http.post<CreditNote>(url, creditNote);
   }
 
   public createOrder(_order: Order): Observable<Order> {

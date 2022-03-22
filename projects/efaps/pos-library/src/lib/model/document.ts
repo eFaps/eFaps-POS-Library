@@ -6,7 +6,7 @@ import { TaxEntry } from "./tax";
 import { Currency } from "./currency";
 
 export interface Document {
-  type?: "ORDER" | "RECEIPT" | "INVOICE" | "TICKET";
+  type?: "ORDER" | "RECEIPT" | "INVOICE" | "TICKET" | "CREDITNOTE";
   id: string | null;
   oid: string | null;
   number: string | null;
@@ -39,6 +39,8 @@ export interface Receipt extends Payable {}
 export interface Invoice extends Payable {}
 /* tslint:disable-next-line */
 export interface Ticket extends Payable {}
+/* tslint:disable-next-line */
+export interface CreditNote extends Payable {}
 
 export interface DocItem {
   index: number;
@@ -67,7 +69,7 @@ export enum DocStatus {
 }
 
 export interface DocumentHead {
-  type?: "ORDER" | "RECEIPT" | "INVOICE" | "TICKET";
+  type?: "ORDER" | "RECEIPT" | "INVOICE" | "TICKET" | "CREDITNOTE";
   id: string;
   number: string;
   netTotal: number;
