@@ -1,8 +1,6 @@
 import { Injectable, Pipe, PipeTransform } from "@angular/core";
 
-import {
-  Currency,
-} from "../model";
+import { Currency } from "../model";
 import { UtilsService } from "../services/utils.service";
 
 @Injectable({

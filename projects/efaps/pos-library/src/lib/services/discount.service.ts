@@ -23,7 +23,7 @@ export class DiscountService {
   constructor(
     private taxService: TaxService,
     private documentService: DocumentService
-  ) { }
+  ) {}
 
   applyDiscount(order: Order, discount: Discount): Document {
     if (order.discount) {

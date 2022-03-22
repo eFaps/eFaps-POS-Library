@@ -86,7 +86,9 @@ export class PosService {
       (crossTotal) => (this.crossTotal = crossTotal)
     );
     this.currentCurrency.subscribe((currency) => (this.currency = currency));
-    this.currentExchangeRate.subscribe((exchangeRate) => (this.exchangeRate = exchangeRate));
+    this.currentExchangeRate.subscribe(
+      (exchangeRate) => (this.exchangeRate = exchangeRate)
+    );
   }
 
   public getPoss(): Observable<Pos[]> {
@@ -267,7 +269,7 @@ export class PosService {
         base: base,
         amount: taxAmount.toNumber(),
         currency: item.currency,
-        exchangeRate: item.exchangeRate
+        exchangeRate: item.exchangeRate,
       });
     });
     return entries;
@@ -284,7 +286,7 @@ export class PosService {
             base: 0,
             amount: 0,
             currency: item.currency,
-            exchangeRate: item.exchangeRate
+            exchangeRate: item.exchangeRate,
           });
         }
         const ce = taxValues.get(taxEntry.tax.name);
