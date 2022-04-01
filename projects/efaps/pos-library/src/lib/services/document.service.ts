@@ -120,6 +120,16 @@ export class DocumentService {
     );
   }
 
+  public getCreditNote(id: string): Observable<CreditNote> {
+    const url = `${this.config.baseUrl}/documents/creditnotes/${id}`;
+    return this.http.get<CreditNote>(url).pipe(
+      map((doc) => {
+        doc.type = "CREDITNOTE";
+        return doc;
+      })
+    );
+  }
+
   public getDocuments4Balance(_balance: Balance): Observable<Payable[]> {
     return merge(
       this.getReceipts4Balance(_balance),
