@@ -124,7 +124,8 @@ export class DocumentService {
     return merge(
       this.getReceipts4Balance(_balance),
       this.getInvoices4Balance(_balance),
-      this.getTickets4Balance(_balance)
+      this.getTickets4Balance(_balance),
+      this.getCreditNotes4Balance(_balance)
     );
   }
 
@@ -167,11 +168,25 @@ export class DocumentService {
     );
   }
 
+  private getCreditNotes4Balance(_balance: Balance): Observable<Payable[]> {
+    const url = `${this.config.baseUrl}/documents/creditnotes`;
+    const balanceOid = _balance.oid ? _balance.oid : _balance.id;
+    return this.http.get<CreditNote[]>(url, { params: { balanceOid } }).pipe(
+      map((docs) => {
+        docs.map((doc) => {
+          doc.type = "CREDITNOTE";
+        });
+        return [...docs];
+      })
+    );
+  }
+
   public findPayables(_term: string): Observable<PayableHead[]> {
     return merge(
       this.findReceipts(_term),
       this.findInvoices(_term),
-      this.findTickets(_term)
+      this.findTickets(_term),
+      this.findCreditNotes(_term)
     );
   }
 
@@ -205,6 +220,18 @@ export class DocumentService {
       map((docs) => {
         docs.map((doc) => {
           doc.type = "TICKET";
+        });
+        return [...docs];
+      })
+    );
+  }
+
+  private findCreditNotes(_term: string): Observable<PayableHead[]> {
+    const url = `${this.config.baseUrl}/documents/creditnotes`;
+    return this.http.get<PayableHead[]>(url, { params: { term: _term } }).pipe(
+      map((docs) => {
+        docs.map((doc) => {
+          doc.type = "CREDITNOTE";
         });
         return [...docs];
       })

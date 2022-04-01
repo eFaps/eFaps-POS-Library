@@ -40,7 +40,9 @@ export interface Invoice extends Payable {}
 /* tslint:disable-next-line */
 export interface Ticket extends Payable {}
 /* tslint:disable-next-line */
-export interface CreditNote extends Payable {}
+export interface CreditNote extends Payable {
+  baseDocOid: string;
+}
 
 export interface DocItem {
   index: number;
