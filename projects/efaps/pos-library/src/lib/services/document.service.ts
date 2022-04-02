@@ -151,7 +151,7 @@ export class DocumentService {
 
   private getReceiptsByIdent(ident: string): Observable<Receipt> {
     const url = `${this.config.baseUrl}/documents/receipts`;
-    return this.http.get<Receipt>(url).pipe(
+    return this.http.get<Receipt>(url, { params: { ident } }).pipe(
       map((doc) => {
         doc.type = "RECEIPT";
         return doc;
@@ -162,7 +162,7 @@ export class DocumentService {
 
   private getInvoiceByIdent(ident: string): Observable<Invoice> {
     const url = `${this.config.baseUrl}/documents/invoices`;
-    return this.http.get<Invoice>(url).pipe(
+    return this.http.get<Invoice>(url, { params: { ident } }).pipe(
       map((doc) => {
         doc.type = "INVOICE";
         return doc;
