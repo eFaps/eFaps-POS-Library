@@ -1,7 +1,7 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, merge } from "rxjs";
-import { map } from "rxjs/operators";
+import { map, catchError } from "rxjs/operators";
 
 import {
   Balance,
@@ -141,6 +141,36 @@ export class DocumentService {
       })
     );
   }
+
+  public getPayableByIdent(ident: string): Observable<Payable> {
+    return merge(
+      this.getReceiptsByIdent(ident),
+      this.getInvoiceByIdent(ident)
+    );
+  }
+
+  private getReceiptsByIdent(ident: string): Observable<Receipt> {
+    const url = `${this.config.baseUrl}/documents/receipts`;
+    return this.http.get<Receipt>(url).pipe(
+      map((doc) => {
+        doc.type = "RECEIPT";
+        return doc;
+      }),
+      catchError(error => { return new Observable<Receipt>((observer) => { observer.error }) })
+    );
+  }
+
+  private getInvoiceByIdent(ident: string): Observable<Invoice> {
+    const url = `${this.config.baseUrl}/documents/invoices`;
+    return this.http.get<Invoice>(url).pipe(
+      map((doc) => {
+        doc.type = "INVOICE";
+        return doc;
+      }),
+      catchError(error => { return new Observable<Invoice>((observer) => { observer.error }) })
+    );
+  }
+
 
   public getDocuments4Balance(_balance: Balance): Observable<Payable[]> {
     return merge(
