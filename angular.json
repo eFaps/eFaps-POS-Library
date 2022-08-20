@@ -43,6 +43,5 @@
         }
       }
     }
-  },
-  "defaultProject": "@efaps/pos-library"
+  }
 }
