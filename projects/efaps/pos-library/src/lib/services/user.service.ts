@@ -17,4 +17,10 @@ export class UserService {
     const requestUrl = `${href}`;
     return this.http.get<User[]>(requestUrl);
   }
+
+  public current(): Observable<User> {
+    const href = this.config.baseUrl + "/users/current";
+    const requestUrl = `${href}`;
+    return this.http.get<User>(requestUrl);
+  }
 }

@@ -130,23 +130,24 @@ export class DocumentService {
     );
   }
 
-  public getCreditNotes4SourceDocument(sourceDocOid: string): Observable<CreditNote[]> {
+  public getCreditNotes4SourceDocument(
+    sourceDocOid: string
+  ): Observable<CreditNote[]> {
     const url = `${this.config.baseUrl}/documents/creditnotes`;
-    return this.http.get<CreditNote[]>(url, { params: { sourceDocOid: sourceDocOid } }).pipe(
-      map((docs) => {
-        docs.map((doc) => {
-          doc.type = "CREDITNOTE";
-        });
-        return [...docs];
-      })
-    );
+    return this.http
+      .get<CreditNote[]>(url, { params: { sourceDocOid: sourceDocOid } })
+      .pipe(
+        map((docs) => {
+          docs.map((doc) => {
+            doc.type = "CREDITNOTE";
+          });
+          return [...docs];
+        })
+      );
   }
 
   public getPayableByIdent(ident: string): Observable<Payable> {
-    return merge(
-      this.getReceiptsByIdent(ident),
-      this.getInvoiceByIdent(ident)
-    );
+    return merge(this.getReceiptsByIdent(ident), this.getInvoiceByIdent(ident));
   }
 
   private getReceiptsByIdent(ident: string): Observable<Receipt> {
@@ -156,7 +157,11 @@ export class DocumentService {
         doc.type = "RECEIPT";
         return doc;
       }),
-      catchError(error => { return new Observable<Receipt>((observer) => { observer.error }) })
+      catchError((error) => {
+        return new Observable<Receipt>((observer) => {
+          observer.error;
+        });
+      })
     );
   }
 
@@ -167,10 +172,13 @@ export class DocumentService {
         doc.type = "INVOICE";
         return doc;
       }),
-      catchError(error => { return new Observable<Invoice>((observer) => { observer.error }) })
+      catchError((error) => {
+        return new Observable<Invoice>((observer) => {
+          observer.error;
+        });
+      })
     );
   }
-
 
   public getDocuments4Balance(_balance: Balance): Observable<Payable[]> {
     return merge(
