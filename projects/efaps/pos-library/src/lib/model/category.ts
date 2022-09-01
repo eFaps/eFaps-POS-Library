@@ -5,8 +5,10 @@ export interface Category {
   name: string;
   imageOid?: string;
   weight?: number;
+  parentOid?: string;
 }
 
 export interface PosCategory extends Category {
   products: Product[];
+  categories: PosCategory[];
 }

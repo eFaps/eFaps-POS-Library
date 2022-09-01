@@ -44,21 +44,44 @@ export class ProductService {
   public getPosCategories(): Observable<PosCategory[]> {
     return forkJoin([this.getCategories(), this.getProducts()]).pipe(
       map((data: any[]) => {
-        const categories: Category[] = data[0];
-        const products: Product[] = data[1];
+        const categoryList: Category[] = data[0];
+        const productList: Product[] = data[1];
+        const rootCategories = categoryList.filter(
+          (category) => category.parentOid == null
+        );
         const posCategories: PosCategory[] = [];
-        categories.forEach((_category) => {
-          posCategories.push({
-            oid: _category.oid,
-            name: _category.name,
-            products: products.filter((_product) =>
-              _product.categoryOids.includes(_category.oid)
-            ),
-          });
+        rootCategories.forEach((_category) => {
+          posCategories.push(
+            this.getPosCategory(_category, categoryList, productList)
+          );
         });
         return posCategories;
       })
     );
+  }
+
+  private getPosCategory(
+    category: Category,
+    categoryList: Category[],
+    productList: Product[]
+  ): PosCategory {
+    const childCategories = categoryList.filter(
+      (category) => category.parentOid == category.oid
+    );
+    const childPosCategories: PosCategory[] = [];
+    childCategories.forEach((childCategory) => {
+      childPosCategories.push(
+        this.getPosCategory(childCategory, categoryList, productList)
+      );
+    });
+    return {
+      oid: category.oid,
+      name: category.name,
+      products: productList.filter((_product) =>
+        _product.categoryOids.includes(category.oid)
+      ),
+      categories: childPosCategories,
+    };
   }
 
   public getCategories(): Observable<Category[]> {
