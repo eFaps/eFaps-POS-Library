@@ -55,7 +55,11 @@ export class ProductService {
             this.getPosCategory(_category, categoryList, productList)
           );
         });
-        return posCategories;
+        return posCategories.sort((n1, n2) => {
+          const w1 = n1.weight ? 0 : n1.weight;
+          const w2 = n2.weight ? 0 : n2.weight;
+          return w1 - w2;
+        });
       })
     );
   }
@@ -66,7 +70,7 @@ export class ProductService {
     productList: Product[]
   ): PosCategory {
     const childCategories = categoryList.filter(
-      (category) => category.parentOid == category.oid
+      (cat) => cat.parentOid == category.oid
     );
     const childPosCategories: PosCategory[] = [];
     childCategories.forEach((childCategory) => {
@@ -80,7 +84,11 @@ export class ProductService {
       products: productList.filter((_product) =>
         _product.categoryOids.includes(category.oid)
       ),
-      categories: childPosCategories,
+      categories: childPosCategories.sort((n1, n2) => {
+        const w1 = n1.weight ? 0 : n1.weight;
+        const w2 = n2.weight ? 0 : n2.weight;
+        return w1 - w2;
+      }),
     };
   }
 
