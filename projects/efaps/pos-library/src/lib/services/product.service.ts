@@ -85,6 +85,10 @@ export class ProductService {
         return _product.categories.some((prod2cat) => {
           return prod2cat.categoryOid == category.oid;
         });
+      }).sort((n1, n2) => {
+        const w1 = n1.categories.filter(prod2cat => prod2cat.categoryOid == category.oid)[0].weight
+        const w2 = n2.categories.filter(prod2cat => prod2cat.categoryOid == category.oid)[0].weight
+        return w1 - w2;
       }),
       categories: childPosCategories.sort((n1, n2) => {
         const w1 = n1.weight ? 0 : n1.weight;
