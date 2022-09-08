@@ -81,11 +81,11 @@ export class ProductService {
     return {
       oid: category.oid,
       name: category.name,
-      products: productList.filter((_product) =>
+      products: productList.filter((_product) => {
         _product.categories.some((prod2cat) => {
-          prod2cat.categoryOid == category.oid;
-        })
-      ),
+          return prod2cat.categoryOid == category.oid;
+        });
+      }),
       categories: childPosCategories.sort((n1, n2) => {
         const w1 = n1.weight ? 0 : n1.weight;
         const w2 = n2.weight ? 0 : n2.weight;
