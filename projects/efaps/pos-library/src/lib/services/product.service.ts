@@ -82,7 +82,7 @@ export class ProductService {
       oid: category.oid,
       name: category.name,
       products: productList.filter((_product) => {
-        _product.categories.some((prod2cat) => {
+        return _product.categories.some((prod2cat) => {
           return prod2cat.categoryOid == category.oid;
         });
       }),
