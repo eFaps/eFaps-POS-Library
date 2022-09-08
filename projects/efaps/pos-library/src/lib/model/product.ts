@@ -10,11 +10,16 @@ export interface Product {
   netPrice: number;
   crossPrice: number;
   currency: Currency;
-  categoryOids: string[];
+  categories: Product2Category[];
   taxes: Tax[];
   relations: ProductRelation[];
   indicationSets: IndicationSet[];
   barcodes: Barcode[];
+}
+
+export interface Product2Category {
+  categoryOid: string;
+  weight: number;
 }
 
 export interface Barcode {

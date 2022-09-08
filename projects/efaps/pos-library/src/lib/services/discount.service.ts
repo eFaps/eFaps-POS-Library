@@ -145,7 +145,7 @@ export class DiscountService {
       netPrice: 0,
       crossPrice: 0,
       currency: currency,
-      categoryOids: [],
+      categories: [],
       taxes: [],
       relations: [],
       indicationSets: [],

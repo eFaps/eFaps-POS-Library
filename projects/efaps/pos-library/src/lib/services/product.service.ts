@@ -82,7 +82,9 @@ export class ProductService {
       oid: category.oid,
       name: category.name,
       products: productList.filter((_product) =>
-        _product.categoryOids.includes(category.oid)
+        _product.categories.some((prod2cat) => {
+          prod2cat.categoryOid == category.oid;
+        })
       ),
       categories: childPosCategories.sort((n1, n2) => {
         const w1 = n1.weight ? 0 : n1.weight;
