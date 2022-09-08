@@ -9,7 +9,7 @@ import { PartListService } from "./part-list.service";
 import { PosConfigToken } from "./pos-config.token";
 import { ProductService } from "./product.service";
 
-const PRODUCTS = [
+const PRODUCTS: Product[] = [
   {
     oid: "111.1",
     sku: "0815.2564",
@@ -19,7 +19,7 @@ const PRODUCTS = [
     netPrice: 12,
     crossPrice: 14,
     currency: Currency.PEN,
-    categoryOids: [],
+    categories: [],
     taxes: [],
     relations: [],
     indicationSets: [],
@@ -34,7 +34,7 @@ const PRODUCTS = [
     netPrice: 12,
     crossPrice: 14,
     currency: Currency.PEN,
-    categoryOids: [],
+    categories: [],
     taxes: [],
     relations: [],
     indicationSets: [],
@@ -49,7 +49,7 @@ const PRODUCTS = [
     netPrice: 12,
     crossPrice: 14,
     currency: Currency.PEN,
-    categoryOids: [],
+    categories: [],
     taxes: [],
     relations: [],
     indicationSets: [],
@@ -64,7 +64,7 @@ const PRODUCTS = [
     netPrice: 12,
     crossPrice: 14,
     currency: Currency.PEN,
-    categoryOids: [],
+    categories: [],
     taxes: [],
     relations: [],
     indicationSets: [],
@@ -72,7 +72,7 @@ const PRODUCTS = [
   },
 ];
 
-const PARTLISTS = [
+const PARTLISTS: Product[] = [
   {
     oid: "123.45",
     sku: "0815.2563",
@@ -82,7 +82,7 @@ const PARTLISTS = [
     netPrice: 12,
     crossPrice: 14,
     currency: Currency.PEN,
-    categoryOids: [],
+    categories: [],
     taxes: [],
     relations: [
       {
@@ -104,7 +104,7 @@ const PARTLISTS = [
     netPrice: 12,
     crossPrice: 14,
     currency: Currency.PEN,
-    categoryOids: [],
+    categories: [],
     taxes: [],
     relations: [
       {
@@ -126,7 +126,7 @@ const PARTLISTS = [
     netPrice: 12,
     crossPrice: 14,
     currency: Currency.PEN,
-    categoryOids: [],
+    categories: [],
     taxes: [],
     relations: [
       {
@@ -148,7 +148,7 @@ const PARTLISTS = [
     netPrice: 12,
     crossPrice: 14,
     currency: Currency.PEN,
-    categoryOids: [],
+    categories: [],
     taxes: [],
     relations: [
       {
@@ -176,7 +176,7 @@ const PARTLISTS = [
     netPrice: 12,
     crossPrice: 14,
     currency: Currency.PEN,
-    categoryOids: [],
+    categories: [],
     taxes: [],
     relations: [
       {
@@ -210,7 +210,7 @@ const PARTLISTS = [
     netPrice: 12,
     crossPrice: 14,
     currency: Currency.PEN,
-    categoryOids: [],
+    categories: [],
     taxes: [],
     relations: [],
     indicationSets: [],
@@ -225,7 +225,7 @@ const PARTLISTS = [
     netPrice: 12,
     crossPrice: 14,
     currency: Currency.PEN,
-    categoryOids: [],
+    categories: [],
     taxes: [],
     relations: [
       {
