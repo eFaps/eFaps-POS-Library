@@ -7,5 +7,5 @@ export interface Item {
   price: number;
   currency: Currency;
   exchangeRate: number;
-  remark: string;
+  remark: string | null;
 }

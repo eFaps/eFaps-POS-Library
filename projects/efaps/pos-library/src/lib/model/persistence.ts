@@ -16,6 +16,6 @@ export interface CleanableObject {
 }
 
 export interface CurrentUser extends PersistenceObject, CleanableObject {
-  username: string;
-  tokens: Tokens;
+  username: string | undefined;
+  tokens: Tokens | undefined;
 }
