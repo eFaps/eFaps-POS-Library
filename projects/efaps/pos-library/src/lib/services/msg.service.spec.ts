@@ -1,11 +1,12 @@
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { TestBed, inject } from "@angular/core/testing";
-import { RxStompService } from "@stomp/ng2-stompjs";
+
 import { Observable } from "rxjs";
 
 import { AuthService } from "./auth.service";
 import { ConfigService } from "./config.service";
 import { MsgService } from "./msg.service";
+import { RxStompService } from "./rx-stomp.service";
 
 class ConfigServiceStub {}
 class AuthServiceStub {

@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
-import { RxStompService, InjectableRxStompConfig } from "@stomp/ng2-stompjs";
+import { RxStompConfig } from "@stomp/rx-stomp";
 
 import { AuthService } from "./auth.service";
 import { ConfigService } from "./config.service";
+import { RxStompService } from "./rx-stomp.service";
 
 @Injectable({
   providedIn: "root",
@@ -23,7 +24,7 @@ export class MsgService {
 
   init() {
     if (!this.stompService.connected()) {
-      const stompConfig: InjectableRxStompConfig = {
+      const stompConfig: RxStompConfig = {
         brokerURL: this.configService.socketUrl,
         connectHeaders: {
           login: this.authService.currentUser.tokens.accessToken,

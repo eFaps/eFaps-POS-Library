@@ -1,7 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ModuleWithProviders, NgModule } from "@angular/core";
-import { RxStompService } from "@stomp/ng2-stompjs";
 
 import { AdminGuard } from "./guards/admin.guard";
 import { AuthGuard } from "./guards/auth.guard";
@@ -28,6 +27,7 @@ import { PosConfigToken } from "./services/pos-config.token";
 import { PosService } from "./services/pos.service";
 import { PrintService } from "./services/print.service";
 import { ProductService } from "./services/product.service";
+import { RxStompService } from "./services/rx-stomp.service";
 import { SpotService } from "./services/spot.service";
 import { TaxService } from "./services/tax.service";
 import { TaxpayerService } from "./services/taxpayer.service";
