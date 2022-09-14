@@ -59,6 +59,10 @@ export class PosService {
   private exchangeRateSource = new BehaviorSubject<number>(this.exchangeRate);
   currentExchangeRate = this.exchangeRateSource.asObservable();
 
+  private _multiplier : number = 1
+  private multiplierSource = new BehaviorSubject<number>(this._multiplier);
+  multiplier = this.multiplierSource.asObservable();
+
   private currentPos: Pos;
 
   constructor(
@@ -89,6 +93,7 @@ export class PosService {
     this.currentExchangeRate.subscribe(
       (exchangeRate) => (this.exchangeRate = exchangeRate)
     );
+    this.multiplier.subscribe({next: (multiplier) => this._multiplier = multiplier})
   }
 
   public getPoss(): Observable<Pos[]> {
@@ -123,6 +128,10 @@ export class PosService {
         });
       });
     this.changeTicket(items);
+  }
+
+  public setMultiplier(multiplier: number) {
+    this.multiplierSource.next(multiplier)
   }
 
   changeTicket(ticket: Item[]) {
