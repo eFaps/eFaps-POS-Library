@@ -29,7 +29,7 @@ export interface Payable extends Document {
 }
 
 export interface Order extends Document {
-  payableOid: string;
+  payableOid?: string;
   spot?: Spot;
   shoutout?: string;
 }
