@@ -25,7 +25,7 @@ export class DiscountService {
     private documentService: DocumentService
   ) {}
 
-  applyDiscount(order: Order, discount: Discount): Document {
+  applyDiscount(order: Order, discount: Discount | null): Document {
     if (order.discount) {
       order.items = order.items.filter(
         (item) => item.product.oid != order.discount.productOid

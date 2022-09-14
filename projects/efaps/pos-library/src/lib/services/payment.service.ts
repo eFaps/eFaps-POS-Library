@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Decimal } from "decimal.js";
 import { BehaviorSubject } from "rxjs";
 
-import { Document, Payment } from "../model/index";
+import { Currency, Document, Payment } from "../model/index";
 import { PosService } from "./pos.service";
 
 @Injectable({
@@ -22,7 +22,7 @@ export class PaymentService {
   private totalSource = new BehaviorSubject<number>(this.total);
   currentTotal = this.totalSource.asObservable();
 
-  currency: string;
+  currency: Currency;
 
   constructor(private posService: PosService) {
     this.posService.currentCurrency.subscribe((_data) => {

@@ -180,7 +180,7 @@ export class DocumentService {
     );
   }
 
-  public getDocuments4Balance(_balance: Balance): Observable<Payable[]> {
+  public getDocuments4Balance(_balance: Balance): Observable<PayableHead[]> {
     return merge(
       this.getReceipts4Balance(_balance),
       this.getInvoices4Balance(_balance),
@@ -189,7 +189,7 @@ export class DocumentService {
     );
   }
 
-  private getReceipts4Balance(_balance: Balance): Observable<Payable[]> {
+  private getReceipts4Balance(_balance: Balance): Observable<PayableHead[]> {
     const url = `${this.config.baseUrl}/documents/receipts`;
     const balanceOid = _balance.oid ? _balance.oid : _balance.id;
     return this.http.get<Receipt[]>(url, { params: { balanceOid } }).pipe(
@@ -202,7 +202,7 @@ export class DocumentService {
     );
   }
 
-  private getInvoices4Balance(_balance: Balance): Observable<Payable[]> {
+  private getInvoices4Balance(_balance: Balance): Observable<PayableHead[]> {
     const url = `${this.config.baseUrl}/documents/invoices`;
     const balanceOid = _balance.oid ? _balance.oid : _balance.id;
     return this.http.get<Invoice[]>(url, { params: { balanceOid } }).pipe(
@@ -215,7 +215,7 @@ export class DocumentService {
     );
   }
 
-  private getTickets4Balance(_balance: Balance): Observable<Payable[]> {
+  private getTickets4Balance(_balance: Balance): Observable<PayableHead[]> {
     const url = `${this.config.baseUrl}/documents/tickets`;
     const balanceOid = _balance.oid ? _balance.oid : _balance.id;
     return this.http.get<Ticket[]>(url, { params: { balanceOid } }).pipe(
@@ -228,7 +228,7 @@ export class DocumentService {
     );
   }
 
-  private getCreditNotes4Balance(_balance: Balance): Observable<Payable[]> {
+  private getCreditNotes4Balance(_balance: Balance): Observable<PayableHead[]> {
     const url = `${this.config.baseUrl}/documents/creditnotes`;
     const balanceOid = _balance.oid ? _balance.oid : _balance.id;
     return this.http.get<CreditNote[]>(url, { params: { balanceOid } }).pipe(
