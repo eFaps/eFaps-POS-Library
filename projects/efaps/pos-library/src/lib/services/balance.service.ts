@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { tap } from "rxjs/operators";
 
-import { Balance, BalanceSummary } from "../model";
+import { Balance, BalanceSummary, CashEntry } from "../model";
 import { AuthService } from "./auth.service";
 import { ConfigService } from "./config.service";
 import { WorkspaceService } from "./workspace.service";
@@ -70,6 +70,11 @@ export class BalanceService {
     this.getCurrent(true).subscribe((_balance) =>
       this.balanceSource.next(_balance)
     );
+  }
+
+  addCashEntries(balance: Balance, cashEntries: CashEntry[]) : Observable<Object> {
+    const requestUrl = `${this.config.baseUrl}/balance/${balance.id}/cash`;
+    return this.http.post(requestUrl, cashEntries);
   }
 
   close(balance: Balance): Observable<Balance> {
