@@ -1,9 +1,10 @@
-import { Balance } from "./balance";
+import { Balance, CashEntry } from "./balance";
 import { PaymentType } from "./payment";
 import { TaxEntry } from "./tax";
 
 export interface BalanceSummary {
   balance: Balance;
+  cashEntries: CashEntry[];
   detail: SummaryDetail;
   invoiceDetail: SummaryDetail;
   receiptDetail: SummaryDetail;
