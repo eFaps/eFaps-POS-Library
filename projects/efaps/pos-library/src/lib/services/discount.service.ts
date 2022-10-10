@@ -141,6 +141,7 @@ export class DiscountService {
       sku: "",
       type: ProductType.TEXT,
       description: "Descuento",
+      note: null,
       imageOid: "",
       netPrice: 0,
       crossPrice: 0,
