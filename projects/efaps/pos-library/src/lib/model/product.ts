@@ -6,6 +6,7 @@ export interface Product {
   sku: string;
   type: ProductType;
   description: string;
+  note: string;
   imageOid: string;
   netPrice: number;
   crossPrice: number;
