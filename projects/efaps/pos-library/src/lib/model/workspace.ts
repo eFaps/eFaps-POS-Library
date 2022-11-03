@@ -15,10 +15,10 @@ export interface Workspace {
   discounts: Discount[];
   cards: Card[];
   gridSize: PosGridSize;
-  gridShowPrice: boolean;
   floors: Floor[];
   categoryOids?: String[];
-  flow: PosFlow;
+  // flagged enum value with WorkspaceFlag
+  flags: number;
 }
 
 export interface PrintCmd {
@@ -44,7 +44,7 @@ export enum PosGridSize {
   LARGE = "LARGE",
 }
 
-export enum PosFlow {
-  STANDART = "STANDART",
-  ASSISTED = "ASSISTED"
+export enum WorkspaceFlag {
+  gridShowPrice = 1 << 0,
+  orderRequiresContact = 1 << 1
 }
