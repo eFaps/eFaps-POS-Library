@@ -18,6 +18,7 @@ export interface Workspace {
   gridShowPrice: boolean;
   floors: Floor[];
   categoryOids?: String[];
+  flow: PosFlow;
 }
 
 export interface PrintCmd {
@@ -41,4 +42,9 @@ export enum PosGridSize {
   SMALL = "SMALL",
   MEDIUM = "MEDIUM",
   LARGE = "LARGE",
+}
+
+export enum PosFlow {
+  STANDART = "STANDART",
+  ASSISTED = "ASSISTED"
 }
