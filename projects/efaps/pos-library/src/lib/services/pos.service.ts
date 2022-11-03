@@ -65,6 +65,8 @@ export class PosService {
 
   private currentPos: Pos;
 
+  private _contactOid: string | null
+
   constructor(
     private http: HttpClient,
     private config: ConfigService,
@@ -113,6 +115,7 @@ export class PosService {
       );
       order.discount = null;
     }
+    this.contactOid = order.contactOid
     this.orderSource.next(order);
     const items: Item[] = [];
     order.items
@@ -237,6 +240,7 @@ export class PosService {
       taxes: this.getTaxEntries(),
       discount: null,
       payableOid: null,
+      contactOid: this.contactOid
     });
   }
 
@@ -355,5 +359,13 @@ export class PosService {
   public reset() {
     this.changeTicket([]);
     this.orderSource.next(null);
+  }
+
+  public set contactOid(contactOid: string | null) {
+    this._contactOid = contactOid
+  }
+
+  public get contactOid(): string | null {
+    return this._contactOid
   }
 }
