@@ -59,16 +59,16 @@ export interface DocItem {
 }
 
 export enum DocumentType {
-  RECEIPT,
-  INVOICE,
-  TICKET,
-  CREDITNOTE
+  RECEIPT = "RECEIPT",
+  INVOICE = "INVOICE",
+  TICKET = "TICKET",
+  CREDITNOTE = "CREDITNOTE"
 }
 
 export enum DocStatus {
-  OPEN,
-  CLOSED,
-  CANCELED,
+  OPEN = "OPEN",
+  CLOSED = "CLOSED",
+  CANCELED = "CANCELED",
 }
 
 export interface DocumentHead {
