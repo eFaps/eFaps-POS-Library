@@ -62,6 +62,7 @@ export enum DocumentType {
   RECEIPT,
   INVOICE,
   TICKET,
+  CREDITNOTE
 }
 
 export enum DocStatus {
