@@ -9,6 +9,7 @@ export interface BalanceSummary {
   invoiceDetail: SummaryDetail;
   receiptDetail: SummaryDetail;
   ticketDetail: SummaryDetail;
+  creditNoteDetail: SummaryDetail;
 }
 
 export interface SummaryDetail {
