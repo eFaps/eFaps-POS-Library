@@ -14,7 +14,7 @@ export class CollectService {
   constructor(private http: HttpClient, private config: ConfigService) {}
 
   getCollectors() {
-    const requestUrl = `${this.config.baseUrl}/collectors/`;
+    const requestUrl = `${this.config.baseUrl}/collectors`;
     return this.http.get<Collector[]>(requestUrl);
   }
 
