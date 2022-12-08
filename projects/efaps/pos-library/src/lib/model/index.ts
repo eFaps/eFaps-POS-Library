@@ -17,6 +17,7 @@ export * from "./payment";
 export * from "./pos";
 export * from "./print-response";
 export * from "./printer";
+export * from "./pageable";
 export * from "./product";
 export * from "./spot";
 export * from "./tax";

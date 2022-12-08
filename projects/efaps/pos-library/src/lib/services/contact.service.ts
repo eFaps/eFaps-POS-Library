@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
-import { Contact } from "../model";
+import { Contact, Page, PageRequest } from "../model";
 import { ConfigService } from "./config.service";
 
 @Injectable({
@@ -12,9 +12,10 @@ import { ConfigService } from "./config.service";
 export class ContactService {
   constructor(private http: HttpClient, private config: ConfigService) {}
 
-  public getContacts(): Observable<Contact[]> {
+  public getContacts(pageable?: PageRequest): Observable<Page<Contact>> {
     const requestUrl = `${this.config.baseUrl}/contacts`;
-    return this.http.get<Contact[]>(requestUrl);
+    const params: any = pageable || {};
+    return this.http.get<Page<Contact>>(requestUrl, { params });
   }
 
   public getContact(id: string): Observable<Contact> {
