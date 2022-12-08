@@ -30,4 +30,5 @@ export interface Page<T> {
 export interface PageRequest {
   size: number;
   page: number;
+  sort?: string[];
 }
