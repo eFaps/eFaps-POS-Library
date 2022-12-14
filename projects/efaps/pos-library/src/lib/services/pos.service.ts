@@ -353,6 +353,7 @@ export class PosService {
         items: this.getDocItems(),
         netTotal: this.netTotal,
         crossTotal: this.crossTotal,
+        payableAmount: this.payableAmount,
         taxes: this.getTaxEntries(),
       })
     );
@@ -379,6 +380,7 @@ export class PosService {
       items: docItems,
       netTotal: this.netTotal,
       crossTotal: this.crossTotal,
+      payableAmount: this.payableAmount,
       taxes: this.getTaxEntries(),
     });
   }
