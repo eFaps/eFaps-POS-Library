@@ -16,6 +16,7 @@ export interface Document {
   netTotal: number;
   crossTotal: number;
   exchangeRate: number;
+  payableAmount: number;
   taxes: TaxEntry[];
   contactOid?: string;
   workspaceOid?: string;
@@ -62,7 +63,7 @@ export enum DocumentType {
   RECEIPT = "RECEIPT",
   INVOICE = "INVOICE",
   TICKET = "TICKET",
-  CREDITNOTE = "CREDITNOTE"
+  CREDITNOTE = "CREDITNOTE",
 }
 
 export enum DocStatus {

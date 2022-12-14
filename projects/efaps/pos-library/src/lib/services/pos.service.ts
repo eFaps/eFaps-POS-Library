@@ -13,12 +13,13 @@ import {
   Tax,
   TaxEntry,
   TaxType,
+  WorkspaceFlag,
 } from "../model";
 import { ConfigService } from "./config.service";
 import { DocumentService } from "./document.service";
 import { PartListService } from "./part-list.service";
 import { TaxService } from "./tax.service";
-import { WorkspaceService } from "./workspace.service";
+import { hasFlag, WorkspaceService } from "./workspace.service";
 
 @Injectable({
   providedIn: "root",
@@ -51,6 +52,10 @@ export class PosService {
   private crossTotalSource = new BehaviorSubject<number>(this.crossTotal);
   currentCrossTotal = this.crossTotalSource.asObservable();
 
+  private payableAmount = 0;
+  private payableAmountSource = new BehaviorSubject<number>(this.payableAmount);
+  currentPayableAmount = this.payableAmountSource.asObservable();
+
   public currency = Currency.USD;
   private currencySource = new BehaviorSubject<Currency>(this.currency);
   currentCurrency = this.currencySource.asObservable();
@@ -59,13 +64,14 @@ export class PosService {
   private exchangeRateSource = new BehaviorSubject<number>(this.exchangeRate);
   currentExchangeRate = this.exchangeRateSource.asObservable();
 
-  private _multiplier : number = 1
+  private _multiplier: number = 1;
   private multiplierSource = new BehaviorSubject<number>(this._multiplier);
   multiplier = this.multiplierSource.asObservable();
 
   private currentPos: Pos;
 
-  private _contactOid: string | null
+  private _contactOid: string | null;
+  private workspaceFlags: number = 0;
 
   constructor(
     private http: HttpClient,
@@ -77,6 +83,7 @@ export class PosService {
   ) {
     this.workspaceService.currentWorkspace.subscribe((data) => {
       if (data) {
+        this.workspaceFlags = data.flags;
         if (!(this.currentPos && this.currentPos.oid === data.posOid)) {
           this.getPos(data.posOid).subscribe((_pos) => {
             this.currentPos = _pos;
@@ -91,11 +98,16 @@ export class PosService {
     this.currentCrossTotal.subscribe(
       (crossTotal) => (this.crossTotal = crossTotal)
     );
+    this.currentPayableAmount.subscribe(
+      (payableAmount) => (this.payableAmount = payableAmount)
+    );
     this.currentCurrency.subscribe((currency) => (this.currency = currency));
     this.currentExchangeRate.subscribe(
       (exchangeRate) => (this.exchangeRate = exchangeRate)
     );
-    this.multiplier.subscribe({next: (multiplier) => this._multiplier = multiplier})
+    this.multiplier.subscribe({
+      next: (multiplier) => (this._multiplier = multiplier),
+    });
   }
 
   public getPoss(): Observable<Pos[]> {
@@ -115,7 +127,7 @@ export class PosService {
       );
       order.discount = null;
     }
-    this.contactOid = order.contactOid
+    this.contactOid = order.contactOid;
     this.orderSource.next(order);
     const items: Item[] = [];
     order.items
@@ -134,7 +146,7 @@ export class PosService {
   }
 
   public setMultiplier(multiplier: number) {
-    this.multiplierSource.next(multiplier)
+    this.multiplierSource.next(multiplier);
   }
 
   changeTicket(ticket: Item[]) {
@@ -189,9 +201,10 @@ export class PosService {
     }
   }
 
-  private calculateTotals(items: Item[]) {
+  protected calculateTotals(items: Item[]) {
     let net = new Decimal(0);
     let cross = new Decimal(0);
+    let payable = new Decimal(0);
     const taxes = new Map<string, Decimal>();
     items.forEach((item) => {
       const itemNet = new Decimal(item.product.netPrice).mul(
@@ -213,9 +226,22 @@ export class PosService {
     this.netTotalSource.next(
       net.toDecimalPlaces(2, Decimal.ROUND_HALF_UP).toNumber()
     );
+    cross = cross.toDecimalPlaces(2, Decimal.ROUND_HALF_UP)
     this.crossTotalSource.next(
-      cross.toDecimalPlaces(2, Decimal.ROUND_HALF_UP).toNumber()
+      cross.toNumber()
     );
+
+    if (hasFlag(this.workspaceFlags, WorkspaceFlag.roundPayableAmount)) {
+        let roundedCross = cross.toDecimalPlaces(1, Decimal.ROUND_FLOOR)
+        this.payableAmountSource.next(
+          roundedCross.toNumber()
+        );
+    } else {
+      this.payableAmountSource.next(
+        cross.toNumber()
+      );
+    }
+
     const taxesNum = new Map<string, number>();
     taxes.forEach((val, key) => {
       taxesNum.set(
@@ -237,10 +263,11 @@ export class PosService {
       status: DocStatus.OPEN,
       netTotal: this.netTotal,
       crossTotal: this.crossTotal,
+      payableAmount: this.crossTotal,
       taxes: this.getTaxEntries(),
       discount: null,
       payableOid: null,
-      contactOid: this.contactOid
+      contactOid: this.contactOid,
     });
   }
 
@@ -362,10 +389,10 @@ export class PosService {
   }
 
   public set contactOid(contactOid: string | null) {
-    this._contactOid = contactOid
+    this._contactOid = contactOid;
   }
 
   public get contactOid(): string | null {
-    return this._contactOid
+    return this._contactOid;
   }
 }

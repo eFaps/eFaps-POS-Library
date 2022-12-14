@@ -72,7 +72,10 @@ export class BalanceService {
     );
   }
 
-  addCashEntries(balance: Balance, cashEntries: CashEntry[]) : Observable<Object> {
+  addCashEntries(
+    balance: Balance,
+    cashEntries: CashEntry[]
+  ): Observable<Object> {
     const requestUrl = `${this.config.baseUrl}/balance/${balance.id}/cash`;
     return this.http.post(requestUrl, cashEntries);
   }

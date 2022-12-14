@@ -14,11 +14,11 @@ export interface Balance {
 export interface CashEntry {
   id?: string;
   balanceOid: string;
-  entryType: CashEntryType
+  entryType: CashEntryType;
   amount: number;
-  currency: Currency
+  currency: Currency;
 }
 
 export enum CashEntryType {
-  OPENING = "OPENING"
+  OPENING = "OPENING",
 }

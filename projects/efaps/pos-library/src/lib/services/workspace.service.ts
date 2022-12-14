@@ -2,7 +2,12 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 
-import { PosLayout, SpotConfig, Workspace, WorkspaceFlag } from "../model/index";
+import {
+  PosLayout,
+  SpotConfig,
+  Workspace,
+  WorkspaceFlag,
+} from "../model/index";
 import { AuthService } from "./auth.service";
 import { CollectService } from "./collect.service";
 import { CompanyService } from "./company.service";
@@ -153,13 +158,15 @@ export class WorkspaceService {
   }
 }
 
-export function hasFlag(value: number | Workspace, flag: WorkspaceFlag): boolean {
+export function hasFlag(
+  value: number | Workspace,
+  flag: WorkspaceFlag
+): boolean {
   let flags: number;
   if ("number" != typeof value) {
-    flags = (value as Workspace).flags
+    flags = (value as Workspace).flags;
   } else {
-    flags = value
+    flags = value;
   }
   return flag === (flags & flag);
 }
-
