@@ -8,6 +8,7 @@ export * from "./config.service";
 export * from "./contact.service";
 export * from "./discount.service";
 export * from "./document.service";
+export * from "./employee.service";
 export * from "./health.service";
 export * from "./image.service";
 export * from "./inventory.service";
