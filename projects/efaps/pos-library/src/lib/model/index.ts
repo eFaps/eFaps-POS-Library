@@ -11,6 +11,7 @@ export * from "./contact";
 export * from "./contact";
 export * from "./discount";
 export * from "./document";
+export * from "./employee";
 export * from "./inventory-entry";
 export * from "./item";
 export * from "./payment";

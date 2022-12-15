@@ -226,20 +226,14 @@ export class PosService {
     this.netTotalSource.next(
       net.toDecimalPlaces(2, Decimal.ROUND_HALF_UP).toNumber()
     );
-    cross = cross.toDecimalPlaces(2, Decimal.ROUND_HALF_UP)
-    this.crossTotalSource.next(
-      cross.toNumber()
-    );
+    cross = cross.toDecimalPlaces(2, Decimal.ROUND_HALF_UP);
+    this.crossTotalSource.next(cross.toNumber());
 
     if (hasFlag(this.workspaceFlags, WorkspaceFlag.roundPayableAmount)) {
-        let roundedCross = cross.toDecimalPlaces(1, Decimal.ROUND_FLOOR)
-        this.payableAmountSource.next(
-          roundedCross.toNumber()
-        );
+      let roundedCross = cross.toDecimalPlaces(1, Decimal.ROUND_FLOOR);
+      this.payableAmountSource.next(roundedCross.toNumber());
     } else {
-      this.payableAmountSource.next(
-        cross.toNumber()
-      );
+      this.payableAmountSource.next(cross.toNumber());
     }
 
     const taxesNum = new Map<string, number>();

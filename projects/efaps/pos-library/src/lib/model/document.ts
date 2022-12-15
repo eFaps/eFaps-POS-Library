@@ -4,6 +4,7 @@ import { Product } from "./product";
 import { Spot } from "./spot";
 import { TaxEntry } from "./tax";
 import { Currency } from "./currency";
+import { EmployeeRelation } from "./employee";
 
 export interface Document {
   type?: "ORDER" | "RECEIPT" | "INVOICE" | "TICKET" | "CREDITNOTE";
@@ -22,6 +23,7 @@ export interface Document {
   workspaceOid?: string;
   discount: Discount | null;
   note?: string;
+  employeeRelations?: EmployeeRelation[];
 }
 
 export interface Payable extends Document {

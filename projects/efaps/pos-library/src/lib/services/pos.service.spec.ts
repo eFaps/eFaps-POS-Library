@@ -117,7 +117,7 @@ describe("PosService", () => {
   it("should round crosstotal for payableamount if workspace flag is active", inject(
     [PosServiceExtended],
     (service: PosServiceExtended) => {
-      service["workspaceFlags"] = 4
+      service["workspaceFlags"] = 4;
       const items = [
         {
           product: {
@@ -162,7 +162,7 @@ describe("PosService", () => {
   it("should round crosstotal for payableamount if workspace flag is active 2", inject(
     [PosServiceExtended],
     (service: PosServiceExtended) => {
-      service["workspaceFlags"] = 4
+      service["workspaceFlags"] = 4;
       const items = [
         {
           product: {
@@ -173,7 +173,7 @@ describe("PosService", () => {
             note: "",
             imageOid: "",
             netPrice: 15.3659,
-            crossPrice: 18.90,
+            crossPrice: 18.9,
             currency: Currency.PEN,
             categories: [],
             taxes: [
@@ -208,7 +208,7 @@ describe("PosService", () => {
       service.calculateTotals(items);
       expect(service["netTotal"]).toBe(15.37);
       expect(service["crossTotal"]).toBe(18.91);
-      expect(service["payableAmount"]).toBe(18.90);
+      expect(service["payableAmount"]).toBe(18.9);
     }
   ));
 });
