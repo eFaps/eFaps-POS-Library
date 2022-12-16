@@ -7,6 +7,7 @@ import {
   Currency,
   DocItem,
   DocStatus,
+  EmployeeRelation,
   Item,
   Order,
   Pos,
@@ -72,6 +73,8 @@ export class PosService {
 
   private _contactOid: string | null;
   private workspaceFlags: number = 0;
+
+  private employeeRelations: EmployeeRelation[] | undefined
 
   constructor(
     private http: HttpClient,
@@ -262,6 +265,7 @@ export class PosService {
       discount: null,
       payableOid: null,
       contactOid: this.contactOid,
+      employeeRelations: this.employeeRelations
     });
   }
 
@@ -349,6 +353,7 @@ export class PosService {
         crossTotal: this.crossTotal,
         payableAmount: this.payableAmount,
         taxes: this.getTaxEntries(),
+        employeeRelations: this.employeeRelations
       })
     );
   }
@@ -390,5 +395,26 @@ export class PosService {
 
   public get contactOid(): string | null {
     return this._contactOid;
+  }
+
+  public addEmployeeRelation(relation: EmployeeRelation) {
+    if (this.employeeRelations == null) {
+      this.employeeRelations = []
+    }
+    this.employeeRelations.push(relation)
+  }
+
+  public removeEmployeeRelation(relation: EmployeeRelation) {
+    if (this.employeeRelations) {
+      const index = this.employeeRelations.findIndex((object) => {
+        return object.employeeOid === relation.employeeOid && object.type == relation.type;
+      });
+      if (index !== -1) {
+        this.employeeRelations.splice(index, 1);
+      }
+      if (this.employeeRelations.length == 0) {
+        this.employeeRelations = undefined
+      }
+    }
   }
 }
