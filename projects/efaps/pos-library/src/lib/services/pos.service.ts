@@ -8,6 +8,7 @@ import {
   DocItem,
   DocStatus,
   EmployeeRelation,
+  EmployeeRelationType,
   Item,
   Order,
   Pos,
@@ -418,6 +419,16 @@ export class PosService {
       if (this.employeeRelations.length == 0) {
         this.employeeRelations = undefined;
       }
+    }
+  }
+  public removeEmployeeRelationsByType(relationType: EmployeeRelationType) {
+    if (this.employeeRelations) {
+      this.employeeRelations = this.employeeRelations.filter(
+        (object) => object.type != relationType
+      );
+    }
+    if (this.employeeRelations.length == 0) {
+      this.employeeRelations = undefined;
     }
   }
 }
