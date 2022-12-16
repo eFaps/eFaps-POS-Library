@@ -14,4 +14,9 @@ export class EmployeeService {
     const requestUrl = `${this.config.baseUrl}/employees`;
     return this.http.get<Employee[]>(requestUrl);
   }
+
+  public getEmployee(oid: String): Observable<Employee> {
+    const requestUrl = `${this.config.baseUrl}/employees/${oid}`;
+    return this.http.get<Employee>(requestUrl);
+  }
 }
