@@ -426,9 +426,9 @@ export class PosService {
       this.employeeRelations = this.employeeRelations.filter(
         (object) => object.type != relationType
       );
-    }
-    if (this.employeeRelations.length == 0) {
-      this.employeeRelations = undefined;
+      if (this.employeeRelations.length == 0) {
+        this.employeeRelations = undefined;
+      }
     }
   }
 }
