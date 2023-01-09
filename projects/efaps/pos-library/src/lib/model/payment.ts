@@ -16,4 +16,5 @@ export interface Payment {
   cardTypeId?: number;
   cardLabel?: string;
   mappingKey?: string;
+  collectOrderId?: string;
 }
