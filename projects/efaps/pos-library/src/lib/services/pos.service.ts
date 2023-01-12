@@ -261,7 +261,7 @@ export class PosService {
       status: DocStatus.OPEN,
       netTotal: this.netTotal,
       crossTotal: this.crossTotal,
-      payableAmount: this.crossTotal,
+      payableAmount: this.payableAmount,
       taxes: this.getTaxEntries(),
       discount: null,
       payableOid: null,
