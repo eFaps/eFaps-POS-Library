@@ -36,8 +36,16 @@ export class ProductService {
     return this.http.get<Product[]>(requestUrl);
   }
 
-  public findProducts(_term: string): Observable<Product[]> {
-    const requestUrl = `${this.config.baseUrl}/products?term=${_term}`;
+  public findProducts(
+    term: string,
+    textsearch?: boolean
+  ): Observable<Product[]> {
+    let requestUrl;
+    if (typeof textsearch !== "undefined") {
+      requestUrl = `${this.config.baseUrl}/products?term=${term}&textsearch=${textsearch}`;
+    } else {
+      requestUrl = `${this.config.baseUrl}/products?term=${term}`;
+    }
     return this.http.get<Product[]>(requestUrl);
   }
 
