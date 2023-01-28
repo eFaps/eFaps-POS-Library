@@ -11,19 +11,30 @@ import {
   Product,
   ProductType,
   TaxType,
+  WorkspaceFlag,
 } from "../model";
 import { DocumentService } from "./document.service";
 import { TaxService } from "./tax.service";
+import { hasFlag, WorkspaceService } from "./workspace.service";
 
 @Injectable({
   providedIn: "root",
   deps: [TaxService, DocumentService],
 })
 export class DiscountService {
+  private workspaceFlags: number = 0;
+
   constructor(
     private taxService: TaxService,
-    private documentService: DocumentService
-  ) {}
+    private documentService: DocumentService,
+    workspaceService: WorkspaceService
+  ) {
+    workspaceService.currentWorkspace.subscribe((data) => {
+      if (data) {
+        this.workspaceFlags = data.flags;
+      }
+    });
+  }
 
   applyDiscount(order: Order, discount: Discount | null): Document {
     if (order.discount) {
@@ -132,6 +143,16 @@ export class DiscountService {
     order.netTotal = netTotal
       .toDecimalPlaces(2, Decimal.ROUND_HALF_UP)
       .toNumber();
+
+    if (hasFlag(this.workspaceFlags, WorkspaceFlag.roundPayableAmount)) {
+      let roundedCross = new Decimal(order.crossTotal).toDecimalPlaces(
+        1,
+        Decimal.ROUND_FLOOR
+      );
+      order.payableAmount = roundedCross.toNumber();
+    } else {
+      order.payableAmount = order.crossTotal;
+    }
     return order;
   }
 
