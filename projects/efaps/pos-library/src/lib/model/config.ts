@@ -12,3 +12,9 @@ export interface Extension {
   tag: string;
   url: string;
 }
+
+export interface CalculatorConfig {
+  netPriceScale: number;
+  itemTaxScale: number;
+  crossPriceScale: number;
+}

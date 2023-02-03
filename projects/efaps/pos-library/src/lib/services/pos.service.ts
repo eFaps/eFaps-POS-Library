@@ -15,13 +15,13 @@ import {
   Tax,
   TaxEntry,
   TaxType,
-  WorkspaceFlag,
 } from "../model";
+import { CalculatorService } from "./calculator.service";
 import { ConfigService } from "./config.service";
 import { DocumentService } from "./document.service";
 import { PartListService } from "./part-list.service";
 import { TaxService } from "./tax.service";
-import { hasFlag, WorkspaceService } from "./workspace.service";
+import { WorkspaceService } from "./workspace.service";
 
 @Injectable({
   providedIn: "root",
@@ -73,7 +73,6 @@ export class PosService {
   private currentPos: Pos;
 
   private _contactOid: string | null;
-  private workspaceFlags: number = 0;
 
   private employeeRelations: EmployeeRelation[] | undefined;
 
@@ -83,11 +82,11 @@ export class PosService {
     private workspaceService: WorkspaceService,
     private documentService: DocumentService,
     private taxService: TaxService,
-    private partListService: PartListService
+    private partListService: PartListService,
+    private calculatorService: CalculatorService
   ) {
     this.workspaceService.currentWorkspace.subscribe((data) => {
       if (data) {
-        this.workspaceFlags = data.flags;
         if (!(this.currentPos && this.currentPos.oid === data.posOid)) {
           this.getPos(data.posOid).subscribe((_pos) => {
             this.currentPos = _pos;
@@ -165,87 +164,21 @@ export class PosService {
 
   private calculateItems(ticket: Item[]) {
     ticket.forEach((item: Item) => {
-      item.price = this.calculateItemCrossPrice(item).toNumber();
+      item.price = this.calculatorService
+        .calculateItemCrossPrice(item)
+        .toNumber();
     });
-  }
-
-  private calculateItemCrossPrice(item: Item): Decimal {
-    //NetPricePlusTax is activated
-    if (true) {
-      let taxAmount = new Decimal(0);
-      const netUnitPrice = new Decimal(item.product.netPrice);
-      const quantity = new Decimal(item.quantity);
-      const netPrice = netUnitPrice.mul(quantity);
-      item.product.taxes.forEach((tax) => {
-        taxAmount = taxAmount.add(
-          this.taxService
-            .calcTax(netPrice, quantity, tax)
-            .toDecimalPlaces(2, Decimal.ROUND_HALF_UP)
-        );
-      });
-      return netPrice.add(taxAmount).toDecimalPlaces(2, Decimal.ROUND_HALF_UP);
-    } else {
-      if (item.product.taxes.some((tax) => tax.type === TaxType.PERUNIT)) {
-        const net = new Decimal(item.product.netPrice).mul(
-          new Decimal(item.quantity)
-        );
-        return net
-          .add(
-            this.taxService.calcTax(
-              net,
-              new Decimal(item.quantity),
-              ...item.product.taxes
-            )
-          )
-          .toDecimalPlaces(2, Decimal.ROUND_HALF_UP);
-      }
-      return new Decimal(item.product.crossPrice)
-        .mul(new Decimal(item.quantity))
-        .toDecimalPlaces(2, Decimal.ROUND_HALF_UP);
-    }
   }
 
   protected calculateTotals(items: Item[]) {
-    let net = new Decimal(0);
-    let cross = new Decimal(0);
-    let payable = new Decimal(0);
-    const taxes = new Map<string, Decimal>();
-    items.forEach((item) => {
-      const itemNet = new Decimal(item.product.netPrice).mul(
-        new Decimal(item.quantity)
-      );
-      net = net.plus(itemNet);
-      cross = cross.plus(itemNet);
-      item.product.taxes.forEach((tax: Tax) => {
-        const taxAmount = this.taxService
-          .calcTax(itemNet, new Decimal(item.quantity), tax)
-          .toDecimalPlaces(2, Decimal.ROUND_HALF_UP);
-        if (!taxes.has(tax.name)) {
-          taxes.set(tax.name, new Decimal(0));
-        }
-        taxes.set(tax.name, taxes.get(tax.name).plus(taxAmount));
-        cross = cross.plus(taxAmount);
-      });
-    });
-    this.netTotalSource.next(
-      net.toDecimalPlaces(2, Decimal.ROUND_HALF_UP).toNumber()
-    );
-    cross = cross.toDecimalPlaces(2, Decimal.ROUND_HALF_UP);
-    this.crossTotalSource.next(cross.toNumber());
-
-    if (hasFlag(this.workspaceFlags, WorkspaceFlag.roundPayableAmount)) {
-      let roundedCross = cross.toDecimalPlaces(1, Decimal.ROUND_FLOOR);
-      this.payableAmountSource.next(roundedCross.toNumber());
-    } else {
-      this.payableAmountSource.next(cross.toNumber());
-    }
+    const totals = this.calculatorService.calculateTotals(items);
+    this.netTotalSource.next(totals.netTotal.toNumber());
+    this.crossTotalSource.next(totals.crossTotal.toNumber());
+    this.payableAmountSource.next(totals.payableAmount.toNumber());
 
     const taxesNum = new Map<string, number>();
-    taxes.forEach((val, key) => {
-      taxesNum.set(
-        key,
-        val.toDecimalPlaces(2, Decimal.ROUND_HALF_UP).toNumber()
-      );
+    totals.taxes.forEach((val, key) => {
+      taxesNum.set(key, val.toNumber());
     });
     this.taxesSource.next(taxesNum);
   }
