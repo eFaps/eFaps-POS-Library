@@ -34,7 +34,7 @@ export class CalculatorService {
     if (qty instanceof Decimal) {
       quantity = qty;
     } else {
-      quantity = new Decimal(quantity);
+      quantity = new Decimal(qty);
     }
     const netUnitPrice = new Decimal(product.netPrice);
     const netPrice = this.evalNetPrice(quantity, netUnitPrice);
