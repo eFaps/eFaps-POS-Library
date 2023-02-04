@@ -31,13 +31,17 @@ export class CalculatorService {
         next: (value: any) => {
           if (value) {
             if (value.NetPriceScale) {
-              this.calculatorConfig.netPriceScale = value.NetPriceScale;
+              this.calculatorConfig.netPriceScale = parseInt(
+                value.NetPriceScale
+              );
             }
             if (value.ItemTaxScale) {
-              this.calculatorConfig.itemTaxScale = value.ItemTaxScale;
+              this.calculatorConfig.itemTaxScale = parseInt(value.ItemTaxScale);
             }
             if (value.CrossPriceScale) {
-              this.calculatorConfig.crossPriceScale = value.CrossPriceScale;
+              this.calculatorConfig.crossPriceScale = parseInt(
+                value.CrossPriceScale
+              );
             }
           }
         },
