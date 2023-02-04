@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import Decimal from "decimal.js";
 import { CalculatorConfig, Item, Product, Tax, WorkspaceFlag } from "../model";
+import { ConfigService } from "./config.service";
 import { TaxService } from "./tax.service";
 import { hasFlag, WorkspaceService } from "./workspace.service";
 
@@ -15,6 +16,7 @@ export class CalculatorService {
   };
   private workspaceFlags: number = 0;
   constructor(
+    private configService: ConfigService,
     private workspaceService: WorkspaceService,
     private taxService: TaxService
   ) {
@@ -23,6 +25,26 @@ export class CalculatorService {
         this.workspaceFlags = data.flags;
       }
     });
+    this.configService
+      .getSystemConfig<any>("org.efaps.pos.Calculator.Config")
+      .subscribe({
+        next: (value: any) => {
+          if (value) {
+            if (value.NetPriceScale) {
+              this.calculatorConfig.netPriceScale = value.NetPriceScale;
+            }
+            if (value.ItemTaxScale) {
+              this.calculatorConfig.itemTaxScale = value.ItemTaxScale;
+            }
+            if (value.CrossPriceScale) {
+              this.calculatorConfig.crossPriceScale = value.CrossPriceScale;
+            }
+          }
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
 
   calculateItemCrossPrice(item: Item): Decimal {

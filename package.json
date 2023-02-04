@@ -1,6 +1,6 @@
 {
   "name": "pos-library",
-  "version": "6.11.1",
+  "version": "6.11.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

@@ -13,7 +13,7 @@ export class ConfigService {
   public defaultProdImg: string;
   public persistence: PersistenceService;
   private _socketUrl: string;
-  private systemConfig: Map<string, string> = new Map();
+  private systemConfig: Map<string, any> = new Map();
   private extensions: Extension[];
 
   constructor(
@@ -35,16 +35,16 @@ export class ConfigService {
     }
   }
 
-  getSystemConfig(key: string): Observable<string> {
+  getSystemConfig<T>(key: string): Observable<T> {
     if (this.systemConfig.has(key)) {
-      return new Observable((subscriber: Subscriber<string>) => {
+      return new Observable((subscriber: Subscriber<T>) => {
         subscriber.next(this.systemConfig.get(key));
       });
     }
-    return new Observable((subscriber: Subscriber<string>) => {
+    return new Observable((subscriber: Subscriber<T>) => {
       const requestUrl = `${this.baseUrl}/config/system/${key}`;
-      this.http.get<string>(requestUrl).subscribe((value) => {
-        this.systemConfig.set(key, "" + value);
+      this.http.get<T>(requestUrl).subscribe((value) => {
+        this.systemConfig.set(key, value);
         subscriber.next(value);
       });
     });
