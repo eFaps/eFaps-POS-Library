@@ -1,6 +1,14 @@
 import { Injectable } from "@angular/core";
 import Decimal from "decimal.js";
-import { CalculatorConfig, Item, Product, Tax, WorkspaceFlag } from "../model";
+import {
+  CalculatorConfig,
+  Item,
+  Product,
+  Tax,
+  TaxEntry,
+  TaxType,
+  WorkspaceFlag,
+} from "../model";
 import { ConfigService } from "./config.service";
 import { TaxService } from "./tax.service";
 import { hasFlag, WorkspaceService } from "./workspace.service";
@@ -49,6 +57,13 @@ export class CalculatorService {
           console.log(err);
         },
       });
+  }
+
+  calculateItemNetPrice(item: Item): Decimal {
+    return this.evalNetPrice(
+      new Decimal(item.quantity),
+      new Decimal(item.product.netPrice)
+    );
   }
 
   calculateItemCrossPrice(item: Item): Decimal {
@@ -148,5 +163,65 @@ export class CalculatorService {
       crossTotal,
       payableAmount,
     };
+  }
+
+  getItemTaxEntries(item: Item): TaxEntry[] {
+    const entries: TaxEntry[] = [];
+    item.product.taxes.forEach((tax: Tax) => {
+      const quantity = new Decimal(item.quantity);
+      const netUnitPrice = new Decimal(item.product.netPrice);
+      const netPrice = this.evalNetPrice(quantity, netUnitPrice);
+      const taxAmount = this.taxService.calcTax(
+        netPrice,
+        new Decimal(item.quantity),
+        tax
+      );
+      const base =
+        TaxType.PERUNIT === tax.type ? item.quantity : netPrice.toNumber();
+      entries.push({
+        tax: tax,
+        base: base,
+        amount: taxAmount.toNumber(),
+        currency: item.currency,
+        exchangeRate: item.exchangeRate,
+      });
+    });
+    return entries;
+  }
+
+  getTotalTaxEntries(items: Item[]): TaxEntry[] {
+    const taxValues: Map<string, TaxEntry> = new Map();
+    items.forEach((item) => {
+      this.getItemTaxEntries(item).forEach((taxEntry) => {
+        if (!taxValues.has(taxEntry.tax.name)) {
+          taxValues.set(taxEntry.tax.name, {
+            tax: taxEntry.tax,
+            base: 0,
+            amount: 0,
+            currency: item.currency,
+            exchangeRate: item.exchangeRate,
+          });
+        }
+        const currentEntry = taxValues.get(taxEntry.tax.name);
+        currentEntry.amount = new Decimal(currentEntry.amount)
+          .plus(new Decimal(taxEntry.amount))
+          .toNumber();
+        currentEntry.base = new Decimal(currentEntry.base)
+          .plus(new Decimal(taxEntry.base))
+          .toNumber();
+        taxValues.set(taxEntry.tax.name, currentEntry);
+      });
+    });
+    const taxEntries: TaxEntry[] = [];
+    taxValues.forEach((entry, _key) => {
+      entry.amount = new Decimal(entry.amount)
+        .toDecimalPlaces(2, Decimal.ROUND_HALF_UP)
+        .toNumber();
+      entry.base = new Decimal(entry.base)
+        .toDecimalPlaces(2, Decimal.ROUND_HALF_UP)
+        .toNumber();
+      taxEntries.push(entry);
+    });
+    return taxEntries;
   }
 }
