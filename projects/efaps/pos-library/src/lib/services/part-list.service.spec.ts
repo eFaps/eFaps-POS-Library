@@ -25,6 +25,8 @@ const PRODUCTS: Product[] = [
     relations: [],
     indicationSets: [],
     barcodes: [],
+    bomGroupConfigs: [],
+    configurationBOMs: [],
   },
   {
     oid: "111.2",
@@ -41,6 +43,8 @@ const PRODUCTS: Product[] = [
     relations: [],
     indicationSets: [],
     barcodes: [],
+    bomGroupConfigs: [],
+    configurationBOMs: [],
   },
   {
     oid: "111.3",
@@ -57,6 +61,8 @@ const PRODUCTS: Product[] = [
     relations: [],
     indicationSets: [],
     barcodes: [],
+    bomGroupConfigs: [],
+    configurationBOMs: [],
   },
   {
     oid: "111.4",
@@ -73,6 +79,8 @@ const PRODUCTS: Product[] = [
     relations: [],
     indicationSets: [],
     barcodes: [],
+    bomGroupConfigs: [],
+    configurationBOMs: [],
   },
 ];
 
@@ -99,6 +107,8 @@ const PARTLISTS: Product[] = [
     ],
     indicationSets: [],
     barcodes: [],
+    bomGroupConfigs: [],
+    configurationBOMs: [],
   },
   {
     oid: "123.46",
@@ -122,6 +132,8 @@ const PARTLISTS: Product[] = [
     ],
     indicationSets: [],
     barcodes: [],
+    bomGroupConfigs: [],
+    configurationBOMs: [],
   },
   {
     oid: "123.46",
@@ -145,6 +157,8 @@ const PARTLISTS: Product[] = [
     ],
     indicationSets: [],
     barcodes: [],
+    bomGroupConfigs: [],
+    configurationBOMs: [],
   },
   {
     oid: "123.46",
@@ -174,6 +188,8 @@ const PARTLISTS: Product[] = [
     ],
     indicationSets: [],
     barcodes: [],
+    bomGroupConfigs: [],
+    configurationBOMs: [],
   },
   {
     oid: "123.47",
@@ -209,6 +225,8 @@ const PARTLISTS: Product[] = [
     ],
     indicationSets: [],
     barcodes: [],
+    bomGroupConfigs: [],
+    configurationBOMs: [],
   },
   {
     oid: "123.47",
@@ -225,6 +243,8 @@ const PARTLISTS: Product[] = [
     relations: [],
     indicationSets: [],
     barcodes: [],
+    bomGroupConfigs: [],
+    configurationBOMs: [],
   },
   {
     oid: "123.50",
@@ -260,6 +280,8 @@ const PARTLISTS: Product[] = [
     ],
     indicationSets: [],
     barcodes: [],
+    bomGroupConfigs: [],
+    configurationBOMs: [],
   },
 ];
 

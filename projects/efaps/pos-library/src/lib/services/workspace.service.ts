@@ -157,16 +157,3 @@ export class WorkspaceService {
       : PosLayout.GRID;
   }
 }
-
-export function hasFlag(
-  value: number | Workspace,
-  flag: WorkspaceFlag
-): boolean {
-  let flags: number;
-  if ("number" != typeof value) {
-    flags = (value as Workspace).flags;
-  } else {
-    flags = value;
-  }
-  return flag === (flags & flag);
-}

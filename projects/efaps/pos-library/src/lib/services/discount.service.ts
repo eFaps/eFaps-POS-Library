@@ -15,7 +15,8 @@ import {
 } from "../model";
 import { DocumentService } from "./document.service";
 import { TaxService } from "./tax.service";
-import { hasFlag, WorkspaceService } from "./workspace.service";
+import { hasFlag } from "./utils.service";
+import { WorkspaceService } from "./workspace.service";
 
 @Injectable({
   providedIn: "root",
@@ -172,6 +173,8 @@ export class DiscountService {
       relations: [],
       indicationSets: [],
       barcodes: [],
+      bomGroupConfigs: [],
+      configurationBOMs: [],
     };
   }
 }

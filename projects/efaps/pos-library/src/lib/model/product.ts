@@ -1,4 +1,5 @@
 import { Currency } from "./currency";
+import { Flagged } from "./flags";
 import { Tax } from "./tax";
 
 export interface Product {
@@ -16,6 +17,24 @@ export interface Product {
   relations: ProductRelation[];
   indicationSets: IndicationSet[];
   barcodes: Barcode[];
+  bomGroupConfigs: BOMGroupConfig[];
+  configurationBOMs: ConfigurationBOM[];
+}
+
+export interface BOMGroupConfig extends Flagged {
+  productOid: string;
+  name: string;
+  description: string;
+  // flagged enum value with BOMGroupConfigFlag
+  flags: number;
+}
+
+export interface ConfigurationBOM {
+  toProductOid: string;
+  bomGroupOid: string;
+  position: number;
+  quantity: number;
+  uoM: string;
 }
 
 export interface Product2Category {
@@ -69,4 +88,9 @@ export enum ProductRelationType {
   ALTERNATIVE = "ALTERNATIVE",
   SALESBOM = "SALESBOM",
   OTHER = "OTHER",
+}
+
+export enum BOMGroupConfigFlag {
+  optional = 1 << 0,
+  onlyOne = 1 << 1,
 }

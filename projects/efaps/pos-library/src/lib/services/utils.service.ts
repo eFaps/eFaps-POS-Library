@@ -1,6 +1,7 @@
 import { getCurrencySymbol, registerLocaleData } from "@angular/common";
 import localeEsPE from "@angular/common/locales/es-PE";
 import { Injectable } from "@angular/core";
+import { BOMGroupConfigFlag, Flagged, WorkspaceFlag } from "../model";
 
 @Injectable({
   providedIn: "root",
@@ -65,4 +66,16 @@ class NumberParser {
       ? +string
       : NaN;
   }
+}
+
+export type Flags = WorkspaceFlag | BOMGroupConfigFlag;
+
+export function hasFlag(value: number | Flagged, flag: Flags) {
+  let flags: number;
+  if ("number" != typeof value) {
+    flags = (value as Flagged).flags;
+  } else {
+    flags = value;
+  }
+  return flag === (flags & flag);
 }

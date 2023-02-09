@@ -11,7 +11,8 @@ import {
 } from "../model";
 import { ConfigService } from "./config.service";
 import { TaxService } from "./tax.service";
-import { hasFlag, WorkspaceService } from "./workspace.service";
+import { hasFlag } from "./utils.service";
+import { WorkspaceService } from "./workspace.service";
 
 @Injectable({
   providedIn: "root",

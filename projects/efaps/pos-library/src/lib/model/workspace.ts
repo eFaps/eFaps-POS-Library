@@ -1,8 +1,9 @@
 import { DocumentType } from "./document";
 import { SpotConfig, Floor } from "./spot";
 import { Discount } from "./discount";
+import { Flagged } from "./flags";
 
-export interface Workspace {
+export interface Workspace extends Flagged {
   oid: string;
   name: string;
   posOid: string;
