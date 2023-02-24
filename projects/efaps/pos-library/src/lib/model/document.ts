@@ -49,6 +49,7 @@ export interface CreditNote extends Payable {
 
 export interface DocItem {
   index: number;
+  parentIdx?: number | null;
   product: Product;
   quantity: number;
   netPrice: number;
