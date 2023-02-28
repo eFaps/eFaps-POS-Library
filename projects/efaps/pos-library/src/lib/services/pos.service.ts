@@ -1,6 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Decimal } from "decimal.js";
 import { BehaviorSubject, Observable } from "rxjs";
 
 import {
@@ -12,9 +11,6 @@ import {
   Item,
   Order,
   Pos,
-  Tax,
-  TaxEntry,
-  TaxType,
 } from "../model";
 import { CalculatorService } from "./calculator.service";
 import { ConfigService } from "./config.service";
@@ -81,7 +77,6 @@ export class PosService {
     private config: ConfigService,
     private workspaceService: WorkspaceService,
     private documentService: DocumentService,
-    private taxService: TaxService,
     private partListService: PartListService,
     private calculatorService: CalculatorService
   ) {
@@ -135,14 +130,16 @@ export class PosService {
     const items: Item[] = [];
     order.items
       .sort((a, b) => (a.index < b.index ? -1 : 1))
-      .forEach((_item) => {
+      .forEach((docItem) => {
         items.push({
-          product: _item.product,
-          quantity: _item.quantity,
-          price: _item.crossPrice,
+          index: docItem.index,
+          parentIdx: docItem.parentIdx,
+          product: docItem.product,
+          quantity: docItem.quantity,
+          price: docItem.crossPrice,
           currency: this.currency,
           exchangeRate: this.exchangeRate,
-          remark: _item.remark,
+          remark: docItem.remark,
         });
       });
     this.changeTicket(items);
@@ -207,7 +204,8 @@ export class PosService {
     return this.ticket.map(
       (item, index) =>
         <DocItem>{
-          index: index + 1,
+          index: item.index,
+          parentIdx: item.parentIdx,
           product: item.product,
           quantity: item.quantity,
           netUnitPrice: item.product.netPrice,
@@ -242,6 +240,7 @@ export class PosService {
       (item, index) =>
         <DocItem>{
           index: order.items[index].index,
+          parentIdx: item.parentIdx,
           product: item.product,
           quantity: item.quantity,
           netUnitPrice: item.product.netPrice,
@@ -300,6 +299,7 @@ export class PosService {
       }
     }
   }
+
   public removeEmployeeRelationsByType(relationType: EmployeeRelationType) {
     if (this.employeeRelations) {
       this.employeeRelations = this.employeeRelations.filter(

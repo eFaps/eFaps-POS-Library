@@ -1,7 +1,7 @@
 import { getCurrencySymbol, registerLocaleData } from "@angular/common";
 import localeEsPE from "@angular/common/locales/es-PE";
 import { Injectable } from "@angular/core";
-import { BOMGroupConfigFlag, Flagged, WorkspaceFlag } from "../model";
+import { BOMGroupConfigFlag, Flagged, Item, WorkspaceFlag } from "../model";
 
 @Injectable({
   providedIn: "root",
@@ -78,4 +78,8 @@ export function hasFlag(value: number | Flagged, flag: Flags) {
     flags = value;
   }
   return flag === (flags & flag);
+}
+
+export function isChildItem(item: Item): boolean {
+  return item.parentIdx != null;
 }

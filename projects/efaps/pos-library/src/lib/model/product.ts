@@ -22,7 +22,7 @@ export interface Product {
 }
 
 export interface BOMGroupConfig extends Flagged {
-  oid: String
+  oid: String;
   productOid: string;
   name: string;
   description: string;
@@ -31,7 +31,7 @@ export interface BOMGroupConfig extends Flagged {
 }
 
 export interface ConfigurationBOM {
-   oid: String
+  oid: String;
   toProductOid: string;
   bomGroupOid: string;
   position: number;

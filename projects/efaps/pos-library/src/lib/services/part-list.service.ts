@@ -96,6 +96,7 @@ export class PartListService {
         });
         if (salebomcount > 0 && salebomcount == isFound.length) {
           tempTicket.push({
+            index: tempTicket.length,
             product: partList,
             quantity: 1,
             price: partList.crossPrice,

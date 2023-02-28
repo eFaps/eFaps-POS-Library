@@ -11,7 +11,7 @@ import {
 } from "../model";
 import { ConfigService } from "./config.service";
 import { TaxService } from "./tax.service";
-import { hasFlag } from "./utils.service";
+import { isChildItem, hasFlag } from "./utils.service";
 import { WorkspaceService } from "./workspace.service";
 
 @Injectable({
@@ -61,14 +61,18 @@ export class CalculatorService {
   }
 
   calculateItemNetPrice(item: Item): Decimal {
-    return this.evalNetPrice(
-      new Decimal(item.quantity),
-      new Decimal(item.product.netPrice)
-    );
+    return isChildItem(item)
+      ? new Decimal(0)
+      : this.evalNetPrice(
+          new Decimal(item.quantity),
+          new Decimal(item.product.netPrice)
+        );
   }
 
   calculateItemCrossPrice(item: Item): Decimal {
-    return this.calculateCrossPrice(item.quantity, item.product);
+    return isChildItem(item)
+      ? new Decimal(0)
+      : this.calculateCrossPrice(item.quantity, item.product);
   }
 
   calculateCrossPrice(qty: Decimal | number, product: Product): Decimal {
@@ -167,6 +171,9 @@ export class CalculatorService {
   }
 
   getItemTaxEntries(item: Item): TaxEntry[] {
+    if (isChildItem(item)) {
+      return [];
+    }
     const entries: TaxEntry[] = [];
     item.product.taxes.forEach((tax: Tax) => {
       const quantity = new Decimal(item.quantity);
