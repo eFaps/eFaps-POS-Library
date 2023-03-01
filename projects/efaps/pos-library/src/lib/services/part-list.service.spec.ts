@@ -331,6 +331,7 @@ describe("PartListService", () => {
     spyOn(productService, "getProductsByType").and.returnValue(of(partlists));
     const ticket = [
       {
+        index: 0,
         product: PRODUCTS[0],
         quantity: 1,
         price: 11,
@@ -353,6 +354,7 @@ describe("PartListService", () => {
     spyOn(productService, "getProductsByType").and.returnValue(of(partlists));
     const ticket = [
       {
+        index: 0,
         product: PRODUCTS[0],
         quantity: 2,
         price: 11,
@@ -375,6 +377,7 @@ describe("PartListService", () => {
     spyOn(productService, "getProductsByType").and.returnValue(of(partlists));
     const ticket = [
       {
+        index: 0,
         product: PRODUCTS[0],
         quantity: 2,
         price: 11,
@@ -397,6 +400,7 @@ describe("PartListService", () => {
     spyOn(productService, "getProductsByType").and.returnValue(of(partlists));
     const ticket = [
       {
+        index: 0,
         product: PRODUCTS[0],
         quantity: 2,
         price: 11,
@@ -405,6 +409,7 @@ describe("PartListService", () => {
         remark: "text",
       },
       {
+        index: 1,
         product: PRODUCTS[1],
         quantity: 2,
         price: 11,
@@ -428,6 +433,7 @@ describe("PartListService", () => {
     spyOn(productService, "getProductsByType").and.returnValue(of(partlists));
     const ticket = [
       {
+        index: 0,
         product: PRODUCTS[0],
         quantity: 3,
         price: 11,
@@ -453,6 +459,7 @@ describe("PartListService", () => {
     spyOn(productService, "getProductsByType").and.returnValue(of(partlists));
     const ticket = [
       {
+        index: 0,
         product: PRODUCTS[0],
         quantity: 1,
         price: 11,
@@ -461,6 +468,7 @@ describe("PartListService", () => {
         remark: "text",
       },
       {
+        index: 1,
         product: PRODUCTS[0],
         quantity: 1,
         price: 11,
@@ -489,6 +497,7 @@ describe("PartListService", () => {
     spyOn(productService, "getProductsByType").and.returnValue(of(partlists));
     const ticket = [
       {
+        index: 0,
         product: PRODUCTS[0],
         quantity: 1,
         price: 11,
@@ -497,6 +506,7 @@ describe("PartListService", () => {
         remark: "text",
       },
       {
+        index: 1,
         product: PRODUCTS[1],
         quantity: 1,
         price: 11,
@@ -505,6 +515,7 @@ describe("PartListService", () => {
         remark: "text",
       },
       {
+        index: 2,
         product: PARTLISTS[2],
         quantity: 1,
         price: 11,
@@ -513,6 +524,7 @@ describe("PartListService", () => {
         remark: "text",
       },
       {
+        index: 3,
         product: PRODUCTS[2],
         quantity: 2,
         price: 11,
@@ -521,6 +533,7 @@ describe("PartListService", () => {
         remark: "text",
       },
       {
+        index: 4,
         product: PRODUCTS[3],
         quantity: 1,
         price: 11,
@@ -529,6 +542,7 @@ describe("PartListService", () => {
         remark: "text",
       },
       {
+        index: 5,
         product: PRODUCTS[3],
         quantity: 2,
         price: 11,
@@ -537,6 +551,7 @@ describe("PartListService", () => {
         remark: "text",
       },
       {
+        index: 6,
         product: PRODUCTS[1],
         quantity: 1,
         price: 11,
@@ -563,6 +578,7 @@ describe("PartListService", () => {
     spyOn(productService, "getProductsByType").and.returnValue(of(partlists));
     const ticket = [
       {
+        index: 1,
         product: PRODUCTS[1],
         quantity: 1,
         price: 11,
@@ -571,6 +587,7 @@ describe("PartListService", () => {
         remark: "text",
       },
       {
+        index: 2,
         product: PRODUCTS[1],
         quantity: 2,
         price: 11,
@@ -579,6 +596,7 @@ describe("PartListService", () => {
         remark: "text",
       },
       {
+        index: 3,
         product: PARTLISTS[2],
         quantity: 1,
         price: 11,
@@ -587,6 +605,7 @@ describe("PartListService", () => {
         remark: "text",
       },
       {
+        index: 4,
         product: PRODUCTS[2],
         quantity: 2,
         price: 11,
@@ -595,6 +614,7 @@ describe("PartListService", () => {
         remark: "text",
       },
       {
+        index: 5,
         product: PRODUCTS[3],
         quantity: 1,
         price: 11,
@@ -603,6 +623,7 @@ describe("PartListService", () => {
         remark: "text",
       },
       {
+        index: 6,
         product: PRODUCTS[3],
         quantity: 2,
         price: 11,
@@ -611,6 +632,7 @@ describe("PartListService", () => {
         remark: "text",
       },
       {
+        index: 7,
         product: PRODUCTS[1],
         quantity: 1,
         price: 11,
@@ -619,6 +641,7 @@ describe("PartListService", () => {
         remark: "text",
       },
       {
+        index: 8,
         product: PRODUCTS[1],
         quantity: 2,
         price: 11,

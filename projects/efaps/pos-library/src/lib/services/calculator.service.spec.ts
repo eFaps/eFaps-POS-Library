@@ -55,6 +55,7 @@ describe("CalculatorService", () => {
   it("should use crosstotal as the payableamount if workspace flag is not active", () => {
     const items = [
       {
+        index: 0,
         product: {
           oid: "123.12",
           sku: "1651651.651561",
@@ -99,6 +100,7 @@ describe("CalculatorService", () => {
   it("should round crosstotal for payableamount if workspace flag is active", () => {
     const items = [
       {
+        index: 0,
         product: {
           oid: "123.12",
           sku: "1651651.651561",
@@ -145,6 +147,7 @@ describe("CalculatorService", () => {
     service["workspaceFlags"] = 4;
     const items = [
       {
+        index: 0,
         product: {
           oid: "123.12",
           sku: "1651651.651561",
