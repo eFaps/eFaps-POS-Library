@@ -127,10 +127,11 @@ export class CalculatorService {
 
     items.forEach((item) => {
       const quantity = new Decimal(item.quantity);
-      const netUnitPrice = new Decimal(item.product.netPrice);
-      const netPrice = this.evalNetPrice(quantity, netUnitPrice);
+      const netUnitPrice = isChildItem(item) ? new Decimal(0) : new Decimal(item.product.netPrice);
+      const netPrice = isChildItem(item) ? new Decimal(0) : this.evalNetPrice(quantity, netUnitPrice);
 
       let itemTaxAmount = new Decimal(0);
+      if (!isChildItem(item)) {
       item.product.taxes.forEach((tax: Tax) => {
         const taxAmount = this.taxService.calcTax(
           netPrice,
@@ -143,8 +144,9 @@ export class CalculatorService {
         taxes.set(tax.name, taxes.get(tax.name).plus(taxAmount));
         itemTaxAmount = itemTaxAmount.plus(taxAmount);
       });
+    }
       const taxAmount = this.roundTaxAmount(itemTaxAmount);
-      const crossPrice = this.evalCrossPrice(netPrice, taxAmount);
+      const crossPrice = isChildItem(item) ? new Decimal(0) : this.evalCrossPrice(netPrice, taxAmount);
 
       netTotal = netTotal.plus(netPrice);
       crossTotal = crossTotal.plus(crossPrice);
