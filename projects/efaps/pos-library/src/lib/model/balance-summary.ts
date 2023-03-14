@@ -23,8 +23,7 @@ export interface SummaryDetail {
 
 export interface PaymentInfo {
   type: PaymentType;
-  cardTypeId: number;
-  cardLabel: String;
+  label: String;
   count: number;
   amount: number;
 }
