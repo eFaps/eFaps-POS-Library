@@ -20,6 +20,7 @@ export * from "./pos.service";
 export * from "./print.service";
 export * from "./product.service";
 export * from "./spot.service";
+export * from "./stocktaking.service";
 export * from "./tax.service";
 export * from "./taxpayer.service";
 export * from "./user.service";

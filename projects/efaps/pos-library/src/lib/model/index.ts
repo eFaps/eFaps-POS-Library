@@ -22,6 +22,7 @@ export * from "./printer";
 export * from "./pageable";
 export * from "./product";
 export * from "./spot";
+export * from "./stocktacking";
 export * from "./tax";
 export * from "./taxpayer";
 export * from "./tokens";
