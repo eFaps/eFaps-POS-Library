@@ -6,5 +6,12 @@ export interface Stocktaking {
   startAt: Date;
   endAt: Date;
   status: "OPEN" | "CLOSED";
-  user?: User;
+  userOid: string;
+  warehouseOid: string;
+}
+
+export interface StocktakingEntry {
+  id?: string;
+  productOid: string;
+  quantity: number;
 }
