@@ -5,6 +5,7 @@ import { Spot } from "./spot";
 import { TaxEntry } from "./tax";
 import { Currency } from "./currency";
 import { EmployeeRelation } from "./employee";
+import { Contact } from "./contact";
 
 export interface Document {
   type?: "ORDER" | "RECEIPT" | "INVOICE" | "TICKET" | "CREDITNOTE";
@@ -20,6 +21,7 @@ export interface Document {
   payableAmount: number;
   taxes: TaxEntry[];
   contactOid?: string;
+  contact?: Contact;
   workspaceOid?: string;
   discount: Discount | null;
   note?: string;
