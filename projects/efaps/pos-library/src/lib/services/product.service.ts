@@ -5,6 +5,8 @@ import { map } from "rxjs/operators";
 
 import {
   Category,
+  Page,
+  PageRequest,
   PosCategory,
   Product,
   ProductType,
@@ -31,9 +33,10 @@ export class ProductService {
     });
   }
 
-  public getProducts(): Observable<Product[]> {
+  public getProducts(pageable?: PageRequest): Observable<Page<Product>> {
     const requestUrl = `${this.config.baseUrl}/products`;
-    return this.http.get<Product[]>(requestUrl);
+    const params: any = pageable || {};
+    return this.http.get<Page<Product>>(requestUrl, { params });
   }
 
   public findProducts(
