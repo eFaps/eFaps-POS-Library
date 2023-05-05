@@ -1,6 +1,6 @@
 {
   "name": "@efaps/pos-library",
-  "version": "6.13.2",
+  "version": "7.0.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/eFaps/eFaps-POS-Library.git"
@@ -12,12 +12,12 @@
     "access": "public"
   },
   "peerDependencies": {
-    "@angular/common": "^12.0.0 || ^13.0.0 || ^14.0.0",
-    "@angular/core": "^12.0.0 || ^13.0.0 || ^14.0.0",
+    "@angular/common": "^13.0.0 || ^14.0.0 || ^15.0.0",
+    "@angular/core": "^13.0.0 || ^14.0.0 || ^15.0.0",
     "parse-decimal-number": "^1.0.0",
     "just-clone": "^3.2.1 || ^5.0.1 || ^6.1.1"
   },
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.5.0"
   }
 }

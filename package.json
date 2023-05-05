@@ -1,6 +1,6 @@
 {
   "name": "pos-library",
-  "version": "6.13.2",
+  "version": "7.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -24,7 +24,7 @@
     "decimal.js": "^10.4.3",
     "just-clone": "^6.2.0",
     "jwt-decode": "^3.1.2",
-    "rxjs": "^7.8.0",
+    "rxjs": "^7.8.1",
     "tslib": "^2.5.0",
     "zone.js": "^0.11.8"
   },
@@ -35,7 +35,7 @@
     "@angular/language-service": "^15.2.9",
     "@types/jasmine": "^4.3.1",
     "@types/jasminewd2": "^2.0.10",
-    "@types/node": "^18.16.1",
+    "@types/node": "^18.16.4",
     "codelyzer": "^6.0.2",
     "import-sort-style-module": "^6.0.0",
     "jasmine-core": "^4.6.0",
