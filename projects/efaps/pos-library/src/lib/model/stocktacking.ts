@@ -10,8 +10,19 @@ export interface Stocktaking {
   warehouseOid: string;
 }
 
+export interface AddStocktakingEntry {
+  id?: string;
+  quantity: number;
+  productOid: string;
+}
+
 export interface StocktakingEntry {
   id?: string;
-  productOid: string;
   quantity: number;
+  product: {
+    oid: string;
+    description: string;
+    sku: string;
+    uoM: string;
+  };
 }
