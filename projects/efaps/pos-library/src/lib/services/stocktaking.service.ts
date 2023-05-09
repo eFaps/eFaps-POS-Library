@@ -36,8 +36,9 @@ export class StocktakingService {
     return this.http.get<Page<Stocktaking>>(requestUrl, { params });
   }
 
-  getEntries(stocktakingId): Observable<Page<StocktakingEntry>> {
+  getEntries(stocktakingId: string, pageable?: PageRequest): Observable<Page<StocktakingEntry>> {
     const requestUrl = `${this.config.baseUrl}/stocktakings/${stocktakingId}/entries`;
-    return this.http.get<Page<StocktakingEntry>>(requestUrl);
+    const params: any = pageable || {};
+    return this.http.get<Page<StocktakingEntry>>(requestUrl, { params });
   }
 }
