@@ -27,4 +27,5 @@ export interface StocktakingEntry {
     uoM: string;
   };
   comment: string;
+  createdAt: Date;
 }
