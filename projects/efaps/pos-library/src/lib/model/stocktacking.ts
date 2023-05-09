@@ -14,6 +14,7 @@ export interface AddStocktakingEntry {
   id?: string;
   quantity: number;
   productOid: string;
+  comment: string;
 }
 
 export interface StocktakingEntry {
@@ -25,4 +26,5 @@ export interface StocktakingEntry {
     sku: string;
     uoM: string;
   };
+  comment: string;
 }
