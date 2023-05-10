@@ -35,6 +35,11 @@ export class StocktakingService {
     return this.http.post(requestUrl, entry, { responseType: "text" });
   }
 
+  deleteEntry(stocktakingId: string, entryId: string) : Observable<Object> {
+    const requestUrl = `${this.config.baseUrl}/stocktakings/${stocktakingId}/entries/${entryId}`;
+    return this.http.delete(requestUrl)
+  }
+
   getStocktakings(
     expand?: boolean,
     pageable?: PageRequest

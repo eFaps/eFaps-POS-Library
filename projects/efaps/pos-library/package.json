@@ -1,6 +1,6 @@
 {
   "name": "@efaps/pos-library",
-  "version": "7.0.4",
+  "version": "7.0.5",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/eFaps/eFaps-POS-Library.git"
