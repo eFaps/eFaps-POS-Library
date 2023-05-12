@@ -5,9 +5,9 @@ import { map } from "rxjs/operators";
 
 import {
   Category,
+  CategoryNode,
   Page,
   PageRequest,
-  PosCategory,
   Product,
   ProductType,
   Workspace,
@@ -52,68 +52,58 @@ export class ProductService {
     return this.http.get<Product[]>(requestUrl);
   }
 
-  public getPosCategories(): Observable<PosCategory[]> {
-    return forkJoin([this.getCategories(), this.getProducts()]).pipe(
-      map((data: any[]) => {
-        const categoryList: Category[] = data[0];
-        const productList: Product[] = data[1];
-        const rootCategories = categoryList.filter(
-          (category) => category.parentOid == null
+  
+
+  public getCategoryTree(): Observable<CategoryNode[]> {
+    return this.getCategories().pipe(
+      map((categories) => {
+        const rootCategories = categories
+          .filter((cat) => cat.parentOid == null)
+          .sort(this.categorySort)
+          .map((cat) => {
+            return {
+              oid: cat.oid,
+              name: cat.name,
+              imageOid: cat.imageOid,
+              weight: cat.weight,
+              parentOid: cat.parentOid,
+              children: [],
+            };
+          });
+        rootCategories.forEach((rootCategory) =>
+          this.addChildNodes(categories, rootCategory)
         );
-        const posCategories: PosCategory[] = [];
-        rootCategories.forEach((_category) => {
-          posCategories.push(
-            this.getPosCategory(_category, categoryList, productList)
-          );
-        });
-        return posCategories.sort((n1, n2) => {
-          const w1 = n1.weight ? 0 : n1.weight;
-          const w2 = n2.weight ? 0 : n2.weight;
-          return w1 - w2;
-        });
+
+        return rootCategories;
       })
     );
   }
 
-  private getPosCategory(
-    category: Category,
-    categoryList: Category[],
-    productList: Product[]
-  ): PosCategory {
-    const childCategories = categoryList.filter(
-      (cat) => cat.parentOid == category.oid
+  private addChildNodes(categories: Category[], node: CategoryNode) {
+    const childCategories = categories
+      .filter((cat) => cat.parentOid == node.oid)
+      .sort(this.categorySort)
+      .map((cat) => {
+        return {
+          oid: cat.oid,
+          name: cat.name,
+          imageOid: cat.imageOid,
+          weight: cat.weight,
+          parentOid: cat.parentOid,
+          children: [],
+        };
+      });
+    childCategories.forEach((rootCategory) =>
+      this.addChildNodes(categories, rootCategory)
     );
-    const childPosCategories: PosCategory[] = [];
-    childCategories.forEach((childCategory) => {
-      childPosCategories.push(
-        this.getPosCategory(childCategory, categoryList, productList)
-      );
-    });
-    return {
-      oid: category.oid,
-      name: category.name,
-      products: productList
-        .filter((_product) => {
-          return _product.categories.some((prod2cat) => {
-            return prod2cat.categoryOid == category.oid;
-          });
-        })
-        .sort((n1, n2) => {
-          const w1 = n1.categories.filter(
-            (prod2cat) => prod2cat.categoryOid == category.oid
-          )[0].weight;
-          const w2 = n2.categories.filter(
-            (prod2cat) => prod2cat.categoryOid == category.oid
-          )[0].weight;
-          return w1 - w2;
-        }),
-      categories: childPosCategories.sort((n1, n2) => {
-        const w1 = n1.weight ? 0 : n1.weight;
-        const w2 = n2.weight ? 0 : n2.weight;
-        return w1 - w2;
-      }),
-    };
+    node.children = childCategories;
   }
+
+  private categorySort = (n1: Category, n2: Category) => {
+    const w1 = n1.weight ? 0 : n1.weight;
+    const w2 = n2.weight ? 0 : n2.weight;
+    return w1 - w2;
+  };
 
   public getCategories(): Observable<Category[]> {
     const href = this.config.baseUrl + "/categories";

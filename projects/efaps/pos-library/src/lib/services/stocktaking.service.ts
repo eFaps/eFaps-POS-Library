@@ -27,14 +27,14 @@ export class StocktakingService {
     return this.http.post<Stocktaking>(requestUrl, warehouseOid);
   }
 
-  closeStocktaking(stocktakingId: string):  Observable<Stocktaking> {
+  closeStocktaking(stocktakingId: string): Observable<Stocktaking> {
     const requestUrl = `${this.config.baseUrl}/stocktakings/${stocktakingId}`;
     return this.http.put<Stocktaking>(requestUrl, {});
   }
 
-  getOpenStocktakings():Observable<Stocktaking[]> {
+  getOpenStocktakings(): Observable<Stocktaking[]> {
     const requestUrl = `${this.config.baseUrl}/stocktakings`;
-    const params: any =  { status: "OPEN" };
+    const params: any = { status: "OPEN" };
     return this.http.get<Stocktaking[]>(requestUrl, { params });
   }
 
@@ -48,7 +48,6 @@ export class StocktakingService {
     return this.http.get<Page<Stocktaking>>(requestUrl, { params });
   }
 
-
   addEntry(
     stocktakingId: string,
     entry: AddStocktakingEntry
@@ -57,12 +56,11 @@ export class StocktakingService {
     return this.http.post(requestUrl, entry, { responseType: "text" });
   }
 
-  deleteEntry(stocktakingId: string, entryId: string) : Observable<Object> {
+  deleteEntry(stocktakingId: string, entryId: string): Observable<Object> {
     const requestUrl = `${this.config.baseUrl}/stocktakings/${stocktakingId}/entries/${entryId}`;
-    return this.http.delete(requestUrl)
+    return this.http.delete(requestUrl);
   }
 
- 
   getEntries(
     stocktakingId: string,
     pageable?: PageRequest
