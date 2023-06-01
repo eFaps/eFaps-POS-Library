@@ -1,4 +1,5 @@
 export interface User {
+  employeeOid?: string;
   username: string;
   firstName: string;
   surName: string;
