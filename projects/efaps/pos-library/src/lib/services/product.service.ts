@@ -52,8 +52,6 @@ export class ProductService {
     return this.http.get<Product[]>(requestUrl);
   }
 
-  
-
   public getCategoryTree(): Observable<CategoryNode[]> {
     return this.getCategories().pipe(
       map((categories) => {

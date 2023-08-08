@@ -2,7 +2,12 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
-import { InventoryEntry, Warehouse } from "../model/index";
+import {
+  InventoryEntry,
+  ValidateStock,
+  ValidateStockResponse,
+  Warehouse,
+} from "../model/index";
 import { ConfigService } from "./config.service";
 
 @Injectable({
@@ -31,5 +36,10 @@ export class InventoryService {
     return this.http.get<InventoryEntry[]>(requestUrl, {
       params: { productOid },
     });
+  }
+
+  public validateStock(dto: ValidateStock): Observable<ValidateStockResponse> {
+    const requestUrl = `${this.config.baseUrl}/inventory/validate`;
+    return this.http.post<ValidateStockResponse>(requestUrl, dto);
   }
 }
