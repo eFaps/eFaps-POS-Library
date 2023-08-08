@@ -13,7 +13,7 @@ export * from "./discount";
 export * from "./document";
 export * from "./employee";
 export * from "./flags";
-export * from "./inventory-entry";
+export * from "./inventory";
 export * from "./item";
 export * from "./payment";
 export * from "./pos";
