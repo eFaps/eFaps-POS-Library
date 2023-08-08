@@ -40,7 +40,7 @@ export class DocumentService {
     return this.http.post<Receipt>(url, receipt, { params: { orderId } });
   }
 
-  public createInvoice(orderId: string, invoice: Invoice): Observable<Receipt> {
+  public createInvoice(orderId: string, invoice: Invoice): Observable<Invoice> {
     const url = `${this.config.baseUrl}/workspaces/${this.wsoid}/documents/invoices`;
     return this.http.post<Invoice>(url, invoice, { params: { orderId } });
   }
