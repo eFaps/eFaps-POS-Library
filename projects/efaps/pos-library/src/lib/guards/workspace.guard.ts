@@ -1,10 +1,5 @@
 import { Injectable } from "@angular/core";
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  Router,
-  RouterStateSnapshot,
-} from "@angular/router";
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from "@angular/router";
 import { Observable } from "rxjs";
 
 import { WorkspaceService } from "../services/workspace.service";
@@ -13,7 +8,7 @@ import { WorkspaceService } from "../services/workspace.service";
   providedIn: "root",
   deps: [Router, WorkspaceService],
 })
-export class WorkspaceGuard implements CanActivate {
+export class WorkspaceGuard  {
   constructor(
     private router: Router,
     private workspaceService: WorkspaceService
