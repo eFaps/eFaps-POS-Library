@@ -1,32 +1,20 @@
-import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from "@angular/router";
-import { Observable } from "rxjs";
+import { inject } from "@angular/core";
+import { CanActivateFn, Router } from "@angular/router";
 
 import { WorkspaceService } from "../services/workspace.service";
 
-@Injectable({
-  providedIn: "root",
-  deps: [Router, WorkspaceService],
-})
-export class WorkspaceGuard  {
-  constructor(
-    private router: Router,
-    private workspaceService: WorkspaceService
-  ) {}
-
-  canActivate(
-    _next: ActivatedRouteSnapshot,
-    _state: RouterStateSnapshot
-  ): Observable<boolean> | Promise<boolean> | boolean {
-    return new Promise<boolean>((resolve) => {
-      this.workspaceService.hasCurrent().then((_ret) => {
+export function workspaceGuard(): CanActivateFn {
+  return () =>
+    new Promise<boolean>((resolve) => {
+      const workspaceService: WorkspaceService = inject(WorkspaceService);
+      const router: Router = inject(Router);
+      workspaceService.hasCurrent().then((_ret) => {
         if (_ret) {
           resolve(true);
         } else {
-          this.router.navigate(["/workspaces"]);
+          router.navigate(["/workspaces"]);
           resolve(false);
         }
       });
     });
-  }
 }

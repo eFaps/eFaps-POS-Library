@@ -1,24 +1,15 @@
-import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from "@angular/router";
-import { Observable } from "rxjs";
-
+import { inject } from "@angular/core";
 import { AuthService } from "../services/auth.service";
+import { CanActivateFn, Router } from "@angular/router";
 
-@Injectable({
-  providedIn: "root",
-  deps: [Router, AuthService],
-})
-export class AuthGuard  {
-  constructor(private router: Router, private auth: AuthService) {}
-
-  canActivate(
-    _next: ActivatedRouteSnapshot,
-    _state: RouterStateSnapshot
-  ): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.auth.isTokenExpired()) {
-      this.router.navigate(["/login"]);
+export function authGuard(): CanActivateFn {
+  return () => {
+    const authService: AuthService = inject(AuthService);
+    const router: Router = inject(Router);
+    if (authService.isTokenExpired()) {
+      router.navigate(["/login"]);
       return false;
     }
     return true;
-  }
+  };
 }

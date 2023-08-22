@@ -2,9 +2,6 @@ import { CommonModule } from "@angular/common";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ModuleWithProviders, NgModule } from "@angular/core";
 
-import { AdminGuard } from "./guards/admin.guard";
-import { AuthGuard } from "./guards/auth.guard";
-import { WorkspaceGuard } from "./guards/workspace.guard";
 import { CompanyInterceptor } from "./interceptors/company.interceptor";
 import { JwtInterceptor } from "./interceptors/jwt.interceptor";
 import { PosConfig } from "./model";
@@ -52,8 +49,6 @@ export class PosLibraryModule {
         ConfigService,
         AdminService,
         AuthService,
-        AuthGuard,
-        AdminGuard,
         BalanceService,
         ContactService,
         CollectService,
@@ -73,7 +68,6 @@ export class PosLibraryModule {
         TaxpayerService,
         UserService,
         UtilsService,
-        WorkspaceGuard,
         WorkspaceService,
         {
           provide: HTTP_INTERCEPTORS,
