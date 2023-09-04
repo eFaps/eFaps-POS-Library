@@ -5,7 +5,8 @@ export interface User {
   surName: string;
 }
 
-export enum Roles {
-  ADMIN,
-  USER,
+export enum Permission {
+  ADMIN = "ADMIN",
+  COLLECT = "COLLECT",
+  ORDER = "ORDER",
 }

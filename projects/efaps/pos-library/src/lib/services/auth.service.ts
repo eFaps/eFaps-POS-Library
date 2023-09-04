@@ -4,7 +4,7 @@ import jwtDecode from "jwt-decode";
 import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
-import { CurrentUser, Roles, Tokens } from "../model";
+import { CurrentUser, Permission, Tokens } from "../model";
 import { ConfigService } from "./config.service";
 
 @Injectable({
@@ -121,12 +121,21 @@ export class AuthService {
     return !(date.valueOf() > new Date().valueOf());
   }
 
-  hasRole(_role: Roles) {
+  hasPermission(...permission: Permission[]) {
     if (this.isTokenExpired()) {
       return false;
     }
     const decoded = <any>jwtDecode(this.getAccessToken());
-    const roles: string[] = decoded.roles;
-    return roles.find((x) => x === Roles[_role]) ? true : false;
+    const permissions: string[] = decoded.permissions;
+
+    let hasIt = false;
+    permissions.every((permission) => {
+      if (permissions.find((x) => x === Permission[permission])) {
+        hasIt = true;
+        return false;
+      }
+      return true;
+    });
+    return hasIt;
   }
 }

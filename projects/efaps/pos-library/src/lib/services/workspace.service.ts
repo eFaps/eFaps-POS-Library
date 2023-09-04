@@ -74,15 +74,15 @@ export class WorkspaceService {
 
     if (workspaceOid) {
       return new Promise<boolean>((resolve) => {
-        this.getWorkspace(workspaceOid).subscribe(
-          (_ws) => {
-            this.setCurrent(_ws);
+        this.getWorkspace(workspaceOid).subscribe({
+          next: (ws) => {
+            this.setCurrent(ws);
             resolve(true);
           },
-          (_error) => {
+          error: (err) => {
             resolve(false);
-          }
-        );
+          },
+        });
       });
     }
     return new Promise<boolean>((resolve) => resolve(false));

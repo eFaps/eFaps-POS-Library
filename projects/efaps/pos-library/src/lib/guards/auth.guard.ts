@@ -1,15 +1,26 @@
 import { inject } from "@angular/core";
 import { AuthService } from "../services/auth.service";
-import { CanActivateFn, Router } from "@angular/router";
+import {
+  ActivatedRouteSnapshot,
+  CanActivateFn,
+  Router,
+  RouterStateSnapshot,
+} from "@angular/router";
+import { Permission } from "../model";
 
-export function authGuard(): CanActivateFn {
-  return () => {
-    const authService: AuthService = inject(AuthService);
-    const router: Router = inject(Router);
-    if (authService.isTokenExpired()) {
-      router.navigate(["/login"]);
-      return false;
-    }
-    return true;
-  };
-}
+export const authGuard: CanActivateFn = () => {
+  const authService: AuthService = inject(AuthService);
+  if (authService.isTokenExpired()) {
+    return inject(Router).createUrlTree(["/login"]);
+  }
+  return true;
+};
+
+export const permissionGuard: CanActivateFn = (
+  route: ActivatedRouteSnapshot,
+  _state: RouterStateSnapshot
+) => {
+  const permissions = route.data.permissions as Array<Permission>;
+  const authService: AuthService = inject(AuthService);
+  return authService.hasPermission(...permissions);
+};
