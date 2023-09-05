@@ -8,10 +8,10 @@ export const workspaceGuard: CanActivateFn = () =>
     const workspaceService: WorkspaceService = inject(WorkspaceService);
     workspaceService.hasCurrent().then(
       (onfullFilled) => {
-        return true;
+        resolve(true);
       },
       (onRejected) => {
-        return inject(Router).createUrlTree(["/workspaces"]);
+        resolve(inject(Router).createUrlTree(["/workspaces"]));
       }
     );
   });
