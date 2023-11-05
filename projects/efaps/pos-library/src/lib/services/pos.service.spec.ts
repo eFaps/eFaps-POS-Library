@@ -28,9 +28,7 @@ class CalculatorServiceStub {}
 
 @Injectable()
 class PosServiceExtended extends PosService {
-  calculateTotals(items: Item[]) {
-    super.calculateTotals(items);
-  }
+  
 }
 
 describe("PosService", () => {

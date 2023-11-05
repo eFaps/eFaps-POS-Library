@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, Observable, map, switchMap } from "rxjs";
 
 import {
   CalculatorRequest,
@@ -152,24 +152,24 @@ export class PosService {
   }
 
   changeTicket(ticket: Item[]) {
-    this.partListService.updateTicket(ticket).subscribe({
-      next: (ticket) => {
-        let calcReq: CalculatorRequest = {
-          positions: ticket.map((item) => {
-            return {
-              quantity: item.quantity,
-              productOid: item.product.oid,
-            };
-          }),
-        };
-        this.calculatorService.calculate(calcReq).subscribe({
-          next: (calcResp) => {
-            this.updateTotals(calcResp);
-            this.updateTicket(ticket, calcResp);
-          },
-        });
-      },
-    });
+    if (ticket.length == 0) {
+      this.netTotalSource.next(0);
+      this.crossTotalSource.next(0);
+      this.payableAmountSource.next(0);
+      this.taxesSource.next(new Map<string, number>());
+      this.ticketSource.next(ticket);
+    } else {
+      this.partListService.updateTicket(ticket).subscribe({
+        next: (ticket) => {
+          this.calculatorService.calculate(this.calcReq(ticket)).subscribe({
+            next: (calcResp) => {
+              this.updateTotals(calcResp);
+              this.updateTicket(ticket, calcResp);
+            },
+          });
+        },
+      });
+    }
   }
 
   private updateTicket(ticket: Item[], calcResp: CalculatorResponse) {
@@ -194,86 +194,97 @@ export class PosService {
   }
 
   public createOrder(): Observable<Order> {
-    return this.documentService.createOrder({
-      id: null,
-      oid: null,
-      number: null,
-      currency: this.currency,
-      exchangeRate: this.exchangeRate,
-      items: this.getDocItems(),
-      status: DocStatus.OPEN,
-      netTotal: this.netTotal,
-      crossTotal: this.crossTotal,
-      payableAmount: this.payableAmount,
-      taxes: this.calculatorService.getTotalTaxEntries(this.ticket),
-      discount: null,
-      payableOid: null,
-      contactOid: this.contactOid,
-      employeeRelations: this.employeeRelations,
-    });
-  }
-
-  private getDocItems(): DocItem[] {
-    return this.ticket.map(
-      (item, index) =>
-        <DocItem>{
-          index: item.index,
-          parentIdx: item.parentIdx,
-          product: item.product,
-          quantity: item.quantity,
-          netUnitPrice: item.product.netPrice,
-          netPrice: this.calculatorService
-            .calculateItemNetPrice(item)
-            .toNumber(),
-          crossUnitPrice: item.product.crossPrice,
-          crossPrice: this.calculatorService
-            .calculateItemCrossPrice(item)
-            .toNumber(),
-          remark: item.remark,
-          taxes: this.calculatorService.getItemTaxEntries(item),
-        }
-    );
-  }
-
-  public updateOrder(_order: Order): Observable<Order> {
-    return this.documentService.updateOrder(
-      Object.assign(_order, {
-        items: this.getDocItems(),
-        netTotal: this.netTotal,
-        crossTotal: this.crossTotal,
-        payableAmount: this.payableAmount,
-        taxes: this.calculatorService.getTotalTaxEntries(this.ticket),
-        employeeRelations: this.employeeRelations,
+    return this.calculatorService.calculate(this.calcReq()).pipe(
+      switchMap((calcResp) => {
+        return this.documentService.createOrder({
+          id: null,
+          oid: null,
+          number: null,
+          currency: this.currency,
+          exchangeRate: this.exchangeRate,
+          items: this.toDocItems(calcResp),
+          status: DocStatus.OPEN,
+          netTotal: calcResp.netTotal,
+          crossTotal: calcResp.crossTotal,
+          payableAmount: calcResp.payableAmount,
+          taxes: calcResp.taxes,
+          discount: null,
+          payableOid: null,
+          contactOid: this.contactOid,
+          employeeRelations: this.employeeRelations,
+        });
       })
     );
   }
 
-  public calculateOrder(order: Order): Order {
-    const docItems = this.ticket.map(
-      (item, index) =>
-        <DocItem>{
-          index: order.items[index].index,
-          parentIdx: item.parentIdx,
-          product: item.product,
+  private calcReq(items?: Item[]): CalculatorRequest {
+    let itemsToMap: Item[];
+    if (items == undefined) {
+      itemsToMap = this.ticket;
+    } else {
+      itemsToMap = items;
+    }
+    return {
+      positions: itemsToMap.map((item) => {
+        return {
           quantity: item.quantity,
-          netUnitPrice: item.product.netPrice,
-          netPrice: this.calculatorService
-            .calculateItemNetPrice(item)
-            .toNumber(),
-          crossUnitPrice: item.product.crossPrice,
-          crossPrice: this.calculatorService
-            .calculateItemCrossPrice(item)
-            .toNumber(),
-          taxes: this.calculatorService.getItemTaxEntries(item),
-        }
+          productOid: item.product.oid,
+        };
+      }),
+    };
+  }
+
+  private toDocItems(calcResp: CalculatorResponse): DocItem[] {
+    const docItems = new Array<DocItem>();
+    for (let index = 0; index < this.ticket.length; index++) {
+      const item = this.ticket[index];
+      const position = calcResp.positions[index];
+      item.price = position.crossPrice;
+      docItems.push(<DocItem>{
+        index: item.index,
+        parentIdx: item.parentIdx,
+        product: item.product,
+        quantity: item.quantity,
+        netUnitPrice: position.netUnitPrice,
+        netPrice: position.netPrice,
+        crossPrice: position.crossPrice,
+        remark: item.remark,
+        taxes: position.taxes,
+      });
+    }
+    return docItems;
+  }
+
+  public updateOrder(order: Order): Observable<Order> {
+    return this.calculatorService.calculate(this.calcReq()).pipe(
+      switchMap((calcResp) => {
+        return this.documentService.updateOrder(
+          Object.assign(order, {
+            items: this.toDocItems(calcResp),
+            netTotal: calcResp.netTotal,
+            crossTotal: calcResp.crossTotal,
+            payableAmount: calcResp.payableAmount,
+            taxes: calcResp.taxes,
+            employeeRelations: this.employeeRelations,
+          })
+        );
+      })
     );
-    return Object.assign(order, {
-      items: docItems,
-      netTotal: this.netTotal,
-      crossTotal: this.crossTotal,
-      payableAmount: this.payableAmount,
-      taxes: this.calculatorService.getTotalTaxEntries(this.ticket),
-    });
+  }
+
+  public calculateOrder(order: Order): Observable<Order> {
+    return this.calculatorService.calculate(this.calcReq()).pipe(
+      map((calcResp) => {
+        return Object.assign(order, {
+          items: this.toDocItems(calcResp),
+          netTotal: calcResp.netTotal,
+          crossTotal: calcResp.crossTotal,
+          payableAmount: calcResp.payableAmount,
+          taxes: calcResp.taxes,
+          employeeRelations: this.employeeRelations,
+        });
+      })
+    );
   }
 
   public reset() {
