@@ -3,6 +3,8 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 
 import {
+  CalculatorRequest,
+  CalculatorResponse,
   Currency,
   DocItem,
   DocStatus,
@@ -152,30 +154,41 @@ export class PosService {
   changeTicket(ticket: Item[]) {
     this.partListService.updateTicket(ticket).subscribe({
       next: (ticket) => {
-        this.calculateItems(ticket);
-        this.calculateTotals(ticket);
-        this.ticketSource.next(ticket);
+        let calcReq: CalculatorRequest = {
+          positions: ticket.map((item) => {
+            return {
+              quantity: item.quantity,
+              productOid: item.product.oid,
+            };
+          }),
+        };
+        this.calculatorService.calculate(calcReq).subscribe({
+          next: (calcResp) => {
+            this.updateTotals(calcResp);
+            this.updateTicket(ticket, calcResp);
+          },
+        });
       },
     });
   }
 
-  private calculateItems(ticket: Item[]) {
-    ticket.forEach((item: Item) => {
-      item.price = this.calculatorService
-        .calculateItemCrossPrice(item)
-        .toNumber();
-    });
+  private updateTicket(ticket: Item[], calcResp: CalculatorResponse) {
+    for (let index = 0; index < ticket.length; index++) {
+      const item = ticket[index];
+      const position = calcResp.positions[index];
+      item.price = position.crossPrice;
+    }
+    this.ticketSource.next(ticket);
   }
 
-  protected calculateTotals(items: Item[]) {
-    const totals = this.calculatorService.calculateTotals(items);
-    this.netTotalSource.next(totals.netTotal.toNumber());
-    this.crossTotalSource.next(totals.crossTotal.toNumber());
-    this.payableAmountSource.next(totals.payableAmount.toNumber());
+  private updateTotals(calcResp: CalculatorResponse) {
+    this.netTotalSource.next(calcResp.netTotal);
+    this.crossTotalSource.next(calcResp.crossTotal);
+    this.payableAmountSource.next(calcResp.payableAmount);
 
     const taxesNum = new Map<string, number>();
-    totals.taxes.forEach((val, key) => {
-      taxesNum.set(key, val.toNumber());
+    calcResp.taxes.forEach((entry) => {
+      taxesNum.set(entry.tax.name, entry.amount);
     });
     this.taxesSource.next(taxesNum);
   }

@@ -2,6 +2,8 @@ import { Injectable } from "@angular/core";
 import Decimal from "decimal.js";
 import {
   CalculatorConfig,
+  CalculatorRequest,
+  CalculatorResponse,
   Item,
   Product,
   Tax,
@@ -13,6 +15,8 @@ import { ConfigService } from "./config.service";
 import { TaxService } from "./tax.service";
 import { isChildItem, hasFlag } from "./utils.service";
 import { WorkspaceService } from "./workspace.service";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -24,17 +28,20 @@ export class CalculatorService {
     crossPriceScale: 4,
   };
   private workspaceFlags: number = 0;
+  private workspaceOid: string;
   constructor(
-    private configService: ConfigService,
+    private http: HttpClient,
+    private config: ConfigService,
     private workspaceService: WorkspaceService,
     private taxService: TaxService
   ) {
     this.workspaceService.currentWorkspace.subscribe((data) => {
       if (data) {
         this.workspaceFlags = data.flags;
+        this.workspaceOid = data.oid;
       }
     });
-    this.configService
+    this.config
       .getSystemConfig<any>("org.efaps.pos.Calculator.Config")
       .subscribe({
         next: (value: any) => {
@@ -58,6 +65,11 @@ export class CalculatorService {
           console.log(err);
         },
       });
+  }
+
+  public calculate(calcReq: CalculatorRequest): Observable<CalculatorResponse> {
+    const url = `${this.config.baseUrl}/workspaces/${this.workspaceOid}/calculator`;
+    return this.http.post<CalculatorResponse>(url, calcReq);
   }
 
   calculateItemNetPrice(item: Item): Decimal {

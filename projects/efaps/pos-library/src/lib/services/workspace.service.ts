@@ -104,8 +104,10 @@ export class WorkspaceService {
 
   private storeCurrentWorkspace(_oid: string) {
     if (this.companyService.hasCompany()) {
-      if (this.workspaces[this.companyService.currentCompany.key] == undefined) {
-        this.workspaces[this.companyService.currentCompany.key] = {}
+      if (
+        this.workspaces[this.companyService.currentCompany.key] == undefined
+      ) {
+        this.workspaces[this.companyService.currentCompany.key] = {};
       }
       this.workspaces[this.companyService.currentCompany.key][
         this.auth.getCurrentUsername()
