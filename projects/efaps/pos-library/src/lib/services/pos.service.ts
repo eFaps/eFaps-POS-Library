@@ -247,6 +247,7 @@ export class PosService {
         quantity: item.quantity,
         netUnitPrice: position.netUnitPrice,
         netPrice: position.netPrice,
+        crossUnitPrice: position.crossUnitPrice,
         crossPrice: position.crossPrice,
         remark: item.remark,
         taxes: position.taxes,
