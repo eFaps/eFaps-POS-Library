@@ -23,6 +23,7 @@ export interface CalculatorPosResponse {
   productOid: string;
   netUnitPrice: number;
   netPrice: number;
+  crossUnitPrice: number;
   crossPrice: number;
   taxes: TaxEntry[];
   taxAmount: number;
