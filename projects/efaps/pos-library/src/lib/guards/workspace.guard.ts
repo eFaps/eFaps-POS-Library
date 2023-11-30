@@ -6,12 +6,17 @@ import { WorkspaceService } from "../services/workspace.service";
 export const workspaceGuard: CanActivateFn = () =>
   new Promise<boolean | UrlTree>((resolve) => {
     const workspaceService: WorkspaceService = inject(WorkspaceService);
+    const router: Router = inject(Router)
     workspaceService.hasCurrent().then(
       (onfullFilled) => {
-        resolve(true);
+        if (onfullFilled) {
+          resolve(true);
+        } else {
+          resolve(router.createUrlTree(["/workspaces"]));  
+        }
       },
       (onRejected) => {
-        resolve(inject(Router).createUrlTree(["/workspaces"]));
+        resolve(router.createUrlTree(["/workspaces"]));
       }
     );
   });
