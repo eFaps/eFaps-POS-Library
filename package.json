@@ -35,7 +35,7 @@
     "@angular/language-service": "^17.0.5",
     "@types/jasmine": "^4.6.4",
     "@types/jasminewd2": "^2.0.13",
-    "@types/node": "^18.18.14",
+    "@types/node": "^18.19.2",
     "codelyzer": "^6.0.2",
     "import-sort-style-module": "^6.0.0",
     "jasmine-core": "^4.6.0",
