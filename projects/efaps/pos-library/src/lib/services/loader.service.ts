@@ -1,8 +1,7 @@
-import { Injectable, signal } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Injectable, signal } from "@angular/core";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class LoaderService {
   isLoading = signal(false);

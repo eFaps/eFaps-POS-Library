@@ -27,9 +27,7 @@ class WorkspaceServiceStub {
 class CalculatorServiceStub {}
 
 @Injectable()
-class PosServiceExtended extends PosService {
-  
-}
+class PosServiceExtended extends PosService {}
 
 describe("PosService", () => {
   beforeEach(() => {
