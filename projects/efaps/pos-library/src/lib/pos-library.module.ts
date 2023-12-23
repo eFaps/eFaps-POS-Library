@@ -27,10 +27,10 @@ import { ProductService } from "./services/product.service";
 import { RxStompService } from "./services/rx-stomp.service";
 import { SpotService } from "./services/spot.service";
 import { TaxService } from "./services/tax.service";
-import { TaxpayerService } from "./services/taxpayer.service";
 import { UserService } from "./services/user.service";
 import { UtilsService } from "./services/utils.service";
 import { WorkspaceService } from "./services/workspace.service";
+import { EnquiryService, LoaderService } from "./services";
 
 @NgModule({
   declarations: [PosCurrencyPipe, SecurePipe],
@@ -56,7 +56,9 @@ export class PosLibraryModule {
         DiscountService,
         DocumentService,
         ImageService,
+        EnquiryService,
         InventoryService,
+        LoaderService,
         MsgService,
         PaymentService,
         PosService,
@@ -65,7 +67,6 @@ export class PosLibraryModule {
         SpotService,
         RxStompService,
         TaxService,
-        TaxpayerService,
         UserService,
         UtilsService,
         WorkspaceService,

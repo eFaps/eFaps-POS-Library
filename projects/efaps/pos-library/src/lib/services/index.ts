@@ -24,7 +24,6 @@ export * from "./product.service";
 export * from "./spot.service";
 export * from "./stocktaking.service";
 export * from "./tax.service";
-export * from "./taxpayer.service";
 export * from "./user.service";
 export * from "./utils.service";
 export * from "./workspace.service";
