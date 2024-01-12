@@ -2,6 +2,7 @@ export * from "./admin.service";
 export * from "./auth.service";
 export * from "./balance.service";
 export * from "./barcode-scanner.service";
+export * from "./calculator.service";
 export * from "./collect.service";
 export * from "./company.service";
 export * from "./config.service";
