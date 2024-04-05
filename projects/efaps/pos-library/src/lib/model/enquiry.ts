@@ -1,5 +1,5 @@
-export interface Taxpayer {
-  id: string;
+export interface RUC {
+  number: string;
   name: string;
   state: string;
   homeState: string;
