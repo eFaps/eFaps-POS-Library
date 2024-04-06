@@ -4,6 +4,7 @@ import {
   CalculatorConfig,
   CalculatorRequest,
   CalculatorResponse,
+  Document,
   Item,
   Product,
   Tax,
@@ -16,7 +17,7 @@ import { TaxService } from "./tax.service";
 import { isChildItem, hasFlag } from "./utils.service";
 import { WorkspaceService } from "./workspace.service";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { Observable, map } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -72,13 +73,43 @@ export class CalculatorService {
     return this.http.post<CalculatorResponse>(url, calcReq);
   }
 
+  public calculateDoc(document: Document): Observable<Document> {
+    const positions = document.items.map(item => {
+      return {
+        quantity: item.quantity,
+        productOid: item.product.oid
+      }
+    })
+    return this.calculate({ positions: positions }).pipe(
+      map(response => {
+        document.crossTotal = response.crossTotal
+        document.netTotal = response.netTotal
+        document.payableAmount = response.payableAmount
+        document.taxes = response.taxes
+        document.items.forEach((item, index)=> {
+          if (response.positions.length > index) {
+            item.crossPrice = response.positions[index].crossPrice
+            item.crossUnitPrice = response.positions[index].crossUnitPrice
+            item.netPrice = response.positions[index].netPrice
+            item.netUnitPrice = response.positions[index].netUnitPrice
+            item.quantity = response.positions[index].quantity
+            item.taxes = response.positions[index].taxes
+          }
+        })
+        return document
+      })
+    )
+  }
+
+
+
   calculateItemNetPrice(item: Item): Decimal {
     return isChildItem(item)
       ? new Decimal(0)
       : this.evalNetPrice(
-          new Decimal(item.quantity),
-          new Decimal(item.product.netPrice)
-        );
+        new Decimal(item.quantity),
+        new Decimal(item.product.netPrice)
+      );
   }
 
   calculateItemCrossPrice(item: Item): Decimal {
