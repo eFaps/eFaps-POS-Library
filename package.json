@@ -1,6 +1,6 @@
 {
   "name": "pos-library",
-  "version": "9.3.2",
+  "version": "9.3.3",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -16,10 +16,10 @@
     "@angular/common": "^17.3.3",
     "@angular/compiler": "^17.3.3",
     "@angular/core": "^17.3.3",
-    "@angular/forms": "^17.3.4",
+    "@angular/forms": "^17.3.6",
     "@angular/platform-browser": "^17.3.3",
-    "@angular/platform-browser-dynamic": "^17.3.4",
-    "@angular/router": "^17.3.4",
+    "@angular/platform-browser-dynamic": "^17.3.6",
+    "@angular/router": "^17.3.6",
     "@stomp/rx-stomp": "^1.2.0",
     "decimal.js": "^10.4.3",
     "just-clone": "^6.2.0",
@@ -29,10 +29,10 @@
     "zone.js": "^0.14.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^17.3.4",
-    "@angular/cli": "^17.3.4",
-    "@angular/compiler-cli": "^17.3.4",
-    "@angular/language-service": "^17.3.4",
+    "@angular-devkit/build-angular": "^17.3.6",
+    "@angular/cli": "^17.3.6",
+    "@angular/compiler-cli": "^17.3.6",
+    "@angular/language-service": "^17.3.6",
     "@types/jasmine": "^4.6.4",
     "@types/jasminewd2": "^2.0.13",
     "@types/node": "^18.19.31",
