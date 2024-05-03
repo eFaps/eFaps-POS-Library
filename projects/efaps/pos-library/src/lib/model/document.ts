@@ -53,6 +53,7 @@ export interface DocItem {
   index: number;
   parentIdx?: number | null;
   product: Product;
+  standIn?: Product;
   quantity: number;
   netPrice: number;
   netUnitPrice: number;
