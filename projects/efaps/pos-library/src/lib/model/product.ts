@@ -19,7 +19,7 @@ export interface Product {
   barcodes: Barcode[];
   bomGroupConfigs: BOMGroupConfig[];
   configurationBOMs: ConfigurationBOM[];
-  individual?: ProductIndividual
+  individual?: ProductIndividual;
 }
 
 export interface BOMGroupConfig extends Flagged {
@@ -105,5 +105,5 @@ export enum BOMGroupConfigFlag {
 export enum ProductIndividual {
   NONE = "NONE",
   INDIVIDUAL = "INDIVIDUAL",
-  BATCH = "BATCH"
+  BATCH = "BATCH",
 }

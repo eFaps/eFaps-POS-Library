@@ -74,42 +74,40 @@ export class CalculatorService {
   }
 
   public calculateDoc(document: Document): Observable<Document> {
-    const positions = document.items.map(item => {
+    const positions = document.items.map((item) => {
       return {
         quantity: item.quantity,
-        productOid: item.product.oid
-      }
-    })
+        productOid: item.product.oid,
+      };
+    });
     return this.calculate({ positions: positions }).pipe(
-      map(response => {
-        document.crossTotal = response.crossTotal
-        document.netTotal = response.netTotal
-        document.payableAmount = response.payableAmount
-        document.taxes = response.taxes
-        document.items.forEach((item, index)=> {
+      map((response) => {
+        document.crossTotal = response.crossTotal;
+        document.netTotal = response.netTotal;
+        document.payableAmount = response.payableAmount;
+        document.taxes = response.taxes;
+        document.items.forEach((item, index) => {
           if (response.positions.length > index) {
-            item.crossPrice = response.positions[index].crossPrice
-            item.crossUnitPrice = response.positions[index].crossUnitPrice
-            item.netPrice = response.positions[index].netPrice
-            item.netUnitPrice = response.positions[index].netUnitPrice
-            item.quantity = response.positions[index].quantity
-            item.taxes = response.positions[index].taxes
+            item.crossPrice = response.positions[index].crossPrice;
+            item.crossUnitPrice = response.positions[index].crossUnitPrice;
+            item.netPrice = response.positions[index].netPrice;
+            item.netUnitPrice = response.positions[index].netUnitPrice;
+            item.quantity = response.positions[index].quantity;
+            item.taxes = response.positions[index].taxes;
           }
-        })
-        return document
+        });
+        return document;
       })
-    )
+    );
   }
-
-
 
   calculateItemNetPrice(item: Item): Decimal {
     return isChildItem(item)
       ? new Decimal(0)
       : this.evalNetPrice(
-        new Decimal(item.quantity),
-        new Decimal(item.product.netPrice)
-      );
+          new Decimal(item.quantity),
+          new Decimal(item.product.netPrice)
+        );
   }
 
   calculateItemCrossPrice(item: Item): Decimal {

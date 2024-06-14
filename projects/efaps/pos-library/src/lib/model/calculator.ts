@@ -16,6 +16,7 @@ export interface CalculatorResponse {
   taxes: TaxEntry[];
   payableAmount: number;
   positions: CalculatorPosResponse[];
+  promotionInfo?: PromoInfo;
 }
 
 export interface CalculatorPosResponse {
@@ -27,4 +28,16 @@ export interface CalculatorPosResponse {
   crossPrice: number;
   taxes: TaxEntry[];
   taxAmount: number;
+}
+
+export interface PromoInfo {
+  totalDiscount: number;
+  details: PromoDetail[];
+  promotionOids: string[];
+}
+
+export interface PromoDetail {
+  index: number;
+  discount: number;
+  promotionOid: number;
 }

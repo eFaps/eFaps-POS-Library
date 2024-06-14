@@ -10,10 +10,7 @@ import { DNI, Page, PageRequest, RUC } from "../model";
 export class EnquiryService {
   constructor(private http: HttpClient, private config: ConfigService) {}
 
-  public findRUCs(
-    term: string,
-    pageable?: PageRequest
-  ): Observable<Page<RUC>> {
+  public findRUCs(term: string, pageable?: PageRequest): Observable<Page<RUC>> {
     const url = `${this.config.baseUrl}/enquiry/ruc`;
     const params: any = pageable || {};
     params.term = term;

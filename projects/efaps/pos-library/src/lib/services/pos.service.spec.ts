@@ -11,7 +11,10 @@ import { DocumentService } from "./document.service";
 import { PosService } from "./pos.service";
 import { TaxService } from "./tax.service";
 import { WorkspaceService } from "./workspace.service";
-import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from "@angular/common/http";
 
 class AuthServiceStub {
   currentEvent = new Observable((observer) => {
@@ -33,8 +36,8 @@ class PosServiceExtended extends PosService {}
 describe("PosService", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [],
-    providers: [
+      imports: [],
+      providers: [
         PosServiceExtended,
         TaxService,
         { provide: AuthService, useClass: AuthServiceStub },
@@ -44,8 +47,8 @@ describe("PosService", () => {
         { provide: CalculatorService, useClass: CalculatorServiceStub },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
-    ]
-});
+      ],
+    });
   });
 
   it("should be created", inject(

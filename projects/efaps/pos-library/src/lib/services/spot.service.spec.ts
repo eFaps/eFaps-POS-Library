@@ -7,7 +7,10 @@ import { ConfigService } from "./config.service";
 import { DocumentService } from "./document.service";
 import { SpotService } from "./spot.service";
 import { WorkspaceService } from "./workspace.service";
-import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from "@angular/common/http";
 
 class AuthServiceStub {}
 class ConfigServiceStub {}
@@ -24,8 +27,8 @@ class WorkspaceServiceStub {
 describe("SpotService", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [],
-    providers: [
+      imports: [],
+      providers: [
         SpotService,
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: ConfigService, useClass: ConfigServiceStub },
@@ -33,8 +36,8 @@ describe("SpotService", () => {
         { provide: WorkspaceService, useClass: WorkspaceServiceStub },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
-    ]
-});
+      ],
+    });
   });
 
   it("should be created", inject([SpotService], (service: SpotService) => {
