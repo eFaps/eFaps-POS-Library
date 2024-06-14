@@ -1,4 +1,4 @@
-import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { provideHttpClientTesting } from "@angular/common/http/testing";
 import { Injectable } from "@angular/core";
 import { TestBed, inject } from "@angular/core/testing";
 import { Observable } from "rxjs";
@@ -11,6 +11,7 @@ import { DocumentService } from "./document.service";
 import { PosService } from "./pos.service";
 import { TaxService } from "./tax.service";
 import { WorkspaceService } from "./workspace.service";
+import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 
 class AuthServiceStub {
   currentEvent = new Observable((observer) => {
@@ -32,8 +33,8 @@ class PosServiceExtended extends PosService {}
 describe("PosService", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [
+    imports: [],
+    providers: [
         PosServiceExtended,
         TaxService,
         { provide: AuthService, useClass: AuthServiceStub },
@@ -41,8 +42,10 @@ describe("PosService", () => {
         { provide: DocumentService, useClass: DocumentServiceStub },
         { provide: WorkspaceService, useClass: WorkspaceServiceStub },
         { provide: CalculatorService, useClass: CalculatorServiceStub },
-      ],
-    });
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+});
   });
 
   it("should be created", inject(

@@ -1,4 +1,4 @@
-import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { provideHttpClientTesting } from "@angular/common/http/testing";
 import { TestBed, tick, fakeAsync } from "@angular/core/testing";
 import { Observable, of } from "rxjs";
 
@@ -8,6 +8,7 @@ import { AuthService } from "./auth.service";
 import { PartListService } from "./part-list.service";
 import { PosConfigToken } from "./pos-config.token";
 import { ProductService } from "./product.service";
+import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 
 const PRODUCTS: Product[] = [
   {
@@ -297,14 +298,16 @@ describe("PartListService", () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [
+    imports: [],
+    providers: [
         { provide: PosConfigToken, useValue: {} },
         { provide: AuthService, useClass: AuthServiceStub },
         ProductService,
         AdminService,
-      ],
-    });
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+});
     productService = TestBed.get(ProductService);
   });
 

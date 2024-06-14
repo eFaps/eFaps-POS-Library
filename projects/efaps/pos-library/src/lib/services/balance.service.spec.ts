@@ -1,4 +1,4 @@
-import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { provideHttpClientTesting } from "@angular/common/http/testing";
 import { TestBed } from "@angular/core/testing";
 import { Observable } from "rxjs";
 
@@ -6,6 +6,7 @@ import { AuthService } from "./auth.service";
 import { BalanceService } from "./balance.service";
 import { ConfigService } from "./config.service";
 import { WorkspaceService } from "./workspace.service";
+import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 
 class AuthServiceStub {
   currentEvent = new Observable((observer) => {
@@ -22,13 +23,15 @@ class WorkspaceServiceStub {
 describe("BalanceService", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [
+    imports: [],
+    providers: [
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: ConfigService, useClass: ConfigServiceStub },
         { provide: WorkspaceService, useClass: WorkspaceServiceStub },
-      ],
-    });
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+});
   });
 
   it("should be created", () => {

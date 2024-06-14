@@ -1,4 +1,4 @@
-import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { provideHttpClientTesting } from "@angular/common/http/testing";
 import { TestBed } from "@angular/core/testing";
 import { Observable } from "rxjs";
 
@@ -10,6 +10,7 @@ import { TaxType } from "../model/tax";
 import { ProductType } from "../model/product";
 import Decimal from "decimal.js";
 import { ConfigService } from "./config.service";
+import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 
 class WorkspaceServiceStub {
   currentWorkspace = new Observable((observer) => {
@@ -29,13 +30,15 @@ describe("CalculatorService", () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [
+    imports: [],
+    providers: [
         TaxService,
         { provide: WorkspaceService, useClass: WorkspaceServiceStub },
         { provide: ConfigService, useClass: ConfigServiceStub },
-      ],
-    });
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+});
     service = TestBed.inject(CalculatorService);
   });
 

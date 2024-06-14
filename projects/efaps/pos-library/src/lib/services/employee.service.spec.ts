@@ -1,8 +1,9 @@
-import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { provideHttpClientTesting } from "@angular/common/http/testing";
 import { TestBed } from "@angular/core/testing";
 import { ConfigService } from "./config.service";
 
 import { EmployeeService } from "./employee.service";
+import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 
 class ConfigServiceStub {}
 
@@ -11,9 +12,9 @@ describe("EmployeeService", () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [{ provide: ConfigService, useClass: ConfigServiceStub }],
-    });
+    imports: [],
+    providers: [{ provide: ConfigService, useClass: ConfigServiceStub }, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     service = TestBed.inject(EmployeeService);
   });
 
