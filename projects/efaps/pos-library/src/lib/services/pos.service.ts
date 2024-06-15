@@ -57,7 +57,7 @@ export class PosService {
   private payableAmountSource = new BehaviorSubject<number>(this.payableAmount);
   currentPayableAmount = this.payableAmountSource.asObservable();
 
-  public promotionInfo = signal<PromoInfo|null>(null);
+  public promotionInfo = signal<PromoInfo | null>(null);
 
   public currency = Currency.USD;
   private currencySource = new BehaviorSubject<Currency>(this.currency);
@@ -169,7 +169,7 @@ export class PosService {
             next: (calcResp) => {
               this.updateTotals(calcResp);
               this.updateTicket(ticket, calcResp);
-              this.promotionInfo.set(calcResp.promotionInfo)
+              this.promotionInfo.set(calcResp.promotionInfo);
             },
           });
         },

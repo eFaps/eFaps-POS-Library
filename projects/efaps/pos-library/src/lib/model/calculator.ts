@@ -1,3 +1,4 @@
+import { PromoInfo } from "./promotion";
 import { TaxEntry } from "./tax";
 
 export interface CalculatorRequest {
@@ -28,16 +29,4 @@ export interface CalculatorPosResponse {
   crossPrice: number;
   taxes: TaxEntry[];
   taxAmount: number;
-}
-
-export interface PromoInfo {
-  totalDiscount: number;
-  details: PromoDetail[];
-  promotionOids: string[];
-}
-
-export interface PromoDetail {
-  index: number;
-  discount: number;
-  promotionOid: number;
 }

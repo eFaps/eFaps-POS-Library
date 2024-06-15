@@ -22,6 +22,7 @@ export * from "./pos-config.token";
 export * from "./pos.service";
 export * from "./print.service";
 export * from "./product.service";
+export * from "./promotion.service";
 export * from "./spot.service";
 export * from "./stocktaking.service";
 export * from "./tax.service";
