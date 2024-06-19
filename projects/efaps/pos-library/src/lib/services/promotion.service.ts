@@ -15,9 +15,9 @@ export class PromotionService {
     return this.http.get<Promotion>(requestUrl);
   }
 
-  public getPromotionInfoForDocument(documentOid: string): Observable<PromoInfo> {
+  public getPromotionInfoForDocument(documentId: string): Observable<PromoInfo> {
     const requestUrl = `${this.config.baseUrl}/promotions/info`;
-    return this.http.get<PromoInfo>(requestUrl, {params: {documentOid}});
+    return this.http.get<PromoInfo>(requestUrl, {params: {documentId}});
   }
 
 }
