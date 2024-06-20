@@ -1,5 +1,3 @@
-import { User } from "./user";
-
 export interface Stocktaking {
   id: string;
   number: string;

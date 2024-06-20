@@ -2,18 +2,12 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 
-import {
-  PosLayout,
-  SpotConfig,
-  Workspace,
-  WorkspaceFlag,
-} from "../model/index";
+import { PersistenceObject } from "../model";
+import { PosLayout, SpotConfig, Workspace } from "../model/index";
 import { AuthService } from "./auth.service";
 import { CollectService } from "./collect.service";
 import { CompanyService } from "./company.service";
 import { ConfigService } from "./config.service";
-import { PersistenceObject } from "../model";
-import { NumberSymbol } from "@angular/common";
 
 @Injectable({
   providedIn: "root",
@@ -38,7 +32,7 @@ export class WorkspaceService {
     private auth: AuthService,
     private config: ConfigService,
     private companyService: CompanyService,
-    private collectService: CollectService
+    private collectService: CollectService,
   ) {
     if (config.persistence) {
       this.workspaces = config.persistence.workspaces();

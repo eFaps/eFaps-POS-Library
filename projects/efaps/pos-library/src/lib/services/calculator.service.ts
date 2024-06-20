@@ -1,5 +1,7 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import Decimal from "decimal.js";
+import { Observable, map } from "rxjs";
 import {
   CalculatorConfig,
   CalculatorRequest,
@@ -14,10 +16,8 @@ import {
 } from "../model";
 import { ConfigService } from "./config.service";
 import { TaxService } from "./tax.service";
-import { isChildItem, hasFlag } from "./utils.service";
+import { hasFlag, isChildItem } from "./utils.service";
 import { WorkspaceService } from "./workspace.service";
-import { HttpClient } from "@angular/common/http";
-import { Observable, map } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -34,7 +34,7 @@ export class CalculatorService {
     private http: HttpClient,
     private config: ConfigService,
     private workspaceService: WorkspaceService,
-    private taxService: TaxService
+    private taxService: TaxService,
   ) {
     this.workspaceService.currentWorkspace.subscribe((data) => {
       if (data) {
@@ -49,7 +49,7 @@ export class CalculatorService {
           if (value) {
             if (value.NetPriceScale) {
               this.calculatorConfig.netPriceScale = parseInt(
-                value.NetPriceScale
+                value.NetPriceScale,
               );
             }
             if (value.ItemTaxScale) {
@@ -57,7 +57,7 @@ export class CalculatorService {
             }
             if (value.CrossPriceScale) {
               this.calculatorConfig.crossPriceScale = parseInt(
-                value.CrossPriceScale
+                value.CrossPriceScale,
               );
             }
           }
@@ -97,7 +97,7 @@ export class CalculatorService {
           }
         });
         return document;
-      })
+      }),
     );
   }
 
@@ -106,7 +106,7 @@ export class CalculatorService {
       ? new Decimal(0)
       : this.evalNetPrice(
           new Decimal(item.quantity),
-          new Decimal(item.product.netPrice)
+          new Decimal(item.product.netPrice),
         );
   }
 
@@ -126,7 +126,7 @@ export class CalculatorService {
     const netUnitPrice = new Decimal(product.netPrice);
     const netPrice = this.evalNetPrice(quantity, netUnitPrice);
     const taxAmount = this.roundTaxAmount(
-      this.taxService.calcTax(netPrice, quantity, ...product.taxes)
+      this.taxService.calcTax(netPrice, quantity, ...product.taxes),
     );
     return this.evalCrossPrice(netPrice, taxAmount);
   }
@@ -138,14 +138,14 @@ export class CalculatorService {
   roundNetPrice(netPrice: Decimal) {
     return netPrice.toDecimalPlaces(
       this.calculatorConfig.netPriceScale,
-      Decimal.ROUND_HALF_UP
+      Decimal.ROUND_HALF_UP,
     );
   }
 
   roundTaxAmount(taxAmount: Decimal) {
     return taxAmount.toDecimalPlaces(
       this.calculatorConfig.itemTaxScale,
-      Decimal.ROUND_HALF_UP
+      Decimal.ROUND_HALF_UP,
     );
   }
 
@@ -156,7 +156,7 @@ export class CalculatorService {
   roundCrossPrice(crossPrice: Decimal) {
     return crossPrice.toDecimalPlaces(
       this.calculatorConfig.crossPriceScale,
-      Decimal.ROUND_HALF_UP
+      Decimal.ROUND_HALF_UP,
     );
   }
 
@@ -181,7 +181,7 @@ export class CalculatorService {
           const taxAmount = this.taxService.calcTax(
             netPrice,
             new Decimal(item.quantity),
-            tax
+            tax,
           );
           if (!taxes.has(tax.name)) {
             taxes.set(tax.name, new Decimal(0));
@@ -231,7 +231,7 @@ export class CalculatorService {
       const taxAmount = this.taxService.calcTax(
         netPrice,
         new Decimal(item.quantity),
-        tax
+        tax,
       );
       const base =
         TaxType.PERUNIT === tax.type ? item.quantity : netPrice.toNumber();

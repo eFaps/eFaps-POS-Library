@@ -21,7 +21,7 @@ export class PartListService {
   constructor(
     adminService: AdminService,
     authService: AuthService,
-    private productService: ProductService
+    private productService: ProductService,
   ) {
     this.productService.getProductsByType(ProductType.PARTLIST).subscribe({
       next: (products) => {
@@ -53,7 +53,7 @@ export class PartListService {
         map((products) => {
           this.partLists = products;
           return this.updateTicketInternal(ticket);
-        })
+        }),
       );
     } else {
       const items = this.updateTicketInternal(ticket);

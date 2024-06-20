@@ -18,7 +18,7 @@ export class TaxService {
           break;
         case TaxType.ADVALOREM:
           amount = amount.add(
-            net.mul(new Decimal(tax.percent).div(new Decimal(100)))
+            net.mul(new Decimal(tax.percent).div(new Decimal(100))),
           );
           break;
       }

@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { ReplaySubject } from "rxjs";
+import { Observable, ReplaySubject } from "rxjs";
 
 import { Versions } from "../model/versions";
 import { ConfigService } from "./config.service";
@@ -18,7 +17,7 @@ export class AdminService {
   constructor(
     private http: HttpClient,
     private config: ConfigService,
-    private imageService: ImageService
+    private imageService: ImageService,
   ) {}
 
   reload(): Observable<any> {

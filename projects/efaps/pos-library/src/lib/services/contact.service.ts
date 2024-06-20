@@ -10,7 +10,10 @@ import { ConfigService } from "./config.service";
   deps: [HttpClient, ConfigService],
 })
 export class ContactService {
-  constructor(private http: HttpClient, private config: ConfigService) {}
+  constructor(
+    private http: HttpClient,
+    private config: ConfigService,
+  ) {}
 
   public getContacts(pageable?: PageRequest): Observable<Page<Contact>> {
     const requestUrl = `${this.config.baseUrl}/contacts`;
@@ -25,7 +28,7 @@ export class ContactService {
 
   public searchContacts(
     term: string,
-    _nameSearch: boolean
+    _nameSearch: boolean,
   ): Observable<Contact[]> {
     const requestUrl = `${this.config.baseUrl}/contacts`;
     return this.http.get<Contact[]>(requestUrl, {

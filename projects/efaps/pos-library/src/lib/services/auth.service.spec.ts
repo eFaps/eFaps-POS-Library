@@ -1,12 +1,12 @@
 import { provideHttpClientTesting } from "@angular/common/http/testing";
 import { TestBed, inject } from "@angular/core/testing";
 
-import { AuthService } from "./auth.service";
-import { ConfigService } from "./config.service";
 import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from "@angular/common/http";
+import { AuthService } from "./auth.service";
+import { ConfigService } from "./config.service";
 
 class ConfigServiceStub {}
 

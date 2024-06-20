@@ -1,12 +1,12 @@
 import { TestBed } from "@angular/core/testing";
 
-import { PromotionService } from "./promotion.service";
 import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from "@angular/common/http";
 import { provideHttpClientTesting } from "@angular/common/http/testing";
 import { ConfigService } from "./config.service";
+import { PromotionService } from "./promotion.service";
 
 describe("PromotionService", () => {
   let service: PromotionService;

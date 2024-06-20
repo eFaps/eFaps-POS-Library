@@ -1,9 +1,9 @@
 import {
   ChangeDetectorRef,
+  Injectable,
   OnDestroy,
   Pipe,
   PipeTransform,
-  Injectable,
 } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 import { BehaviorSubject, Observable, Subscription } from "rxjs";
@@ -28,7 +28,7 @@ export class SecurePipe implements PipeTransform, OnDestroy {
 
   private previousUrl: string;
   private result: BehaviorSubject<any> = new BehaviorSubject(
-    SecurePipe.defaultImage
+    SecurePipe.defaultImage,
   );
   private resultObs: Observable<any> = this.result.asObservable();
   private internalSubscription: Subscription = null;
@@ -37,7 +37,7 @@ export class SecurePipe implements PipeTransform, OnDestroy {
     private ref: ChangeDetectorRef,
     private sanitizer: DomSanitizer,
     private imageService: ImageService,
-    config: ConfigService
+    config: ConfigService,
   ) {
     if (config.defaultProdImg) {
       SecurePipe.defaultImage = config.defaultProdImg;

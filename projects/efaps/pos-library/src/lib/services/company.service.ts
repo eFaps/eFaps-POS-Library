@@ -15,7 +15,10 @@ export class CompanyService {
   private currentSource = new BehaviorSubject<Company>(this.currentCompany);
   company = this.currentSource.asObservable();
 
-  constructor(private http: HttpClient, private config: ConfigService) {
+  constructor(
+    private http: HttpClient,
+    private config: ConfigService,
+  ) {
     if (config.persistence) {
       this._currentCompany = <any>config.persistence.currentCompany();
     }

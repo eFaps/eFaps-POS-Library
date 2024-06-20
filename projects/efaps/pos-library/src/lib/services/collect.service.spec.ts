@@ -1,12 +1,12 @@
 import { provideHttpClientTesting } from "@angular/common/http/testing";
 import { TestBed } from "@angular/core/testing";
 
-import { CollectService } from "./collect.service";
-import { PosConfigToken } from "./pos-config.token";
 import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from "@angular/common/http";
+import { CollectService } from "./collect.service";
+import { PosConfigToken } from "./pos-config.token";
 
 describe("CollectService", () => {
   beforeEach(() =>
@@ -17,7 +17,7 @@ describe("CollectService", () => {
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],
-    })
+    }),
   );
 
   it("should be created", () => {

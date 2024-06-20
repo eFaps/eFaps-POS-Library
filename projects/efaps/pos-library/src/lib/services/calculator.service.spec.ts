@@ -2,18 +2,18 @@ import { provideHttpClientTesting } from "@angular/common/http/testing";
 import { TestBed } from "@angular/core/testing";
 import { Observable } from "rxjs";
 
-import { CalculatorService } from "./calculator.service";
-import { WorkspaceService } from "./workspace.service";
-import { TaxService } from "./tax.service";
-import { Currency } from "../model/currency";
-import { TaxType } from "../model/tax";
-import { ProductType } from "../model/product";
-import Decimal from "decimal.js";
-import { ConfigService } from "./config.service";
 import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from "@angular/common/http";
+import Decimal from "decimal.js";
+import { Currency } from "../model/currency";
+import { ProductType } from "../model/product";
+import { TaxType } from "../model/tax";
+import { CalculatorService } from "./calculator.service";
+import { ConfigService } from "./config.service";
+import { TaxService } from "./tax.service";
+import { WorkspaceService } from "./workspace.service";
 
 class WorkspaceServiceStub {
   currentWorkspace = new Observable((observer) => {

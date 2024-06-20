@@ -6,7 +6,7 @@ describe("LoaderInterceptor", () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
       providers: [LoaderInterceptor],
-    })
+    }),
   );
 
   it("should be created", () => {

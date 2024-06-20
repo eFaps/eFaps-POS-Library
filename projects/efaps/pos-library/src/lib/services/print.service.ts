@@ -10,7 +10,10 @@ import { ConfigService } from "./config.service";
   deps: [HttpClient, ConfigService],
 })
 export class PrintService {
-  constructor(private http: HttpClient, private config: ConfigService) {}
+  constructor(
+    private http: HttpClient,
+    private config: ConfigService,
+  ) {}
 
   printJobs(workspaceOid: string, order: Order): Observable<PrintResponse[]> {
     const requestUrl = `${this.config.baseUrl}/print/jobs`;
@@ -29,7 +32,7 @@ export class PrintService {
 
   printPreliminary(
     workspaceOid: string,
-    doc: Document
+    doc: Document,
   ): Observable<PrintResponse[]> {
     const requestUrl = `${this.config.baseUrl}/print/preliminary`;
     return this.http.post<PrintResponse[]>(requestUrl, null, {
@@ -52,7 +55,7 @@ export class PrintService {
 
   printTicket(
     workspaceOid: string,
-    doc: Document
+    doc: Document,
   ): Observable<PrintResponse[]> {
     const requestUrl = `${this.config.baseUrl}/print/ticket`;
     return this.http.post<PrintResponse[]>(requestUrl, null, {
@@ -65,7 +68,7 @@ export class PrintService {
 
   printBalance(
     workspaceOid: string,
-    balanceId: string
+    balanceId: string,
   ): Observable<PrintResponse[]> {
     const requestUrl = `${this.config.baseUrl}/print/balance`;
     return this.http.post<PrintResponse[]>(requestUrl, null, {

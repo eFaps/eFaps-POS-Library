@@ -1,5 +1,5 @@
-import { SecurePipe } from "./secure.pipe";
 import { ConfigService } from "../services/config.service";
+import { SecurePipe } from "./secure.pipe";
 
 describe("SecurePipe", () => {
   it("create an instance", () => {
@@ -13,8 +13,8 @@ describe("SecurePipe", () => {
           socketUrl: "url",
           defaultProdImg: "123",
         },
-        null
-      )
+        null,
+      ),
     );
     expect(pipe).toBeTruthy();
   });

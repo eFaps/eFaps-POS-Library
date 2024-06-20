@@ -1,11 +1,11 @@
+import { Contact } from "./contact";
+import { Currency } from "./currency";
 import { Discount } from "./discount";
+import { EmployeeRelation } from "./employee";
 import { Payment } from "./payment";
 import { Product } from "./product";
 import { Spot } from "./spot";
 import { TaxEntry } from "./tax";
-import { Currency } from "./currency";
-import { EmployeeRelation } from "./employee";
-import { Contact } from "./contact";
 
 export interface Document {
   type?: "ORDER" | "RECEIPT" | "INVOICE" | "TICKET" | "CREDITNOTE";

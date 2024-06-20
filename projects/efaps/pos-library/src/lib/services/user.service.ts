@@ -10,7 +10,10 @@ import { ConfigService } from "./config.service";
   deps: [HttpClient, ConfigService],
 })
 export class UserService {
-  constructor(private http: HttpClient, private config: ConfigService) {}
+  constructor(
+    private http: HttpClient,
+    private config: ConfigService,
+  ) {}
 
   public getUsers(): Observable<User[]> {
     const href = this.config.baseUrl + "/users";

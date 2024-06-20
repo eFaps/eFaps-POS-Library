@@ -83,7 +83,7 @@ export class PosService {
     private workspaceService: WorkspaceService,
     private documentService: DocumentService,
     private partListService: PartListService,
-    private calculatorService: CalculatorService
+    private calculatorService: CalculatorService,
   ) {
     this.workspaceService.currentWorkspace.subscribe((data) => {
       if (data) {
@@ -99,14 +99,14 @@ export class PosService {
     this.currentTicket.subscribe((_ticket) => (this.ticket = _ticket));
     this.currentNetTotal.subscribe((netTotal) => (this.netTotal = netTotal));
     this.currentCrossTotal.subscribe(
-      (crossTotal) => (this.crossTotal = crossTotal)
+      (crossTotal) => (this.crossTotal = crossTotal),
     );
     this.currentPayableAmount.subscribe(
-      (payableAmount) => (this.payableAmount = payableAmount)
+      (payableAmount) => (this.payableAmount = payableAmount),
     );
     this.currentCurrency.subscribe((currency) => (this.currency = currency));
     this.currentExchangeRate.subscribe(
-      (exchangeRate) => (this.exchangeRate = exchangeRate)
+      (exchangeRate) => (this.exchangeRate = exchangeRate),
     );
     this.multiplier.subscribe({
       next: (multiplier) => (this._multiplier = multiplier),
@@ -126,7 +126,7 @@ export class PosService {
   public setOrder(order: Order) {
     if (order.discount) {
       order.items = order.items.filter(
-        (item) => item.product.oid != order.discount.productOid
+        (item) => item.product.oid != order.discount.productOid,
       );
       order.discount = null;
     }
@@ -218,7 +218,7 @@ export class PosService {
           contactOid: this.contactOid,
           employeeRelations: this.employeeRelations,
         });
-      })
+      }),
     );
   }
 
@@ -273,9 +273,9 @@ export class PosService {
             payableAmount: calcResp.payableAmount,
             taxes: calcResp.taxes,
             employeeRelations: this.employeeRelations,
-          })
+          }),
         );
-      })
+      }),
     );
   }
 
@@ -290,7 +290,7 @@ export class PosService {
           taxes: calcResp.taxes,
           employeeRelations: this.employeeRelations,
         });
-      })
+      }),
     );
   }
 
@@ -334,7 +334,7 @@ export class PosService {
   public removeEmployeeRelationsByType(relationType: EmployeeRelationType) {
     if (this.employeeRelations) {
       this.employeeRelations = this.employeeRelations.filter(
-        (object) => object.type != relationType
+        (object) => object.type != relationType,
       );
       if (this.employeeRelations.length == 0) {
         this.employeeRelations = undefined;

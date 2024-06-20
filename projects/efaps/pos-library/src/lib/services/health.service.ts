@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, Observable } from "rxjs";
 import { Health } from "../model";
-import { Observable, BehaviorSubject } from "rxjs";
 import { ConfigService } from "./config.service";
 
 @Injectable({
@@ -11,7 +11,10 @@ import { ConfigService } from "./config.service";
 export class HealthService {
   private healthSource = new BehaviorSubject<Health>(null);
   currentHealth = this.healthSource.asObservable();
-  constructor(private http: HttpClient, private config: ConfigService) {}
+  constructor(
+    private http: HttpClient,
+    private config: ConfigService,
+  ) {}
 
   public getHealth(): Observable<Health> {
     const requestUrl = `${this.config.baseUrl}/health`;

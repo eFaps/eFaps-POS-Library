@@ -17,6 +17,6 @@ export const workspaceGuard: CanActivateFn = () =>
       },
       (onRejected) => {
         resolve(router.createUrlTree(["/workspaces"]));
-      }
+      },
     );
   });

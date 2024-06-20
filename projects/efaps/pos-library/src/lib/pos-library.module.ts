@@ -7,6 +7,7 @@ import { JwtInterceptor } from "./interceptors/jwt.interceptor";
 import { PosConfig } from "./model";
 import { PosCurrencyPipe } from "./pipes/pos-currency.pipe";
 import { SecurePipe } from "./pipes/secure.pipe";
+import { EnquiryService, LoaderService } from "./services";
 import { AdminService } from "./services/admin.service";
 import { AuthService } from "./services/auth.service";
 import { BalanceService } from "./services/balance.service";
@@ -30,7 +31,6 @@ import { TaxService } from "./services/tax.service";
 import { UserService } from "./services/user.service";
 import { UtilsService } from "./services/utils.service";
 import { WorkspaceService } from "./services/workspace.service";
-import { EnquiryService, LoaderService } from "./services";
 
 @NgModule({
   declarations: [PosCurrencyPipe, SecurePipe],

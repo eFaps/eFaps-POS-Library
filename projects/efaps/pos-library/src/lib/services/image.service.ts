@@ -11,7 +11,10 @@ import { ConfigService } from "./config.service";
 export class ImageService {
   private cache: Map<string, string> = new Map<string, string>();
 
-  constructor(private http: HttpClient, private config: ConfigService) {}
+  constructor(
+    private http: HttpClient,
+    private config: ConfigService,
+  ) {}
 
   public loadImage(oid: string): Observable<string> {
     if (this.cache.has(oid)) {

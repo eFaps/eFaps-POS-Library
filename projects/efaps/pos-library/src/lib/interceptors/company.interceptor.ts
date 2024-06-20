@@ -24,7 +24,7 @@ export class CompanyInterceptor implements HttpInterceptor {
 
   intercept(
     request: HttpRequest<any>,
-    next: HttpHandler
+    next: HttpHandler,
   ): Observable<HttpEvent<any>> {
     if (this.currentCompany && this.currentCompany.key) {
       request = request.clone({

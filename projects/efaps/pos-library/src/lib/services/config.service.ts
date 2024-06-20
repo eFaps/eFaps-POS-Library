@@ -18,7 +18,7 @@ export class ConfigService {
 
   constructor(
     @Inject(PosConfigToken) config: PosConfig,
-    private http: HttpClient
+    private http: HttpClient,
   ) {
     this.baseUrl = config.baseUrl;
     this._socketUrl = config.socketUrl;

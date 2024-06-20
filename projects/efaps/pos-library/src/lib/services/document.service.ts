@@ -1,7 +1,7 @@
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, merge } from "rxjs";
-import { map, catchError } from "rxjs/operators";
+import { catchError, map } from "rxjs/operators";
 
 import {
   Balance,
@@ -26,7 +26,7 @@ export class DocumentService {
   constructor(
     private http: HttpClient,
     private config: ConfigService,
-    workspaceService: WorkspaceService
+    workspaceService: WorkspaceService,
   ) {
     workspaceService.currentWorkspace.subscribe((ws) => {
       if (ws) {
@@ -37,32 +37,44 @@ export class DocumentService {
 
   public createReceipt(orderId: string, receipt: Receipt): Observable<Receipt> {
     const url = `${this.config.baseUrl}/receipts`;
-    return this.http.post<Receipt>(url, receipt, { params: { orderId: orderId, workspaceOid: this.workspaceOid  } });
+    return this.http.post<Receipt>(url, receipt, {
+      params: { orderId: orderId, workspaceOid: this.workspaceOid },
+    });
   }
 
   public createInvoice(orderId: string, invoice: Invoice): Observable<Invoice> {
     const url = `${this.config.baseUrl}/invoices`;
-    return this.http.post<Invoice>(url, invoice, { params: { orderId: orderId, workspaceOid: this.workspaceOid  } });
+    return this.http.post<Invoice>(url, invoice, {
+      params: { orderId: orderId, workspaceOid: this.workspaceOid },
+    });
   }
 
   public createTicket(orderId: string, ticket: Ticket): Observable<Ticket> {
     const url = `${this.config.baseUrl}/tickets`;
-    return this.http.post<Ticket>(url, ticket, { params: { orderId: orderId, workspaceOid: this.workspaceOid  } });
+    return this.http.post<Ticket>(url, ticket, {
+      params: { orderId: orderId, workspaceOid: this.workspaceOid },
+    });
   }
 
   public createCreditNote(creditNote: CreditNote): Observable<CreditNote> {
     const url = `${this.config.baseUrl}/creditnotes`;
-    return this.http.post<CreditNote>(url, creditNote, { params: { workspaceOid: this.workspaceOid  } });
+    return this.http.post<CreditNote>(url, creditNote, {
+      params: { workspaceOid: this.workspaceOid },
+    });
   }
 
   public createOrder(order: Order): Observable<Order> {
     const url = `${this.config.baseUrl}/orders`;
-    return this.http.post<Order>(url, order, { params: { workspaceOid: this.workspaceOid  }});
+    return this.http.post<Order>(url, order, {
+      params: { workspaceOid: this.workspaceOid },
+    });
   }
 
   public updateOrder(order: Order): Observable<Order> {
     const url = `${this.config.baseUrl}/orders/${order.id}`;
-    return this.http.put<Order>(url, order, { params: { workspaceOid: this.workspaceOid  } });
+    return this.http.put<Order>(url, order, {
+      params: { workspaceOid: this.workspaceOid },
+    });
   }
 
   public deleteOrder(_order: Order): Observable<void> {
@@ -96,7 +108,7 @@ export class DocumentService {
       map((doc) => {
         doc.type = "RECEIPT";
         return doc;
-      })
+      }),
     );
   }
 
@@ -106,7 +118,7 @@ export class DocumentService {
       map((doc) => {
         doc.type = "INVOICE";
         return doc;
-      })
+      }),
     );
   }
 
@@ -116,7 +128,7 @@ export class DocumentService {
       map((doc) => {
         doc.type = "TICKET";
         return doc;
-      })
+      }),
     );
   }
 
@@ -126,12 +138,12 @@ export class DocumentService {
       map((doc) => {
         doc.type = "CREDITNOTE";
         return doc;
-      })
+      }),
     );
   }
 
   public getCreditNotes4SourceDocument(
-    sourceDocOid: string
+    sourceDocOid: string,
   ): Observable<CreditNote[]> {
     const url = `${this.config.baseUrl}/creditnotes`;
     return this.http
@@ -142,7 +154,7 @@ export class DocumentService {
             doc.type = "CREDITNOTE";
           });
           return [...docs];
-        })
+        }),
       );
   }
 
@@ -161,7 +173,7 @@ export class DocumentService {
         return new Observable<Receipt>((observer) => {
           observer.error;
         });
-      })
+      }),
     );
   }
 
@@ -176,7 +188,7 @@ export class DocumentService {
         return new Observable<Invoice>((observer) => {
           observer.error;
         });
-      })
+      }),
     );
   }
 
@@ -185,7 +197,7 @@ export class DocumentService {
       this.getReceipts4Balance(_balance),
       this.getInvoices4Balance(_balance),
       this.getTickets4Balance(_balance),
-      this.getCreditNotes4Balance(_balance)
+      this.getCreditNotes4Balance(_balance),
     );
   }
 
@@ -198,7 +210,7 @@ export class DocumentService {
           doc.type = "RECEIPT";
         });
         return [...docs];
-      })
+      }),
     );
   }
 
@@ -211,7 +223,7 @@ export class DocumentService {
           doc.type = "INVOICE";
         });
         return [...docs];
-      })
+      }),
     );
   }
 
@@ -224,7 +236,7 @@ export class DocumentService {
           doc.type = "TICKET";
         });
         return [...docs];
-      })
+      }),
     );
   }
 
@@ -237,7 +249,7 @@ export class DocumentService {
           doc.type = "CREDITNOTE";
         });
         return [...docs];
-      })
+      }),
     );
   }
 
@@ -246,7 +258,7 @@ export class DocumentService {
       this.findReceipts(_term),
       this.findInvoices(_term),
       this.findTickets(_term),
-      this.findCreditNotes(_term)
+      this.findCreditNotes(_term),
     );
   }
 
@@ -258,7 +270,7 @@ export class DocumentService {
           doc.type = "RECEIPT";
         });
         return [...docs];
-      })
+      }),
     );
   }
 
@@ -270,7 +282,7 @@ export class DocumentService {
           doc.type = "INVOICE";
         });
         return [...docs];
-      })
+      }),
     );
   }
 
@@ -282,7 +294,7 @@ export class DocumentService {
           doc.type = "TICKET";
         });
         return [...docs];
-      })
+      }),
     );
   }
 
@@ -294,7 +306,7 @@ export class DocumentService {
           doc.type = "CREDITNOTE";
         });
         return [...docs];
-      })
+      }),
     );
   }
 }

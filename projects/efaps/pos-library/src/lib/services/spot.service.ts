@@ -17,7 +17,7 @@ export class SpotService {
   constructor(
     private documentService: DocumentService,
     private workspaceService: WorkspaceService,
-    config: ConfigService
+    config: ConfigService,
   ) {
     if (config.persistence) {
       this.positions = config.persistence.spotPositions();
@@ -57,7 +57,7 @@ export class SpotService {
                 spot.id = spot.oid;
               }
               const orders = _orders.filter(
-                (o) => o.spot && o.spot.id === spot.id
+                (o) => o.spot && o.spot.id === spot.id,
               );
               spot.orders = orders;
               spot.position = this.positions[spot.id];

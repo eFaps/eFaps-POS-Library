@@ -21,7 +21,7 @@ export class BalanceService {
     private http: HttpClient,
     private authService: AuthService,
     private config: ConfigService,
-    private workspaceService: WorkspaceService
+    private workspaceService: WorkspaceService,
   ) {
     this.setup();
     this.load();
@@ -68,13 +68,13 @@ export class BalanceService {
 
   init() {
     this.getCurrent(true).subscribe((_balance) =>
-      this.balanceSource.next(_balance)
+      this.balanceSource.next(_balance),
     );
   }
 
   addCashEntries(
     balance: Balance,
-    cashEntries: CashEntry[]
+    cashEntries: CashEntry[],
   ): Observable<Object> {
     const requestUrl = `${this.config.baseUrl}/balance/${balance.id}/cash`;
     return this.http.post(requestUrl, cashEntries);

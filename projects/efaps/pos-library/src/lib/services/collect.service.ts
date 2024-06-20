@@ -11,7 +11,10 @@ import { ConfigService } from "./config.service";
   deps: [HttpClient, ConfigService],
 })
 export class CollectService {
-  constructor(private http: HttpClient, private config: ConfigService) {}
+  constructor(
+    private http: HttpClient,
+    private config: ConfigService,
+  ) {}
 
   getCollectors() {
     const requestUrl = `${this.config.baseUrl}/collectors`;
@@ -23,7 +26,7 @@ export class CollectService {
     amount: number,
     currency: Currency,
     details: any,
-    orderId?: string
+    orderId?: string,
   ): Observable<CollectStart> {
     const amountStr = new Decimal(amount)
       .toDecimalPlaces(2, Decimal.ROUND_HALF_UP)

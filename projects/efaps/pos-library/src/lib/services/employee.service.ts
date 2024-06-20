@@ -8,7 +8,10 @@ import { ConfigService } from "./config.service";
   providedIn: "root",
 })
 export class EmployeeService {
-  constructor(private http: HttpClient, private config: ConfigService) {}
+  constructor(
+    private http: HttpClient,
+    private config: ConfigService,
+  ) {}
 
   public getEmployees(): Observable<Employee[]> {
     const requestUrl = `${this.config.baseUrl}/employees`;

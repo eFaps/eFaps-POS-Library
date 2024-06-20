@@ -47,7 +47,7 @@ export class PaymentService {
       total = total.plus(new Decimal(_payment.amount));
     });
     this.totalSource.next(
-      total.toDecimalPlaces(2, Decimal.ROUND_HALF_UP).toNumber()
+      total.toDecimalPlaces(2, Decimal.ROUND_HALF_UP).toNumber(),
     );
   }
 

@@ -28,7 +28,7 @@ export class DiscountService {
   constructor(
     private taxService: TaxService,
     private documentService: DocumentService,
-    workspaceService: WorkspaceService
+    workspaceService: WorkspaceService,
   ) {
     workspaceService.currentWorkspace.subscribe((data) => {
       if (data) {
@@ -40,7 +40,7 @@ export class DiscountService {
   applyDiscount(order: Order, discount: Discount | null): Document {
     if (order.discount) {
       order.items = order.items.filter(
-        (item) => item.product.oid != order.discount.productOid
+        (item) => item.product.oid != order.discount.productOid,
       );
       order.discount = null;
       this.recalculate(order);
@@ -58,10 +58,12 @@ export class DiscountService {
 
   private applyAmount(order: Order, discount: Discount): Order {
     const targetCross = new Decimal(order.crossTotal).minus(
-      new Decimal(discount.value)
+      new Decimal(discount.value),
     );
     const percentage = new Decimal(100).mul(
-      new Decimal(1).minus(targetCross.dividedBy(new Decimal(order.crossTotal)))
+      new Decimal(1).minus(
+        targetCross.dividedBy(new Decimal(order.crossTotal)),
+      ),
     );
 
     order = this.applyPercent(order, {
@@ -81,7 +83,7 @@ export class DiscountService {
       .neg();
     const adValoremTaxtotal = this.taxService.calcTaxTotal4Document(
       order,
-      TaxType.ADVALOREM
+      TaxType.ADVALOREM,
     );
     const cross = new Decimal(order.netTotal)
       .add(adValoremTaxtotal)
@@ -148,7 +150,7 @@ export class DiscountService {
     if (hasFlag(this.workspaceFlags, WorkspaceFlag.roundPayableAmount)) {
       let roundedCross = new Decimal(order.crossTotal).toDecimalPlaces(
         1,
-        Decimal.ROUND_FLOOR
+        Decimal.ROUND_FLOOR,
       );
       order.payableAmount = roundedCross.toNumber();
     } else {

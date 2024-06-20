@@ -17,7 +17,10 @@ export class AuthService {
 
   private refreshing = false;
 
-  constructor(private http: HttpClient, private config: ConfigService) {}
+  constructor(
+    private http: HttpClient,
+    private config: ConfigService,
+  ) {}
 
   get currentUser(): CurrentUser {
     return this.config.persistence.currentUser();
@@ -39,7 +42,7 @@ export class AuthService {
           } else {
             return false;
           }
-        })
+        }),
       );
   }
 

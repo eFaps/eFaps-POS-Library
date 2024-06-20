@@ -15,7 +15,7 @@ export class MsgService {
   constructor(
     private configService: ConfigService,
     private stompService: RxStompService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {
     this.authService.currentEvent.subscribe(() => {
       this.disconnect();

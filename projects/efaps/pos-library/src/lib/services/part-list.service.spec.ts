@@ -1,17 +1,17 @@
 import { provideHttpClientTesting } from "@angular/common/http/testing";
-import { TestBed, tick, fakeAsync } from "@angular/core/testing";
+import { TestBed, fakeAsync, tick } from "@angular/core/testing";
 import { Observable, of } from "rxjs";
 
-import { Product, ProductType, ProductRelationType, Currency } from "../model";
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from "@angular/common/http";
+import { Currency, Product, ProductRelationType, ProductType } from "../model";
 import { AdminService } from "./admin.service";
 import { AuthService } from "./auth.service";
 import { PartListService } from "./part-list.service";
 import { PosConfigToken } from "./pos-config.token";
 import { ProductService } from "./product.service";
-import {
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from "@angular/common/http";
 
 const PRODUCTS: Product[] = [
   {

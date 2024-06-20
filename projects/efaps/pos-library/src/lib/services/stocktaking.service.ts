@@ -1,3 +1,4 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import {
@@ -7,14 +8,16 @@ import {
   Stocktaking,
   StocktakingEntry,
 } from "../model";
-import { HttpClient } from "@angular/common/http";
 import { ConfigService } from "./config.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class StocktakingService {
-  constructor(private http: HttpClient, private config: ConfigService) {}
+  constructor(
+    private http: HttpClient,
+    private config: ConfigService,
+  ) {}
 
   getCurrent(warehouseOid: string): Observable<Stocktaking> {
     const requestUrl = `${this.config.baseUrl}/stocktakings/current`;
@@ -40,7 +43,7 @@ export class StocktakingService {
 
   getStocktakings(
     expand?: boolean,
-    pageable?: PageRequest
+    pageable?: PageRequest,
   ): Observable<Page<Stocktaking>> {
     const requestUrl = `${this.config.baseUrl}/stocktakings`;
     const params: any = pageable || {};
@@ -50,7 +53,7 @@ export class StocktakingService {
 
   addEntry(
     stocktakingId: string,
-    entry: AddStocktakingEntry
+    entry: AddStocktakingEntry,
   ): Observable<String> {
     const requestUrl = `${this.config.baseUrl}/stocktakings/${stocktakingId}/entries`;
     return this.http.post(requestUrl, entry, { responseType: "text" });
@@ -63,7 +66,7 @@ export class StocktakingService {
 
   getEntries(
     stocktakingId: string,
-    pageable?: PageRequest
+    pageable?: PageRequest,
   ): Observable<Page<StocktakingEntry>> {
     const requestUrl = `${this.config.baseUrl}/stocktakings/${stocktakingId}/entries`;
     const params: any = pageable || {};

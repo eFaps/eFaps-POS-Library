@@ -2,8 +2,11 @@ import { provideHttpClientTesting } from "@angular/common/http/testing";
 import { Injectable } from "@angular/core";
 import { TestBed, inject } from "@angular/core/testing";
 import { Observable } from "rxjs";
-import { Item } from "../model";
 
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from "@angular/common/http";
 import { AuthService } from "./auth.service";
 import { CalculatorService } from "./calculator.service";
 import { ConfigService } from "./config.service";
@@ -11,10 +14,6 @@ import { DocumentService } from "./document.service";
 import { PosService } from "./pos.service";
 import { TaxService } from "./tax.service";
 import { WorkspaceService } from "./workspace.service";
-import {
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from "@angular/common/http";
 
 class AuthServiceStub {
   currentEvent = new Observable((observer) => {
@@ -55,6 +54,6 @@ describe("PosService", () => {
     [PosService],
     (service: PosServiceExtended) => {
       expect(service).toBeTruthy();
-    }
+    },
   ));
 });

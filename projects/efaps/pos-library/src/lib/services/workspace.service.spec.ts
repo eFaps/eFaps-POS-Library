@@ -1,13 +1,13 @@
 import { provideHttpClientTesting } from "@angular/common/http/testing";
 import { TestBed, inject } from "@angular/core/testing";
 
-import { AuthService } from "./auth.service";
-import { ConfigService } from "./config.service";
-import { WorkspaceService } from "./workspace.service";
 import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from "@angular/common/http";
+import { AuthService } from "./auth.service";
+import { ConfigService } from "./config.service";
+import { WorkspaceService } from "./workspace.service";
 
 class ConfigServiceStub {}
 class AuthServiceStub {}
@@ -30,6 +30,6 @@ describe("WorkspaceService", () => {
     [WorkspaceService],
     (service: WorkspaceService) => {
       expect(service).toBeTruthy();
-    }
+    },
   ));
 });

@@ -15,7 +15,10 @@ import { ConfigService } from "./config.service";
   deps: [HttpClient, ConfigService],
 })
 export class InventoryService {
-  constructor(private config: ConfigService, private http: HttpClient) {}
+  constructor(
+    private config: ConfigService,
+    private http: HttpClient,
+  ) {}
 
   public getWarehouses(): Observable<Warehouse[]> {
     const requestUrl = `${this.config.baseUrl}/inventory/warehouses`;
@@ -30,7 +33,7 @@ export class InventoryService {
   }
 
   public getInventory4Product(
-    productOid: string
+    productOid: string,
   ): Observable<InventoryEntry[]> {
     const requestUrl = `${this.config.baseUrl}/inventory`;
     return this.http.get<InventoryEntry[]>(requestUrl, {

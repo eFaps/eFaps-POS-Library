@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, forkJoin } from "rxjs";
+import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
 import {
@@ -24,7 +24,7 @@ export class ProductService {
   constructor(
     private http: HttpClient,
     private config: ConfigService,
-    workspaceService: WorkspaceService
+    workspaceService: WorkspaceService,
   ) {
     workspaceService.currentWorkspace.subscribe({
       next: (workspace) => {
@@ -41,7 +41,7 @@ export class ProductService {
 
   public findProducts(
     term: string,
-    textsearch?: boolean
+    textsearch?: boolean,
   ): Observable<Product[]> {
     let requestUrl;
     if (typeof textsearch !== "undefined") {
@@ -69,11 +69,11 @@ export class ProductService {
             };
           });
         rootCategories.forEach((rootCategory) =>
-          this.addChildNodes(categories, rootCategory)
+          this.addChildNodes(categories, rootCategory),
         );
 
         return rootCategories;
-      })
+      }),
     );
   }
 
@@ -92,7 +92,7 @@ export class ProductService {
         };
       });
     childCategories.forEach((rootCategory) =>
-      this.addChildNodes(categories, rootCategory)
+      this.addChildNodes(categories, rootCategory),
     );
     node.children = childCategories;
   }
@@ -116,13 +116,13 @@ export class ProductService {
           ) {
             return (
               this.workspace.categoryOids.findIndex(
-                (oid) => oid === category.oid
+                (oid) => oid === category.oid,
               ) > -1
             );
           }
           return true;
         });
-      })
+      }),
     );
   }
 

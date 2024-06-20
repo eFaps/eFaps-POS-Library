@@ -1,5 +1,4 @@
 import { inject } from "@angular/core";
-import { AuthService } from "../services/auth.service";
 import {
   ActivatedRouteSnapshot,
   CanActivateFn,
@@ -7,6 +6,7 @@ import {
   RouterStateSnapshot,
 } from "@angular/router";
 import { Permission } from "../model";
+import { AuthService } from "../services/auth.service";
 
 export const authGuard: CanActivateFn = () => {
   const authService: AuthService = inject(AuthService);
@@ -18,7 +18,7 @@ export const authGuard: CanActivateFn = () => {
 
 export const permissionGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
-  _state: RouterStateSnapshot
+  _state: RouterStateSnapshot,
 ) => {
   const permissions = route.data.permissions as Array<Permission>;
   const authService: AuthService = inject(AuthService);

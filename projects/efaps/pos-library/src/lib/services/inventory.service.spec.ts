@@ -1,12 +1,12 @@
 import { provideHttpClientTesting } from "@angular/common/http/testing";
 import { TestBed, inject } from "@angular/core/testing";
 
-import { ConfigService } from "./config.service";
-import { InventoryService } from "./inventory.service";
 import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from "@angular/common/http";
+import { ConfigService } from "./config.service";
+import { InventoryService } from "./inventory.service";
 
 class ConfigServiceStub {}
 
@@ -27,6 +27,6 @@ describe("InventoryService", () => {
     [InventoryService],
     (service: InventoryService) => {
       expect(service).toBeTruthy();
-    }
+    },
   ));
 });
