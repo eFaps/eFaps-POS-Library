@@ -6,13 +6,17 @@ export interface Promotion {
 }
 
 export interface PromoInfo {
-  totalDiscount: number;
+  netTotalDiscount: number;
+  crossTotalDiscount: number;
   details: PromoDetail[];
   promotionOids: string[];
 }
 
 export interface PromoDetail {
   index: number;
-  discount: number;
+  netUnitDiscount: number;
+  netDiscount: number;
+  crossUnitDiscount: number;
+  crossDiscount: number;
   promotionOid: string;
 }
