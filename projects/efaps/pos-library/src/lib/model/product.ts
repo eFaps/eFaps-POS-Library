@@ -42,7 +42,7 @@ export interface ConfigurationBOM {
 }
 
 export interface BOMAction {
-  type: BOMActionType
+  type: BOMActionType;
   amount?: number;
 }
 
@@ -115,5 +115,5 @@ export enum ProductIndividual {
 }
 
 export enum BOMActionType {
-  PRICEADJUSTMENT = "PRICEADJUSTMENT"
+  PRICEADJUSTMENT = "PRICEADJUSTMENT",
 }
