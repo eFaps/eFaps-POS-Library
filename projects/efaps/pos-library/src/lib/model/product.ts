@@ -38,6 +38,12 @@ export interface ConfigurationBOM {
   position: number;
   quantity: number;
   uoM: string;
+  actions?: BOMAction[];
+}
+
+export interface BOMAction {
+  type: BOMActionType
+  amount?: number;
 }
 
 export interface Product2Category {
@@ -106,4 +112,8 @@ export enum ProductIndividual {
   NONE = "NONE",
   INDIVIDUAL = "INDIVIDUAL",
   BATCH = "BATCH",
+}
+
+export enum BOMActionType {
+  PRICEADJUSTMENT = "PRICEADJUSTMENT"
 }
