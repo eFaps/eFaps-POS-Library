@@ -12,6 +12,7 @@ export * from "./discount";
 export * from "./document";
 export * from "./employee";
 export * from "./enquiry";
+export * from "./files";
 export * from "./flags";
 export * from "./health";
 export * from "./inventory";

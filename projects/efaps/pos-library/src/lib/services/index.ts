@@ -19,6 +19,7 @@ export * from "./msg.service";
 export * from "./part-list.service";
 export * from "./payment.service";
 export * from "./pos-config.token";
+export * from "./pos-file.service";
 export * from "./pos.service";
 export * from "./print.service";
 export * from "./product.service";
