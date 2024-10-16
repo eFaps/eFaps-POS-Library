@@ -1,6 +1,7 @@
 export interface Category {
   oid: string;
   name: string;
+  description?: string;
   imageOid?: string;
   weight?: number;
   parentOid?: string;
