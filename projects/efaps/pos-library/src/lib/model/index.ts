@@ -25,6 +25,7 @@ export * from "./print-response";
 export * from "./printer";
 export * from "./product";
 export * from "./promotion";
+export * from "./request";
 export * from "./spot";
 export * from "./stocktacking";
 export * from "./tax";

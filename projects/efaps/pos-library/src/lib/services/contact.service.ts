@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpContext } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
@@ -36,8 +36,13 @@ export class ContactService {
     });
   }
 
-  public createContact(_contact: Contact): Observable<Contact> {
+  public createContact(
+    contact: Contact,
+    options?: {
+      context?: HttpContext;
+    },
+  ): Observable<Contact> {
     const requestUrl = `${this.config.baseUrl}/contacts`;
-    return this.http.post<Contact>(requestUrl, _contact);
+    return this.http.post<Contact>(requestUrl, contact, options);
   }
 }
