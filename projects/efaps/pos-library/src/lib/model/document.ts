@@ -37,6 +37,7 @@ export interface Order extends Document {
   payableOid?: string;
   spot?: Spot;
   shoutout?: string;
+  orderOptionKey?: string;
 }
 /* tslint:disable-next-line */
 export interface Receipt extends Payable {}
