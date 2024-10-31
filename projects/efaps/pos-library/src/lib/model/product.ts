@@ -27,8 +27,10 @@ export interface BOMGroupConfig extends Flagged {
   productOid: string;
   name: string;
   description: string;
+  weight: number;
   // flagged enum value with BOMGroupConfigFlag
   flags: number;
+
 }
 
 export interface ConfigurationBOM {
