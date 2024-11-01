@@ -8,6 +8,7 @@ export interface CalculatorRequest {
 export interface CalculatorPosRequest {
   quantity: number;
   productOid: string;
+  bomOid?: string;
 }
 
 export interface CalculatorResponse {

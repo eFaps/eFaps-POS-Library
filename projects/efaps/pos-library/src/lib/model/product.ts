@@ -108,6 +108,7 @@ export enum ProductRelationType {
 export enum BOMGroupConfigFlag {
   optional = 1 << 0,
   onlyOne = 1 << 1,
+  chargeable = 1 << 2,  
 }
 
 export enum ProductIndividual {
