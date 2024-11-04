@@ -64,6 +64,7 @@ export interface DocItem {
   exchangeRate: number;
   remark?: string;
   taxes: TaxEntry[];
+  bomOid?: string;
 }
 
 export enum DocumentType {

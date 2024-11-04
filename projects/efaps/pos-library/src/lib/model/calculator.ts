@@ -6,6 +6,8 @@ export interface CalculatorRequest {
 }
 
 export interface CalculatorPosRequest {
+  index?: number;
+  parentIdx?: number;
   quantity: number;
   productOid: string;
   bomOid?: string;
@@ -22,6 +24,8 @@ export interface CalculatorResponse {
 }
 
 export interface CalculatorPosResponse {
+  index?: number;
+  parentIdx?: number;
   quantity: number;
   productOid: string;
   netUnitPrice: number;
@@ -30,4 +34,5 @@ export interface CalculatorPosResponse {
   crossPrice: number;
   taxes: TaxEntry[];
   taxAmount: number;
+  bomOid?: string;
 }

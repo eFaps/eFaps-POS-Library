@@ -11,4 +11,5 @@ export interface Item {
   currency: Currency;
   exchangeRate: number;
   remark: string | null;
+  bomOid?: string;
 }
