@@ -33,13 +33,14 @@ export interface BOMGroupConfig extends Flagged {
 
 }
 
-export interface ConfigurationBOM {
+export interface ConfigurationBOM extends Flagged {
   oid: string;
   toProductOid: string;
   bomGroupOid: string;
   position: number;
   quantity: number;
   uoM: string;
+  flags: number;
   actions?: BOMAction[];
 }
 
@@ -119,4 +120,8 @@ export enum ProductIndividual {
 
 export enum BOMActionType {
   PRICEADJUSTMENT = "PRICEADJUSTMENT",
+}
+
+export enum ConfigurationBOMFlag {
+  default  = 1 << 0,
 }
