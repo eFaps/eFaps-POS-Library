@@ -30,7 +30,8 @@ export interface BOMGroupConfig extends Flagged {
   weight: number;
   // flagged enum value with BOMGroupConfigFlag
   flags: number;
-
+  minQuantity?: number;
+  maxQuantity?: number;
 }
 
 export interface ConfigurationBOM extends Flagged {
@@ -40,6 +41,7 @@ export interface ConfigurationBOM extends Flagged {
   position: number;
   quantity: number;
   uoM: string;
+   // flagged enum value with ConfigurationBOMFlag
   flags: number;
   actions?: BOMAction[];
 }
