@@ -48,7 +48,8 @@ export interface ConfigurationBOM extends Flagged {
 
 export interface BOMAction {
   type: BOMActionType;
-  amount?: number;
+  netAmount?: number;
+  crossAmount?: number;
 }
 
 export interface Product2Category {
