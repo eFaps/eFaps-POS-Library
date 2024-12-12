@@ -5,8 +5,9 @@ export interface Contact {
   idType: IdentificationType;
   idNumber: string;
   email?: string;
-  firstName?: string;
-  lastName?: string;
+  forename?: string;
+  firstLastName?: string;
+  secondLastName?: string;
 }
 
 export enum IdentificationType {
