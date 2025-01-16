@@ -89,6 +89,8 @@ export interface Indication {
   value: string;
   description?: string;
   imageOid?: string;
+  weight?: number;
+  defaultSelected?: boolean;
 }
 
 export enum ProductType {

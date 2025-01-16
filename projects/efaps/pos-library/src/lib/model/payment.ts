@@ -1,11 +1,12 @@
 import { Currency } from "./currency";
 
 export enum PaymentType {
-  CASH,
-  FREE,
-  CARD,
-  CHANGE,
-  ELECTRONIC,
+  CASH = "CASH",
+  FREE = "FREE",
+  CARD = "CARD",
+  CHANGE = "CHANGE",
+  ELECTRONIC= "ELECTRONIC",
+  LOYALTY_POINTS = "LOYALTY_POINTS",
 }
 
 export interface Payment {
