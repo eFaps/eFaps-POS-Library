@@ -8,7 +8,8 @@ import { UtilsService } from "../services/utils.service";
   deps: [UtilsService],
 })
 @Pipe({
-  name: "posCurrency",
+    name: "posCurrency",
+    standalone: false
 })
 export class PosCurrencyPipe implements PipeTransform {
   constructor(private utilsService: UtilsService) {}

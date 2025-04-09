@@ -16,8 +16,9 @@ import { ImageService } from "../services/image.service";
   deps: [ChangeDetectorRef, DomSanitizer, ImageService, ConfigService],
 })
 @Pipe({
-  name: "secure",
-  pure: false,
+    name: "secure",
+    pure: false,
+    standalone: false
 })
 export class SecurePipe implements PipeTransform, OnDestroy {
   private static defaultImage = "assets/defaultProdImg.svg";
