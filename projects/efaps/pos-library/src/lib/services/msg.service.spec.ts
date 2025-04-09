@@ -15,7 +15,7 @@ import { RxStompService } from "./rx-stomp.service";
 class ConfigServiceStub {}
 class AuthServiceStub {
   currentEvent = new Observable((observer) => {
-    observer.next();
+    observer.next(undefined);
   });
 }
 

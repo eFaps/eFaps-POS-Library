@@ -24,7 +24,7 @@ class ConfigServiceStub {}
 class DocumentServiceStub {}
 class WorkspaceServiceStub {
   currentWorkspace = new Observable((observer) => {
-    observer.next();
+    observer.next(undefined);
   });
 }
 class CalculatorServiceStub {}

@@ -19,7 +19,7 @@ class AuthServiceStub {
 class ConfigServiceStub {}
 class WorkspaceServiceStub {
   currentWorkspace = new Observable((observer) => {
-    observer.next();
+    observer.next(undefined);
   });
 }
 

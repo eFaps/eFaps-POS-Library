@@ -17,13 +17,13 @@ import { WorkspaceService } from "./workspace.service";
 
 class WorkspaceServiceStub {
   currentWorkspace = new Observable((observer) => {
-    observer.next();
+    observer.next(undefined);
   });
 }
 class ConfigServiceStub {
   getSystemConfig(key: string) {
     return new Observable((observer) => {
-      observer.next();
+      observer.next(undefined);
     });
   }
 }
