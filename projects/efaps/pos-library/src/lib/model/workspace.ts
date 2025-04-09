@@ -50,4 +50,5 @@ export enum WorkspaceFlag {
   orderRequiresContact = 1 << 1,
   roundPayableAmount = 1 << 2,
   assignSeller = 1 << 3,
+  jobOnPayment = 1 << 4,
 }
