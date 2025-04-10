@@ -24,7 +24,14 @@ export interface Workspace extends Flagged {
 
 export interface PrintCmd {
   printerOid: string;
-  target: "JOB" | "PRELIMINARY" | "TICKET" | "COPY" | "BALANCE" | "BALANCE_DETAILED" | "SALESREPORT";
+  target:
+    | "JOB"
+    | "PRELIMINARY"
+    | "TICKET"
+    | "COPY"
+    | "BALANCE"
+    | "BALANCE_DETAILED"
+    | "SALESREPORT";
   targetOid: string;
 }
 

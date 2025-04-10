@@ -69,27 +69,27 @@ export class PrintService {
   printBalance(
     workspaceOid: string,
     balanceId: string,
-    detailed?: boolean
+    detailed?: boolean,
   ): Observable<PrintResponse[]> {
     const requestUrl = `${this.config.baseUrl}/print/balance`;
     return this.http.post<PrintResponse[]>(requestUrl, null, {
       params: {
         balanceId,
         workspaceOid,
-        detailed
+        detailed,
       },
     });
   }
 
   printSalesReport(
     workspaceOid: string,
-    date: string
+    date: string,
   ): Observable<PrintResponse[]> {
     const requestUrl = `${this.config.baseUrl}/print/sales-report`;
     return this.http.post<PrintResponse[]>(requestUrl, null, {
       params: {
         workspaceOid,
-        date
+        date,
       },
     });
   }

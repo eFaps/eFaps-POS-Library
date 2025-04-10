@@ -1,7 +1,13 @@
 import { getCurrencySymbol, registerLocaleData } from "@angular/common";
 import localeEsPE from "@angular/common/locales/es-PE";
 import { Injectable } from "@angular/core";
-import { BOMGroupConfigFlag, ConfigurationBOMFlag, Flagged, Item, WorkspaceFlag } from "../model";
+import {
+  BOMGroupConfigFlag,
+  ConfigurationBOMFlag,
+  Flagged,
+  Item,
+  WorkspaceFlag,
+} from "../model";
 
 @Injectable({
   providedIn: "root",

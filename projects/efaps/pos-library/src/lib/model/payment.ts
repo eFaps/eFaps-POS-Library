@@ -5,7 +5,7 @@ export enum PaymentType {
   FREE = "FREE",
   CARD = "CARD",
   CHANGE = "CHANGE",
-  ELECTRONIC= "ELECTRONIC",
+  ELECTRONIC = "ELECTRONIC",
   LOYALTY_POINTS = "LOYALTY_POINTS",
 }
 

@@ -16,9 +16,9 @@ import { ImageService } from "../services/image.service";
   deps: [ChangeDetectorRef, DomSanitizer, ImageService, ConfigService],
 })
 @Pipe({
-    name: "secure",
-    pure: false,
-    standalone: false
+  name: "secure",
+  pure: false,
+  standalone: false,
 })
 export class SecurePipe implements PipeTransform, OnDestroy {
   private static defaultImage = "assets/defaultProdImg.svg";
@@ -66,12 +66,15 @@ export class SecurePipe implements PipeTransform, OnDestroy {
 
     if (this.previousUrl !== _url) {
       this.previousUrl = _url;
-      this.internalSubscription = this.imageService
-        .loadImage(_url)
-        .subscribe((m) => {
+      this.internalSubscription = this.imageService.loadImage(_url).subscribe({
+        next: (m) => {
           const sanitized = this.sanitizer.bypassSecurityTrustUrl(m);
           this.result.next(sanitized);
-        });
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
     }
     return this.resultObs;
   }

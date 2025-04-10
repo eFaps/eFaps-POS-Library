@@ -41,7 +41,7 @@ export interface ConfigurationBOM extends Flagged {
   position: number;
   quantity: number;
   uoM: string;
-   // flagged enum value with ConfigurationBOMFlag
+  // flagged enum value with ConfigurationBOMFlag
   flags: number;
   actions?: BOMAction[];
 }
@@ -114,7 +114,7 @@ export enum ProductRelationType {
 export enum BOMGroupConfigFlag {
   optional = 1 << 0,
   onlyOne = 1 << 1,
-  chargeable = 1 << 2,  
+  chargeable = 1 << 2,
 }
 
 export enum ProductIndividual {
@@ -128,5 +128,5 @@ export enum BOMActionType {
 }
 
 export enum ConfigurationBOMFlag {
-  default  = 1 << 0,
+  default = 1 << 0,
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, Subscriber } from "rxjs";
+import { map, Observable, Subscriber } from "rxjs";
 
 import { ConfigService } from "./config.service";
 
@@ -20,14 +20,14 @@ export class ImageService {
     if (this.cache.has(oid)) {
       return this.getFromCache(oid);
     }
-    return new Observable((subscriber: Subscriber<string>) => {
-      const url = `${this.config.baseUrl}/images/${oid}`;
-      this.http.get(url, { responseType: "blob" }).subscribe((m) => {
-        const objectUrl = URL.createObjectURL(m);
+    const url = `${this.config.baseUrl}/images/${oid}`;
+    return this.http.get(url, { responseType: "blob" }).pipe(
+      map((imageBlob) => {
+        const objectUrl = URL.createObjectURL(imageBlob);
         this.cache.set(oid, objectUrl);
-        subscriber.next(objectUrl);
-      });
-    });
+        return objectUrl;
+      }),
+    );
   }
 
   private getFromCache(oid: string): Observable<string> {
