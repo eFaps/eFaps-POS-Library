@@ -23,7 +23,7 @@ export class UtilsService {
     return this.numberParser.parse(numberStr);
   }
 
-  toString(number: number): string {
+  toString(number: number | undefined): string {
     if (number || number === 0) {
       return number.toLocaleString("es-PE", {
         minimumFractionDigits: 2,

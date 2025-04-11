@@ -14,10 +14,10 @@ import { UtilsService } from "../services/utils.service";
 export class PosCurrencyPipe implements PipeTransform {
   constructor(private utilsService: UtilsService) {}
 
-  transform(_value: number, currency: Currency): any {
+  transform(value: number | undefined, currency: Currency): any {
     return (
       this.utilsService.getCurrencySymbol(Currency[currency]) +
-      this.utilsService.toString(_value)
+      this.utilsService.toString(value)
     );
   }
 }
