@@ -1,4 +1,4 @@
-import { getCurrencySymbol, registerLocaleData } from "@angular/common";
+import { registerLocaleData } from "@angular/common";
 import localeEsPE from "@angular/common/locales/es-PE";
 import { Injectable } from "@angular/core";
 import {
@@ -34,7 +34,9 @@ export class UtilsService {
   }
 
   getCurrencySymbol(isoCode: string) {
-    return getCurrencySymbol(isoCode, "narrow", "es-PE");
+    return Intl.NumberFormat("es-PE", { style: "currency", currency: isoCode })
+      .formatToParts()
+      .find((part) => part.type === "currency").value;
   }
 }
 

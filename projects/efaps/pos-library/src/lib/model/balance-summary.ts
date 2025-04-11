@@ -1,4 +1,5 @@
 import { Balance, CashEntry } from "./balance";
+import { Currency } from "./currency";
 import { PaymentType } from "./payment";
 import { TaxEntry } from "./tax";
 
@@ -15,8 +16,8 @@ export interface BalanceSummary {
 export interface SummaryDetail {
   documentCount: number;
   paymentCount: number;
-  netTotal: number;
-  crossTotal: number;
+  netTotals: MoneyAmount[];
+  crossTotals: MoneyAmount[];
   paymentInfos: PaymentInfo[];
   taxEntries: TaxEntry[];
 }
@@ -26,4 +27,10 @@ export interface PaymentInfo {
   label: String;
   count: number;
   amount: number;
+  currency: Currency;
+}
+
+export interface MoneyAmount {
+  amount: number;
+  currency: Currency;
 }
