@@ -159,12 +159,12 @@ export class DocumentService {
   }
 
   public getPayableByIdent(ident: string): Observable<Payable> {
-    return merge(this.getReceiptsByIdent(ident), this.getInvoiceByIdent(ident));
+    return merge(this.getReceiptByIdent(ident, false), this.getInvoiceByIdent(ident, false));
   }
 
-  private getReceiptsByIdent(ident: string): Observable<Receipt> {
+  public getReceiptByIdent(ident: string, remote: boolean): Observable<Receipt> {
     const url = `${this.config.baseUrl}/receipts`;
-    return this.http.get<Receipt>(url, { params: { ident } }).pipe(
+    return this.http.get<Receipt>(url, { params: { ident, remote } }).pipe(
       map((doc) => {
         doc.type = "RECEIPT";
         return doc;
@@ -177,9 +177,9 @@ export class DocumentService {
     );
   }
 
-  private getInvoiceByIdent(ident: string): Observable<Invoice> {
+  public getInvoiceByIdent(ident: string,  remote: boolean): Observable<Invoice> {
     const url = `${this.config.baseUrl}/invoices`;
-    return this.http.get<Invoice>(url, { params: { ident } }).pipe(
+    return this.http.get<Invoice>(url, { params: { ident, remote } }).pipe(
       map((doc) => {
         doc.type = "INVOICE";
         return doc;
@@ -304,6 +304,30 @@ export class DocumentService {
       map((docs) => {
         docs.map((doc) => {
           doc.type = "CREDITNOTE";
+        });
+        return [...docs];
+      }),
+    );
+  }
+
+  retrieveReceipts(number: string): Observable<Receipt[]> {
+    const url = `${this.config.baseUrl}/receipts`;
+    return this.http.get<Receipt[]>(url, { params: { number: number } }).pipe(
+      map((docs) => {
+        docs.map((doc) => {
+          doc.type = "RECEIPT";
+        });
+        return [...docs];
+      }),
+    );
+  }
+
+  retrieveInvoices(number: string): Observable<Invoice[]> {
+    const url = `${this.config.baseUrl}/invoices`;
+    return this.http.get<Invoice[]>(url, { params: { number: number } }).pipe(
+      map((docs) => {
+        docs.map((doc) => {
+          doc.type = "INVOICE";
         });
         return [...docs];
       }),
