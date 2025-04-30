@@ -12,6 +12,7 @@ export interface Document {
   id: string | null;
   oid: string | null;
   number: string | null;
+  date?: string;
   currency: Currency;
   items: DocItem[];
   status: DocStatus;
