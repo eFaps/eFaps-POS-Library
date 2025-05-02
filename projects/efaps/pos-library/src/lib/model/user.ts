@@ -9,5 +9,5 @@ export enum Permission {
   ADMIN = "ADMIN",
   COLLECT = "COLLECT",
   ORDER = "ORDER",
-  CREDITNOTE  = "CREDITNOTE",
+  CREDITNOTE = "CREDITNOTE",
 }

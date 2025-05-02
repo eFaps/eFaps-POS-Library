@@ -3,6 +3,7 @@ import { TaxEntry } from "./tax";
 
 export interface CalculatorRequest {
   positions: CalculatorPosRequest[];
+  sourceDocIdent?: string;
 }
 
 export interface CalculatorPosRequest {

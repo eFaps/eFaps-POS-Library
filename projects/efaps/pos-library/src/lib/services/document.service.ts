@@ -159,10 +159,16 @@ export class DocumentService {
   }
 
   public getPayableByIdent(ident: string): Observable<Payable> {
-    return merge(this.getReceiptByIdent(ident, false), this.getInvoiceByIdent(ident, false));
+    return merge(
+      this.getReceiptByIdent(ident, false),
+      this.getInvoiceByIdent(ident, false),
+    );
   }
 
-  public getReceiptByIdent(ident: string, remote: boolean): Observable<Receipt> {
+  public getReceiptByIdent(
+    ident: string,
+    remote: boolean,
+  ): Observable<Receipt> {
     const url = `${this.config.baseUrl}/receipts`;
     return this.http.get<Receipt>(url, { params: { ident, remote } }).pipe(
       map((doc) => {
@@ -177,7 +183,10 @@ export class DocumentService {
     );
   }
 
-  public getInvoiceByIdent(ident: string,  remote: boolean): Observable<Invoice> {
+  public getInvoiceByIdent(
+    ident: string,
+    remote: boolean,
+  ): Observable<Invoice> {
     const url = `${this.config.baseUrl}/invoices`;
     return this.http.get<Invoice>(url, { params: { ident, remote } }).pipe(
       map((doc) => {

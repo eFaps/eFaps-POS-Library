@@ -4,6 +4,7 @@ import Decimal from "decimal.js";
 import { Observable, map } from "rxjs";
 import {
   CalculatorConfig,
+  CalculatorPosResponse,
   CalculatorRequest,
   CalculatorResponse,
   Document,
@@ -73,27 +74,45 @@ export class CalculatorService {
     return this.http.post<CalculatorResponse>(url, calcReq);
   }
 
-  public calculateDoc(document: Document): Observable<Document> {
+  public calculateDoc(
+    document: Document,
+    sourceDocIdent?: string,
+  ): Observable<Document> {
     const positions = document.items.map((item) => {
       return {
+        index: item.index,
+        parentIdx: item.parentIdx,
         quantity: item.quantity,
         productOid: item.product.oid,
+        bomOid: item.bomOid,
       };
     });
-    return this.calculate({ positions: positions }).pipe(
+    return this.calculate({
+      positions: positions,
+      sourceDocIdent: sourceDocIdent,
+    }).pipe(
       map((response) => {
         document.crossTotal = response.crossTotal;
         document.netTotal = response.netTotal;
         document.payableAmount = response.payableAmount;
         document.taxes = response.taxes;
         document.items.forEach((item, index) => {
-          if (response.positions.length > index) {
-            item.crossPrice = response.positions[index].crossPrice;
-            item.crossUnitPrice = response.positions[index].crossUnitPrice;
-            item.netPrice = response.positions[index].netPrice;
-            item.netUnitPrice = response.positions[index].netUnitPrice;
-            item.quantity = response.positions[index].quantity;
-            item.taxes = response.positions[index].taxes;
+          // if we have a set index
+          let pos: CalculatorPosResponse;
+          if (item.index) {
+            pos = response.positions.find((pos) => {
+              return pos.index == item.index;
+            });
+          } else if (response.positions.length > index) {
+            pos = response.positions[index];
+          }
+          if (pos) {
+            item.crossPrice = pos.crossPrice;
+            item.crossUnitPrice = pos.crossUnitPrice;
+            item.netPrice = pos.netPrice;
+            item.netUnitPrice = pos.netUnitPrice;
+            item.quantity = pos.quantity;
+            item.taxes = pos.taxes;
           }
         });
         return document;
