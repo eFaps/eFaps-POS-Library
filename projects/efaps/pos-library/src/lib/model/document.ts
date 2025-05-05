@@ -97,3 +97,12 @@ export interface OrderWrapper extends Order {
   spotLabel: string;
   multiple: boolean;
 }
+
+
+export interface ValidateForCreditNote {
+  payableOid: string;
+}
+
+export interface ValidateForCreditNoteResponse {
+  valid: boolean;
+}

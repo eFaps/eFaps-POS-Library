@@ -12,6 +12,8 @@ import {
   PayableHead,
   Receipt,
   Ticket,
+  ValidateForCreditNote,
+  ValidateForCreditNoteResponse,
 } from "../model";
 import { ConfigService } from "./config.service";
 import { WorkspaceService } from "./workspace.service";
@@ -341,5 +343,10 @@ export class DocumentService {
         return [...docs];
       }),
     );
+  }
+
+  validateForCreditNote(dto: ValidateForCreditNote): Observable<ValidateForCreditNoteResponse> {
+    const url = `${this.config.baseUrl}/creditnotes/validate`;
+    return this.http.post<ValidateForCreditNoteResponse>(url, dto)
   }
 }
