@@ -21,7 +21,7 @@ describe("DiscountService", () => {
   );
 
   it("should be created", () => {
-    const service: DiscountService = TestBed.get(DiscountService);
+    const service: DiscountService = TestBed.inject(DiscountService);
     expect(service).toBeTruthy();
   });
 });

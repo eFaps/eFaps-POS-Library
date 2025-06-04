@@ -21,7 +21,7 @@ describe("CollectService", () => {
   );
 
   it("should be created", () => {
-    const service: CollectService = TestBed.get(CollectService);
+    const service: CollectService = TestBed.inject(CollectService);
     expect(service).toBeTruthy();
   });
 });

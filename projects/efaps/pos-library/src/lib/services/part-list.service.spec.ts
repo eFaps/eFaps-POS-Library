@@ -311,16 +311,16 @@ describe("PartListService", () => {
         provideHttpClientTesting(),
       ],
     });
-    productService = TestBed.get(ProductService);
+    productService = TestBed.inject(ProductService);
   });
 
   it("should be created", () => {
-    const service: PartListService = TestBed.get(PartListService);
+    const service: PartListService = TestBed.inject(PartListService);
     expect(service).toBeTruthy();
   });
 
   it("updateTicketInternal should ignore an empty ticket", fakeAsync(() => {
-    const service: PartListService = TestBed.get(PartListService);
+    const service: PartListService = TestBed.inject(PartListService);
     spyOn(productService, "getProductsByType").and.returnValue(of(PARTLISTS));
     const ticket = [];
     service.updateTicket(ticket).subscribe({
@@ -332,7 +332,7 @@ describe("PartListService", () => {
   }));
 
   it("should not change if not SALESBOM or not product oid is met", fakeAsync(() => {
-    const service: PartListService = TestBed.get(PartListService);
+    const service: PartListService = TestBed.inject(PartListService);
     const partlists: Product[] = [PARTLISTS[0], PARTLISTS[1]];
     spyOn(productService, "getProductsByType").and.returnValue(of(partlists));
     const ticket = [
@@ -355,7 +355,7 @@ describe("PartListService", () => {
   }));
 
   it("should find a partlist if exactly ", fakeAsync(() => {
-    const service: PartListService = TestBed.get(PartListService);
+    const service: PartListService = TestBed.inject(PartListService);
     const partlists: Product[] = [PARTLISTS[0], PARTLISTS[2]];
     spyOn(productService, "getProductsByType").and.returnValue(of(partlists));
     const ticket = [
@@ -378,7 +378,7 @@ describe("PartListService", () => {
   }));
 
   it("should find a partlist with one relation of two ", fakeAsync(() => {
-    const service: PartListService = TestBed.get(PartListService);
+    const service: PartListService = TestBed.inject(PartListService);
     const partlists: Product[] = [PARTLISTS[0], PARTLISTS[2]];
     spyOn(productService, "getProductsByType").and.returnValue(of(partlists));
     const ticket = [
@@ -401,7 +401,7 @@ describe("PartListService", () => {
   }));
 
   it("should find a partlist with more than one relation of two", fakeAsync(() => {
-    const service: PartListService = TestBed.get(PartListService);
+    const service: PartListService = TestBed.inject(PartListService);
     const partlists: Product[] = [PARTLISTS[0], PARTLISTS[3]];
     spyOn(productService, "getProductsByType").and.returnValue(of(partlists));
     const ticket = [
@@ -434,7 +434,7 @@ describe("PartListService", () => {
   }));
 
   it("should find a partlist with one relation of two and remove from the item", fakeAsync(() => {
-    const service: PartListService = TestBed.get(PartListService);
+    const service: PartListService = TestBed.inject(PartListService);
     const partlists: Product[] = [PARTLISTS[0], PARTLISTS[2]];
     spyOn(productService, "getProductsByType").and.returnValue(of(partlists));
     const ticket = [
@@ -460,7 +460,7 @@ describe("PartListService", () => {
   }));
 
   it("should find a partlist with one relation of two and remove multiple item", fakeAsync(() => {
-    const service: PartListService = TestBed.get(PartListService);
+    const service: PartListService = TestBed.inject(PartListService);
     const partlists: Product[] = [PARTLISTS[0], PARTLISTS[2]];
     spyOn(productService, "getProductsByType").and.returnValue(of(partlists));
     const ticket = [
@@ -493,7 +493,7 @@ describe("PartListService", () => {
   }));
 
   it("should find a partlist and do not remove other partlists", fakeAsync(() => {
-    const service: PartListService = TestBed.get(PartListService);
+    const service: PartListService = TestBed.inject(PartListService);
     const partlists: Product[] = [
       PARTLISTS[0],
       PARTLISTS[2],
@@ -579,7 +579,7 @@ describe("PartListService", () => {
   }));
 
   it("should find a partlist that has weired configuration", fakeAsync(() => {
-    const service: PartListService = TestBed.get(PartListService);
+    const service: PartListService = TestBed.inject(PartListService);
     const partlists: Product[] = [PARTLISTS[6]];
     spyOn(productService, "getProductsByType").and.returnValue(of(partlists));
     const ticket = [

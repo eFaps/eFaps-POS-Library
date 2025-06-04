@@ -38,7 +38,7 @@ describe("BalanceService", () => {
   });
 
   it("should be created", () => {
-    const service: BalanceService = TestBed.get(BalanceService);
+    const service: BalanceService = TestBed.inject(BalanceService);
     expect(service).toBeTruthy();
   });
 });
