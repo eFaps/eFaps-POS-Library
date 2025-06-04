@@ -21,4 +21,6 @@ export interface CashEntry {
 
 export enum CashEntryType {
   OPENING = "OPENING",
+  WITHDRAWAL = "WITHDRAWAL",
+  DEPOSIT = "DEPOSIT",
 }
