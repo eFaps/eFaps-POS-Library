@@ -77,6 +77,8 @@ export class PosService {
 
   private employeeRelations: EmployeeRelation[] | undefined;
 
+  public shoutOut: string | undefined;
+
   constructor(
     private http: HttpClient,
     private config: ConfigService,
@@ -131,6 +133,7 @@ export class PosService {
       order.discount = null;
     }
     this.contactOid = order.contactOid;
+    this.shoutOut = order.shoutout;
     this.orderSource.next(order);
     const items: Item[] = [];
     order.items
@@ -217,6 +220,7 @@ export class PosService {
           payableOid: null,
           contactOid: this.contactOid,
           employeeRelations: this.employeeRelations,
+          shoutout: this.shoutOut,
         });
       }),
     );
@@ -273,6 +277,8 @@ export class PosService {
             payableAmount: calcResp.payableAmount,
             taxes: calcResp.taxes,
             employeeRelations: this.employeeRelations,
+            shoutout: this.shoutOut,
+            contactOid: this.contactOid,
           }),
         );
       }),
@@ -289,6 +295,8 @@ export class PosService {
           payableAmount: calcResp.payableAmount,
           taxes: calcResp.taxes,
           employeeRelations: this.employeeRelations,
+          shoutout: this.shoutOut,
+          contactOid: this.contactOid,
         });
       }),
     );

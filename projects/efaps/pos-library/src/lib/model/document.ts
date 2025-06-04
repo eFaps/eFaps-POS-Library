@@ -98,7 +98,6 @@ export interface OrderWrapper extends Order {
   multiple: boolean;
 }
 
-
 export interface ValidateForCreditNote {
   payableOid: string;
 }

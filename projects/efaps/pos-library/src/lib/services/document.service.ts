@@ -345,8 +345,10 @@ export class DocumentService {
     );
   }
 
-  validateForCreditNote(dto: ValidateForCreditNote): Observable<ValidateForCreditNoteResponse> {
+  validateForCreditNote(
+    dto: ValidateForCreditNote,
+  ): Observable<ValidateForCreditNoteResponse> {
     const url = `${this.config.baseUrl}/creditnotes/validate`;
-    return this.http.post<ValidateForCreditNoteResponse>(url, dto)
+    return this.http.post<ValidateForCreditNoteResponse>(url, dto);
   }
 }
