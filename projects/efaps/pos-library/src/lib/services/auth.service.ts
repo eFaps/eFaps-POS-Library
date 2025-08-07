@@ -124,15 +124,15 @@ export class AuthService {
     return !(date.valueOf() > new Date().valueOf());
   }
 
-  hasPermission(...permission: Permission[]) {
+  hasPermission(...permissions: Permission[]) {
     if (this.isTokenExpired()) {
       return false;
     }
     const decoded = <any>jwtDecode(this.getAccessToken());
-    const permissions: string[] = decoded.permissions;
+    const assignedPermissions: string[] = decoded.permissions;
 
     let hasIt = false;
-    permissions.every((permission) => {
+    assignedPermissions.every((permission) => {
       if (permissions.find((x) => x === Permission[permission])) {
         hasIt = true;
         return false;

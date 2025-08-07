@@ -203,6 +203,43 @@ export class DocumentService {
     );
   }
 
+  public getTicketByIdent(
+    ident: string,
+    remote: boolean,
+  ): Observable<Ticket> {
+    const url = `${this.config.baseUrl}/tickets`;
+    return this.http.get<Ticket>(url, { params: { ident, remote } }).pipe(
+      map((doc) => {
+        doc.type = "TICKET";
+        return doc;
+      }),
+      catchError((error) => {
+        return new Observable<Ticket>((observer) => {
+          observer.error;
+        });
+      }),
+    );
+  }
+
+  public getCreditNoteByIdent(
+    ident: string,
+    remote: boolean,
+  ): Observable<CreditNote> {
+    const url = `${this.config.baseUrl}/creditnotes`;
+    return this.http.get<CreditNote>(url, { params: { ident, remote } }).pipe(
+      map((doc) => {
+        doc.type = "CREDITNOTE";
+        return doc;
+      }),
+      catchError((error) => {
+        return new Observable<CreditNote>((observer) => {
+          observer.error;
+        });
+      }),
+    );
+  }
+
+
   public getDocuments4Balance(_balance: Balance): Observable<PayableHead[]> {
     return merge(
       this.getReceipts4Balance(_balance),
@@ -339,6 +376,30 @@ export class DocumentService {
       map((docs) => {
         docs.map((doc) => {
           doc.type = "INVOICE";
+        });
+        return [...docs];
+      }),
+    );
+  }
+
+  retrieveCreditNotes(number: string): Observable<CreditNote[]> {
+    const url = `${this.config.baseUrl}/creditnotes`;
+    return this.http.get<CreditNote[]>(url, { params: { number: number } }).pipe(
+      map((docs) => {
+        docs.map((doc) => {
+          doc.type = "CREDITNOTE";
+        });
+        return [...docs];
+      }),
+    );
+  }
+
+   retrieveTickets(number: string): Observable<Ticket[]> {
+    const url = `${this.config.baseUrl}/tickets`;
+    return this.http.get<Ticket[]>(url, { params: { number: number } }).pipe(
+      map((docs) => {
+        docs.map((doc) => {
+          doc.type = "TICKET";
         });
         return [...docs];
       }),
