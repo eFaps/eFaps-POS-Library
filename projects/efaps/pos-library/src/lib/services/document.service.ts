@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpContext } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, merge } from "rxjs";
 import { catchError, map } from "rxjs/operators";
@@ -6,6 +6,7 @@ import { catchError, map } from "rxjs/operators";
 import {
   Balance,
   CreditNote,
+  IGNORED_STATUSES,
   Invoice,
   Order,
   Payable,
@@ -162,35 +163,41 @@ export class DocumentService {
 
   public getPayableByIdent(ident: string): Observable<Payable> {
     return merge(
-      this.getReceiptByIdent(ident, false),
-      this.getInvoiceByIdent(ident, false),
+      this.getReceiptByIdent(ident, false, true),
+      this.getInvoiceByIdent(ident, false, true),
     );
   }
 
   public getReceiptByIdent(
     ident: string,
     remote: boolean,
+    supress404: boolean = false
   ): Observable<Receipt> {
     const url = `${this.config.baseUrl}/receipts`;
-    return this.http.get<Receipt>(url, { params: { ident, remote } }).pipe(
-      map((doc) => {
-        doc.type = "RECEIPT";
-        return doc;
-      }),
-      catchError((error) => {
-        return new Observable<Receipt>((observer) => {
-          observer.error;
-        });
-      }),
-    );
+    const context = supress404 ? new HttpContext().set(IGNORED_STATUSES, [404]) : undefined;
+    return this.http
+      .get<Receipt>(url, { context: context, params: { ident, remote } })
+      .pipe(
+        map((doc) => {
+          doc.type = "RECEIPT";
+          return doc;
+        }),
+        catchError((error) => {
+          return new Observable<Receipt>((observer) => {
+            observer.error;
+          });
+        }),
+      );
   }
 
   public getInvoiceByIdent(
     ident: string,
     remote: boolean,
+    supress404: boolean = false
   ): Observable<Invoice> {
     const url = `${this.config.baseUrl}/invoices`;
-    return this.http.get<Invoice>(url, { params: { ident, remote } }).pipe(
+    const context = supress404 ? new HttpContext().set(IGNORED_STATUSES, [404]) : undefined;
+    return this.http.get<Invoice>(url, { context: context, params: { ident, remote } }).pipe(
       map((doc) => {
         doc.type = "INVOICE";
         return doc;
@@ -203,10 +210,7 @@ export class DocumentService {
     );
   }
 
-  public getTicketByIdent(
-    ident: string,
-    remote: boolean,
-  ): Observable<Ticket> {
+  public getTicketByIdent(ident: string, remote: boolean): Observable<Ticket> {
     const url = `${this.config.baseUrl}/tickets`;
     return this.http.get<Ticket>(url, { params: { ident, remote } }).pipe(
       map((doc) => {
@@ -238,7 +242,6 @@ export class DocumentService {
       }),
     );
   }
-
 
   public getDocuments4Balance(_balance: Balance): Observable<PayableHead[]> {
     return merge(
@@ -384,17 +387,19 @@ export class DocumentService {
 
   retrieveCreditNotes(number: string): Observable<CreditNote[]> {
     const url = `${this.config.baseUrl}/creditnotes`;
-    return this.http.get<CreditNote[]>(url, { params: { number: number } }).pipe(
-      map((docs) => {
-        docs.map((doc) => {
-          doc.type = "CREDITNOTE";
-        });
-        return [...docs];
-      }),
-    );
+    return this.http
+      .get<CreditNote[]>(url, { params: { number: number } })
+      .pipe(
+        map((docs) => {
+          docs.map((doc) => {
+            doc.type = "CREDITNOTE";
+          });
+          return [...docs];
+        }),
+      );
   }
 
-   retrieveTickets(number: string): Observable<Ticket[]> {
+  retrieveTickets(number: string): Observable<Ticket[]> {
     const url = `${this.config.baseUrl}/tickets`;
     return this.http.get<Ticket[]>(url, { params: { number: number } }).pipe(
       map((docs) => {
