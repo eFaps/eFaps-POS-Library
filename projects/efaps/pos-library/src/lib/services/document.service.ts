@@ -171,10 +171,12 @@ export class DocumentService {
   public getReceiptByIdent(
     ident: string,
     remote: boolean,
-    supress404: boolean = false
+    supress404: boolean = false,
   ): Observable<Receipt> {
     const url = `${this.config.baseUrl}/receipts`;
-    const context = supress404 ? new HttpContext().set(IGNORED_STATUSES, [404]) : undefined;
+    const context = supress404
+      ? new HttpContext().set(IGNORED_STATUSES, [404])
+      : undefined;
     return this.http
       .get<Receipt>(url, { context: context, params: { ident, remote } })
       .pipe(
@@ -193,21 +195,25 @@ export class DocumentService {
   public getInvoiceByIdent(
     ident: string,
     remote: boolean,
-    supress404: boolean = false
+    supress404: boolean = false,
   ): Observable<Invoice> {
     const url = `${this.config.baseUrl}/invoices`;
-    const context = supress404 ? new HttpContext().set(IGNORED_STATUSES, [404]) : undefined;
-    return this.http.get<Invoice>(url, { context: context, params: { ident, remote } }).pipe(
-      map((doc) => {
-        doc.type = "INVOICE";
-        return doc;
-      }),
-      catchError((error) => {
-        return new Observable<Invoice>((observer) => {
-          observer.error;
-        });
-      }),
-    );
+    const context = supress404
+      ? new HttpContext().set(IGNORED_STATUSES, [404])
+      : undefined;
+    return this.http
+      .get<Invoice>(url, { context: context, params: { ident, remote } })
+      .pipe(
+        map((doc) => {
+          doc.type = "INVOICE";
+          return doc;
+        }),
+        catchError((error) => {
+          return new Observable<Invoice>((observer) => {
+            observer.error;
+          });
+        }),
+      );
   }
 
   public getTicketByIdent(ident: string, remote: boolean): Observable<Ticket> {
