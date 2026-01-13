@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Observable, Subscriber } from "rxjs";
 
-import { Extension, PersistenceService, PosConfig } from "../model";
+import { Extension, PersistenceService, PersistenceServiceProvider, PosConfig } from "../model";
 import { PosConfigToken } from "./pos-config.token";
 
 @Injectable({
@@ -11,7 +11,7 @@ import { PosConfigToken } from "./pos-config.token";
 export class ConfigService {
   public baseUrl: string;
   public defaultProdImg: string;
-  public persistence: PersistenceService;
+  private _persistence: PersistenceService | PersistenceServiceProvider;
   private _socketUrl: string;
   private systemConfig: Map<string, any> = new Map();
   private extensions: Extension[];
@@ -23,7 +23,7 @@ export class ConfigService {
     this.baseUrl = config.baseUrl;
     this._socketUrl = config.socketUrl;
     this.defaultProdImg = config.defaultProdImg;
-    this.persistence = config.persistence;
+    this._persistence = config.persistence;
   }
 
   get socketUrl() {
@@ -63,5 +63,16 @@ export class ConfigService {
         subscriber.next(value);
       });
     });
+  }
+
+  get persistence(): PersistenceService | undefined{
+      if (this._persistence) {
+        if (typeof this._persistence["get"] == 'function') {
+            this._persistence = (this._persistence as PersistenceServiceProvider).get()
+        }
+          return this._persistence as PersistenceService
+        } else {
+        return undefined
+      }
   }
 }

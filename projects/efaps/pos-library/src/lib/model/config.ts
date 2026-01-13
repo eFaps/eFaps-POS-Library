@@ -1,10 +1,10 @@
-import { PersistenceService } from "./persistence";
+import { PersistenceService, PersistenceServiceProvider } from "./persistence";
 
 export interface PosConfig {
   baseUrl: string;
   socketUrl: string;
   defaultProdImg?: string;
-  persistence?: PersistenceService;
+  persistence?: PersistenceService | PersistenceServiceProvider;
 }
 
 export interface Extension {
