@@ -2,7 +2,12 @@ import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Observable, Subscriber } from "rxjs";
 
-import { Extension, PersistenceService, PersistenceServiceProvider, PosConfig } from "../model";
+import {
+  Extension,
+  PersistenceService,
+  PersistenceServiceProvider,
+  PosConfig,
+} from "../model";
 import { PosConfigToken } from "./pos-config.token";
 
 @Injectable({
@@ -65,14 +70,16 @@ export class ConfigService {
     });
   }
 
-  get persistence(): PersistenceService | undefined{
-      if (this._persistence) {
-        if (typeof this._persistence["get"] == 'function') {
-            this._persistence = (this._persistence as PersistenceServiceProvider).get()
-        }
-          return this._persistence as PersistenceService
-        } else {
-        return undefined
+  get persistence(): PersistenceService | undefined {
+    if (this._persistence) {
+      if (typeof this._persistence["get"] == "function") {
+        this._persistence = (
+          this._persistence as PersistenceServiceProvider
+        ).get();
       }
+      return this._persistence as PersistenceService;
+    } else {
+      return undefined;
+    }
   }
 }

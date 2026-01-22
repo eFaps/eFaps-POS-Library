@@ -9,7 +9,7 @@ export interface PersistenceService {
 }
 
 export interface PersistenceServiceProvider {
-   get: () => PersistenceService;
+  get: () => PersistenceService;
 }
 
 export interface PersistenceObject {
@@ -20,14 +20,9 @@ export interface CleanableObject {
   clean();
 }
 
-export interface CurrentCompany extends Company, PersistenceObject {
-
-}
-
+export interface CurrentCompany extends Company, PersistenceObject {}
 
 export interface CurrentUser extends PersistenceObject, CleanableObject {
   username: string | undefined;
   tokens: Tokens | undefined;
 }
-
-
