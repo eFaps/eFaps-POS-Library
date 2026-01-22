@@ -17,6 +17,7 @@ export interface CashEntry {
   entryType: CashEntryType;
   amount: number;
   currency: Currency;
+  description: string;
 }
 
 export enum CashEntryType {

@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { tap } from "rxjs/operators";
 
-import { Balance, BalanceSummary, CashEntry } from "../model";
+import { Balance, BalanceSummary, CashEntry, PrintResponse } from "../model";
 import { AuthService } from "./auth.service";
 import { ConfigService } from "./config.service";
 import { WorkspaceService } from "./workspace.service";
@@ -16,6 +16,7 @@ export class BalanceService {
   private balance: Balance = null;
   private balanceSource = new BehaviorSubject<Balance>(this.balance);
   currentBalance = this.balanceSource.asObservable();
+  private workspaceOid: string | undefined;
 
   constructor(
     private http: HttpClient,
@@ -39,8 +40,10 @@ export class BalanceService {
     });
     this.workspaceService.currentWorkspace.subscribe((ws) => {
       if (ws) {
+        this.workspaceOid = ws.oid;
         this.load();
       } else {
+        this.workspaceOid = undefined;
         this.balanceSource.next(null);
       }
     });
@@ -75,9 +78,11 @@ export class BalanceService {
   addCashEntries(
     balance: Balance,
     cashEntries: CashEntry[],
-  ): Observable<Object> {
+  ): Observable<PrintResponse[]> {
     const requestUrl = `${this.config.baseUrl}/balance/${balance.id}/cash`;
-    return this.http.post(requestUrl, cashEntries);
+    return this.http.post<PrintResponse[]>(requestUrl, cashEntries, {
+      params: { workspaceOid: this.workspaceOid },
+    });
   }
 
   close(balance: Balance): Observable<Balance> {

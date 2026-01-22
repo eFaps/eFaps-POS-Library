@@ -33,9 +33,10 @@ export class AuthService {
       .pipe(
         map((response) => {
           if (response.accessToken) {
-            this.currentUser.username = username;
-            this.currentUser.tokens = response;
-            this.currentUser.save();
+            const user = this.currentUser
+            user.username = username;
+            user.tokens = response;
+            user.save();
             this.eventSource.next("login");
             this.refreshing = false;
             return true;
@@ -54,8 +55,9 @@ export class AuthService {
       .subscribe({
         next: (response) => {
           if (response.accessToken) {
-            this.currentUser.tokens = response;
-            this.currentUser.save();
+            const user = this.currentUser
+            user.tokens = response;
+            user.save();
             this.eventSource.next("refresh");
           } else {
             this.logout();
