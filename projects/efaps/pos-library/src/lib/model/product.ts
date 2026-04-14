@@ -20,7 +20,7 @@ export interface Product {
   bomGroupConfigs: BOMGroupConfig[];
   configurationBOMs: ConfigurationBOM[];
   individual?: ProductIndividual;
-  status: ProductStatus
+  status: ProductStatus;
 }
 
 export interface BOMGroupConfig extends Flagged {

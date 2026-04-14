@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
@@ -9,6 +9,7 @@ import {
   Page,
   PageRequest,
   Product,
+  ProductStatus,
   ProductType,
   Workspace,
 } from "../model";
@@ -33,23 +34,35 @@ export class ProductService {
     });
   }
 
-  public getProducts(pageable?: PageRequest): Observable<Page<Product>> {
+  public getProducts(
+    pageable?: PageRequest,
+    stati?: ProductStatus[],
+  ): Observable<Page<Product>> {
     const requestUrl = `${this.config.baseUrl}/products`;
     const params: any = pageable || {};
+    if (stati) {
+      params.status = stati;
+    }
     return this.http.get<Page<Product>>(requestUrl, { params });
   }
 
   public findProducts(
     term: string,
     textsearch?: boolean,
+    stati?: ProductStatus[],
   ): Observable<Product[]> {
-    let requestUrl;
+    const requestUrl = `${this.config.baseUrl}/products`;
+    let params: HttpParams = new HttpParams();
+    params = params.set("term", term);
     if (typeof textsearch !== "undefined") {
-      requestUrl = `${this.config.baseUrl}/products?term=${term}&textsearch=${textsearch}`;
-    } else {
-      requestUrl = `${this.config.baseUrl}/products?term=${term}`;
+      params = params.set("textsearch", textsearch);
     }
-    return this.http.get<Product[]>(requestUrl);
+    if (stati) {
+      stati.forEach((status) => {
+        params = params.append("status", status);
+      });
+    }
+    return this.http.get<Product[]>(requestUrl, { params });
   }
 
   public getCategoryTree(): Observable<CategoryNode[]> {
@@ -126,29 +139,59 @@ export class ProductService {
     );
   }
 
-  public getProduct(_oid: string): Observable<Product> {
-    const requestUrl = `${this.config.baseUrl}/products/${_oid}`;
+  public getProduct(oid: string): Observable<Product> {
+    const requestUrl = `${this.config.baseUrl}/products/${oid}`;
     return this.http.get<Product>(requestUrl);
   }
 
-  public getCategory(_oid: string): Observable<Category> {
-    const requestUrl = `${this.config.baseUrl}/categories/${_oid}`;
+  public getCategory(oid: string): Observable<Category> {
+    const requestUrl = `${this.config.baseUrl}/categories/${oid}`;
     return this.http.get<Category>(requestUrl);
   }
 
-  public getProductsByCategory(_oid: string): Observable<Product[]> {
-    const requestUrl = `${this.config.baseUrl}/products?category=${_oid}`;
-    return this.http.get<Product[]>(requestUrl);
+  public getProductsByCategory(
+    oid: string,
+    stati?: ProductStatus[],
+  ): Observable<Product[]> {
+    const requestUrl = `${this.config.baseUrl}/products`;
+    let params: HttpParams = new HttpParams();
+    params = params.set("category", oid);
+    if (stati) {
+      stati.forEach((status) => {
+        params = params.append("status", status);
+      });
+    }
+    return this.http.get<Product[]>(requestUrl, { params });
   }
 
-  public getProductsByBarcode(_barcode: string): Observable<Product[]> {
-    const requestUrl = `${this.config.baseUrl}/products?barcode=${_barcode}`;
-    return this.http.get<Product[]>(requestUrl);
+  public getProductsByBarcode(
+    barcode: string,
+    stati?: ProductStatus[],
+  ): Observable<Product[]> {
+    const requestUrl = `${this.config.baseUrl}/products`;
+    let params: HttpParams = new HttpParams();
+    params = params.set("barcode", barcode);
+    if (stati) {
+      stati.forEach((status) => {
+        params = params.append("status", status);
+      });
+    }
+    return this.http.get<Product[]>(requestUrl, { params });
   }
 
-  public getProductsByType(type: ProductType): Observable<Product[]> {
-    const requestUrl = `${this.config.baseUrl}/products?type=${type}`;
-    return this.http.get<Product[]>(requestUrl);
+  public getProductsByType(
+    type: ProductType,
+    stati?: ProductStatus[],
+  ): Observable<Product[]> {
+    const requestUrl = `${this.config.baseUrl}/products`;
+    let params: HttpParams = new HttpParams();
+    params = params.set("type", type);
+    if (stati) {
+      stati.forEach((status) => {
+        params = params.append("status", status);
+      });
+    }
+    return this.http.get<Product[]>(requestUrl, { params });
   }
 
   static isStockable(product: Product): boolean {

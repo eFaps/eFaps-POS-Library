@@ -177,7 +177,7 @@ export class DiscountService {
       barcodes: [],
       bomGroupConfigs: [],
       configurationBOMs: [],
-      status: ProductStatus.ACTIVE
+      status: ProductStatus.ACTIVE,
     };
   }
 }
