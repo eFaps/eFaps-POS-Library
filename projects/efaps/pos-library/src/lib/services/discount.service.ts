@@ -9,6 +9,7 @@ import {
   Document,
   Order,
   Product,
+  ProductStatus,
   ProductType,
   TaxType,
   WorkspaceFlag,
@@ -165,7 +166,6 @@ export class DiscountService {
       sku: "",
       type: ProductType.TEXT,
       description: "Descuento",
-      note: null,
       imageOid: "",
       netPrice: 0,
       crossPrice: 0,
@@ -177,6 +177,7 @@ export class DiscountService {
       barcodes: [],
       bomGroupConfigs: [],
       configurationBOMs: [],
+      status: ProductStatus.ACTIVE
     };
   }
 }

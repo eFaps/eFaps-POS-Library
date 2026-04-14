@@ -6,8 +6,8 @@ export interface Product {
   oid: string;
   sku: string;
   type: ProductType;
-  description: string;
-  note: string;
+  description?: string;
+  note?: string;
   imageOid: string;
   netPrice: number;
   crossPrice: number;
@@ -20,6 +20,7 @@ export interface Product {
   bomGroupConfigs: BOMGroupConfig[];
   configurationBOMs: ConfigurationBOM[];
   individual?: ProductIndividual;
+  status: ProductStatus
 }
 
 export interface BOMGroupConfig extends Flagged {
@@ -101,6 +102,13 @@ export enum ProductType {
   PARTLIST = "PARTLIST",
   BATCH = "BATCH",
   INDIVIDUAL = "INDIVIDUAL",
+}
+
+export enum ProductStatus {
+  DRAFT = "DRAFT",
+  ACTIVE = "ACTIVE",
+  UNLISTED = "UNLISTED",
+  ARCHIVED = "ARCHIVED",
 }
 
 export enum ProductRelationType {
