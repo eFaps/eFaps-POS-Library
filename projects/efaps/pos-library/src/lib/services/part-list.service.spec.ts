@@ -6,7 +6,7 @@ import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from "@angular/common/http";
-import { Currency, Product, ProductRelationType, ProductType } from "../model";
+import { Currency, Product, ProductRelationType, ProductStatus, ProductType } from "../model";
 import { AdminService } from "./admin.service";
 import { AuthService } from "./auth.service";
 import { PartListService } from "./part-list.service";
@@ -31,6 +31,7 @@ const PRODUCTS: Product[] = [
     barcodes: [],
     bomGroupConfigs: [],
     configurationBOMs: [],
+    status: ProductStatus.ACTIVE,
   },
   {
     oid: "111.2",
@@ -49,6 +50,7 @@ const PRODUCTS: Product[] = [
     barcodes: [],
     bomGroupConfigs: [],
     configurationBOMs: [],
+    status: ProductStatus.ACTIVE,
   },
   {
     oid: "111.3",
@@ -67,6 +69,7 @@ const PRODUCTS: Product[] = [
     barcodes: [],
     bomGroupConfigs: [],
     configurationBOMs: [],
+    status: ProductStatus.ACTIVE,
   },
   {
     oid: "111.4",
@@ -85,6 +88,7 @@ const PRODUCTS: Product[] = [
     barcodes: [],
     bomGroupConfigs: [],
     configurationBOMs: [],
+    status: ProductStatus.ACTIVE,
   },
 ];
 
@@ -113,6 +117,7 @@ const PARTLISTS: Product[] = [
     barcodes: [],
     bomGroupConfigs: [],
     configurationBOMs: [],
+    status: ProductStatus.ACTIVE,
   },
   {
     oid: "123.46",
@@ -138,6 +143,7 @@ const PARTLISTS: Product[] = [
     barcodes: [],
     bomGroupConfigs: [],
     configurationBOMs: [],
+    status: ProductStatus.ACTIVE,
   },
   {
     oid: "123.46",
@@ -163,6 +169,7 @@ const PARTLISTS: Product[] = [
     barcodes: [],
     bomGroupConfigs: [],
     configurationBOMs: [],
+    status: ProductStatus.ACTIVE,
   },
   {
     oid: "123.46",
@@ -194,6 +201,7 @@ const PARTLISTS: Product[] = [
     barcodes: [],
     bomGroupConfigs: [],
     configurationBOMs: [],
+    status: ProductStatus.ACTIVE,
   },
   {
     oid: "123.47",
@@ -231,6 +239,7 @@ const PARTLISTS: Product[] = [
     barcodes: [],
     bomGroupConfigs: [],
     configurationBOMs: [],
+    status: ProductStatus.ACTIVE,
   },
   {
     oid: "123.47",
@@ -249,6 +258,7 @@ const PARTLISTS: Product[] = [
     barcodes: [],
     bomGroupConfigs: [],
     configurationBOMs: [],
+    status: ProductStatus.ACTIVE,
   },
   {
     oid: "123.50",
@@ -286,6 +296,7 @@ const PARTLISTS: Product[] = [
     barcodes: [],
     bomGroupConfigs: [],
     configurationBOMs: [],
+    status: ProductStatus.ACTIVE,
   },
 ];
 

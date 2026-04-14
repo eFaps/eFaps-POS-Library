@@ -8,7 +8,7 @@ import {
 } from "@angular/common/http";
 import Decimal from "decimal.js";
 import { Currency } from "../model/currency";
-import { ProductType } from "../model/product";
+import { ProductStatus, ProductType } from "../model/product";
 import { TaxType } from "../model/tax";
 import { CalculatorService } from "./calculator.service";
 import { ConfigService } from "./config.service";
@@ -88,6 +88,7 @@ describe("CalculatorService", () => {
           barcodes: [],
           bomGroupConfigs: [],
           configurationBOMs: [],
+          status: ProductStatus.ACTIVE,
         },
         quantity: 1,
         price: 10.01,
@@ -133,6 +134,7 @@ describe("CalculatorService", () => {
           barcodes: [],
           bomGroupConfigs: [],
           configurationBOMs: [],
+          status: ProductStatus.ACTIVE,
         },
         quantity: 1,
         price: 10.01,
@@ -188,6 +190,7 @@ describe("CalculatorService", () => {
           barcodes: [],
           bomGroupConfigs: [],
           configurationBOMs: [],
+          status: ProductStatus.ACTIVE,
         },
         quantity: 1,
         price: 10.01,
