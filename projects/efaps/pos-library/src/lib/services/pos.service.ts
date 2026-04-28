@@ -149,6 +149,7 @@ export class PosService {
           currency: this.currency,
           exchangeRate: this.exchangeRate,
           remark: docItem.remark,
+          bomOid: docItem.bomOid
         });
       });
     this.changeTicket(items);
@@ -236,8 +237,11 @@ export class PosService {
     return {
       positions: itemsToMap.map((item) => {
         return {
+          index: item.index,
+          parentIdx: item.parentIdx,
           quantity: item.quantity,
           productOid: item.product.oid,
+          bomOid: item.bomOid
         };
       }),
     };
@@ -261,6 +265,7 @@ export class PosService {
         crossPrice: position.crossPrice,
         remark: item.remark,
         taxes: position.taxes,
+        bomOid: position.bomOid
       });
     }
     return docItems;
