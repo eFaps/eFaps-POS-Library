@@ -21,6 +21,7 @@ export interface Product {
   configurationBOMs: ConfigurationBOM[];
   individual?: ProductIndividual;
   status: ProductStatus;
+  extension?: any
 }
 
 export interface BOMGroupConfig extends Flagged {
