@@ -8,6 +8,7 @@ export enum PaymentType {
   ELECTRONIC = "ELECTRONIC",
   LOYALTY_POINTS = "LOYALTY_POINTS",
   REDEEM_CREDITNOTE = "REDEEM_CREDITNOTE",
+  LOYALTY_VOUCHER = "LOYALTY_VOUCHER",
 }
 
 export interface Payment {
@@ -20,4 +21,5 @@ export interface Payment {
   mappingKey?: string;
   collectOrderId?: string;
   redeemDocOid?: string;
+  identifier?: string;
 }
