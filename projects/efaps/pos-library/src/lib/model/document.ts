@@ -49,6 +49,7 @@ export interface Ticket extends Payable {}
 /* tslint:disable-next-line */
 export interface CreditNote extends Payable {
   sourceDocOid: string;
+  creditReason?: string;
 }
 
 export interface DocItem {
