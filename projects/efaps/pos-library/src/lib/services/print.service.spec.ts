@@ -4,6 +4,7 @@ import { TestBed, inject } from "@angular/core/testing";
 import {
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr,
 } from "@angular/common/http";
 import { ConfigService } from "./config.service";
 import { PrintService } from "./print.service";
@@ -17,7 +18,7 @@ describe("PrintService", () => {
       providers: [
         PrintService,
         { provide: ConfigService, useClass: ConfigServiceStub },
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],
     });

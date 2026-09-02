@@ -3,6 +3,7 @@ import { TestBed } from "@angular/core/testing";
 import {
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr,
 } from "@angular/common/http";
 import { provideHttpClientTesting } from "@angular/common/http/testing";
 import { ConfigService } from "./config.service";
@@ -15,7 +16,7 @@ describe("PosFileService", () => {
     TestBed.configureTestingModule({
       providers: [
         { provide: ConfigService, useValue: {} },
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],
     });

@@ -4,6 +4,7 @@ import { TestBed, inject } from "@angular/core/testing";
 import {
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr,
 } from "@angular/common/http";
 import { ConfigService } from "./config.service";
 import { InventoryService } from "./inventory.service";
@@ -17,7 +18,7 @@ describe("InventoryService", () => {
       providers: [
         InventoryService,
         { provide: ConfigService, useClass: ConfigServiceStub },
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],
     });

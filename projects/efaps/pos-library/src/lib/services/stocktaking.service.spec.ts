@@ -3,6 +3,7 @@ import { TestBed } from "@angular/core/testing";
 import {
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr,
 } from "@angular/common/http";
 import { provideHttpClientTesting } from "@angular/common/http/testing";
 import { PosConfigToken } from "./pos-config.token";
@@ -16,7 +17,7 @@ describe("StocktakingService", () => {
       imports: [],
       providers: [
         { provide: PosConfigToken, useValue: {} },
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],
     });

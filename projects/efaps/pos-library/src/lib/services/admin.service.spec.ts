@@ -4,6 +4,7 @@ import { TestBed, inject } from "@angular/core/testing";
 import {
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr,
 } from "@angular/common/http";
 import { AdminService } from "./admin.service";
 import { ConfigService } from "./config.service";
@@ -17,7 +18,7 @@ describe("AdminService", () => {
       providers: [
         AdminService,
         { provide: ConfigService, useClass: ConfigServiceStub },
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],
     });

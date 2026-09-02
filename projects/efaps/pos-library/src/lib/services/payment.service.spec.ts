@@ -4,6 +4,7 @@ import { TestBed, inject } from "@angular/core/testing";
 import {
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr,
 } from "@angular/common/http";
 import { AuthService } from "./auth.service";
 import { ConfigService } from "./config.service";
@@ -25,7 +26,7 @@ describe("PaymentService", () => {
         PosService,
         WorkspaceService,
         { provide: PosConfigToken, useValue: {} },
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],
     });

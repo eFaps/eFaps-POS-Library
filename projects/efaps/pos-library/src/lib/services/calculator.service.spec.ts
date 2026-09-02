@@ -5,6 +5,7 @@ import { Observable } from "rxjs";
 import {
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr,
 } from "@angular/common/http";
 import Decimal from "decimal.js";
 import { Currency } from "../model/currency";
@@ -38,7 +39,7 @@ describe("CalculatorService", () => {
         TaxService,
         { provide: WorkspaceService, useClass: WorkspaceServiceStub },
         { provide: ConfigService, useClass: ConfigServiceStub },
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],
     });

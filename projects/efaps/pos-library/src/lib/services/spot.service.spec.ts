@@ -5,6 +5,7 @@ import { Observable } from "rxjs";
 import {
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr,
 } from "@angular/common/http";
 import { AuthService } from "./auth.service";
 import { ConfigService } from "./config.service";
@@ -34,7 +35,7 @@ describe("SpotService", () => {
         { provide: ConfigService, useClass: ConfigServiceStub },
         { provide: DocumentService, useClass: DocumentServiceStub },
         { provide: WorkspaceService, useClass: WorkspaceServiceStub },
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],
     });

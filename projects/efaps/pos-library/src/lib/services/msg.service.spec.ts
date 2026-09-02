@@ -6,6 +6,7 @@ import { Observable } from "rxjs";
 import {
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr,
 } from "@angular/common/http";
 import { AuthService } from "./auth.service";
 import { ConfigService } from "./config.service";
@@ -28,7 +29,7 @@ describe("MsgService", () => {
         RxStompService,
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: ConfigService, useClass: ConfigServiceStub },
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],
     });

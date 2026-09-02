@@ -6,6 +6,7 @@ import { Observable } from "rxjs";
 import {
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr,
 } from "@angular/common/http";
 import { AuthService } from "./auth.service";
 import { CalculatorService } from "./calculator.service";
@@ -44,7 +45,7 @@ describe("PosService", () => {
         { provide: DocumentService, useClass: DocumentServiceStub },
         { provide: WorkspaceService, useClass: WorkspaceServiceStub },
         { provide: CalculatorService, useClass: CalculatorServiceStub },
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],
     });

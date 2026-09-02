@@ -5,6 +5,7 @@ import { Observable } from "rxjs";
 import {
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr,
 } from "@angular/common/http";
 import { AuthService } from "./auth.service";
 import { BalanceService } from "./balance.service";
@@ -31,7 +32,7 @@ describe("BalanceService", () => {
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: ConfigService, useClass: ConfigServiceStub },
         { provide: WorkspaceService, useClass: WorkspaceServiceStub },
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],
     });

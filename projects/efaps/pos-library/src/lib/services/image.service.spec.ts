@@ -5,6 +5,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 import {
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr,
 } from "@angular/common/http";
 import { ConfigService } from "./config.service";
 import { ImageService } from "./image.service";
@@ -19,7 +20,7 @@ describe("ImageService", () => {
         DomSanitizer,
         ImageService,
         { provide: ConfigService, useClass: ConfigServiceStub },
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],
     });

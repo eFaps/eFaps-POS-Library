@@ -5,6 +5,7 @@ import { ConfigService } from "./config.service";
 import {
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr,
 } from "@angular/common/http";
 import { EmployeeService } from "./employee.service";
 
@@ -18,7 +19,7 @@ describe("EmployeeService", () => {
       imports: [],
       providers: [
         { provide: ConfigService, useClass: ConfigServiceStub },
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],
     });

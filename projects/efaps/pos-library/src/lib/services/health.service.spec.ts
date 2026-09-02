@@ -4,6 +4,7 @@ import { TestBed } from "@angular/core/testing";
 import {
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr,
 } from "@angular/common/http";
 import { ConfigService } from "./config.service";
 import { HealthService } from "./health.service";
@@ -18,7 +19,7 @@ describe("HealthService", () => {
       imports: [],
       providers: [
         { provide: ConfigService, useClass: ConfigServiceStub },
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],
     });

@@ -5,8 +5,15 @@ import { Observable, of } from "rxjs";
 import {
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr,
 } from "@angular/common/http";
-import { Currency, Product, ProductRelationType, ProductStatus, ProductType } from "../model";
+import {
+  Currency,
+  Product,
+  ProductRelationType,
+  ProductStatus,
+  ProductType,
+} from "../model";
 import { AdminService } from "./admin.service";
 import { AuthService } from "./auth.service";
 import { PartListService } from "./part-list.service";
@@ -318,7 +325,7 @@ describe("PartListService", () => {
         { provide: AuthService, useClass: AuthServiceStub },
         ProductService,
         AdminService,
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],
     });

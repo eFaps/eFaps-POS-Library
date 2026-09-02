@@ -4,6 +4,7 @@ import { TestBed } from "@angular/core/testing";
 import {
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr,
 } from "@angular/common/http";
 import { PosConfigToken } from "../services/pos-config.token";
 import { CompanyService } from "./company.service";
@@ -14,7 +15,7 @@ describe("CompanyService", () => {
       imports: [],
       providers: [
         { provide: PosConfigToken, useValue: {} },
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],
     }),
