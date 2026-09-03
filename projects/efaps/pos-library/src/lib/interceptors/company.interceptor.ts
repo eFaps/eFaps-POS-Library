@@ -8,13 +8,14 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
 import { CompanyService } from "../services/company.service";
+import { Company } from "../model";
 
 @Injectable({
   providedIn: "root",
   deps: [CompanyService],
 })
 export class CompanyInterceptor implements HttpInterceptor {
-  private currentCompany;
+  private currentCompany: Company | null = null;
 
   constructor(companyService: CompanyService) {
     companyService.company.subscribe({

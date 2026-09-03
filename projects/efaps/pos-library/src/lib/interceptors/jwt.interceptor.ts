@@ -23,7 +23,7 @@ export class JwtInterceptor implements HttpInterceptor {
     if (!this.authService.isTokenExpired()) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${this.authService.currentUser.tokens.accessToken}`,
+          Authorization: `Bearer ${this.authService.currentUser.tokens!.accessToken}`,
         },
       });
     }
