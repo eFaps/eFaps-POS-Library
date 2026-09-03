@@ -17,7 +17,8 @@ describe("UtilsService", () => {
     [UtilsService],
     (service: UtilsService) => {
       expect(service.parse("1,234,657.8901")).not.toBeNaN();
-      expect(service.parse("1,234,657.8901") == 1234567.8901).toBeTruthy();
+      console.log(service.parse("1,234,657.8901"));
+      expect(service.parse("1,234,657.8901") == 1234657.8901).toBeTruthy();
     },
   ));
 });

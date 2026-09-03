@@ -65,13 +65,13 @@ class NumberParser {
     this.index = (d) => index.get(d)!;
   }
 
-  parse(str: String): number {
-    return (str = str
+  parse(string: any): number {
+    return (string = string
       .trim()
       .replace(this.group, "")
       .replace(this.decimal, ".")
-      .replace(this.numeral, this.index.toString()))
-      ? +str
+      .replace(this.numeral, this.index))
+      ? +string
       : NaN;
   }
 }

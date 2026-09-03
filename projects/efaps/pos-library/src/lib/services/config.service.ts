@@ -85,7 +85,7 @@ export class ConfigService {
   }
 }
 
-class MemoryPersitenceService implements PersistenceService {
+export class MemoryPersitenceService implements PersistenceService {
   private _currentUser: CurrentUser = {
     username: undefined,
     tokens: undefined,

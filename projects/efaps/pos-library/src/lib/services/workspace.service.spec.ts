@@ -6,11 +6,17 @@ import {
 import { provideHttpClientTesting } from "@angular/common/http/testing";
 import { TestBed, inject } from "@angular/core/testing";
 import { beforeEach, describe, expect, it } from "vitest";
+import { PersistenceService } from "../model";
 import { AuthService } from "./auth.service";
-import { ConfigService } from "./config.service";
+import { ConfigService, MemoryPersitenceService } from "./config.service";
 import { WorkspaceService } from "./workspace.service";
 
-class ConfigServiceStub {}
+class ConfigServiceStub {
+  get persistence(): PersistenceService {
+    return new MemoryPersitenceService();
+  }
+}
+
 class AuthServiceStub {}
 
 describe("WorkspaceService", () => {

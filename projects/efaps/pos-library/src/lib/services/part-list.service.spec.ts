@@ -4,7 +4,7 @@ import {
   withXhr,
 } from "@angular/common/http";
 import { provideHttpClientTesting } from "@angular/common/http/testing";
-import { TestBed, fakeAsync, tick } from "@angular/core/testing";
+import { TestBed } from "@angular/core/testing";
 import { Observable, of } from "rxjs";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
@@ -316,7 +316,7 @@ describe("PartListService", () => {
     expect(service).toBeTruthy();
   });
 
-  it("updateTicketInternal should ignore an empty ticket", fakeAsync(() => {
+  it("updateTicketInternal should ignore an empty ticket", async () => {
     const service: PartListService = TestBed.inject(PartListService);
     vi.spyOn(productService, "getProductsByType").mockReturnValue(
       of(PARTLISTS),
@@ -327,10 +327,9 @@ describe("PartListService", () => {
         expect(ticket).toEqual(response);
       },
     });
-    tick(1);
-  }));
+  });
 
-  it("should not change if not SALESBOM or not product oid is met", fakeAsync(() => {
+  it("should not change if not SALESBOM or not product oid is met", async () => {
     const service: PartListService = TestBed.inject(PartListService);
     const partlists: Product[] = [PARTLISTS[0], PARTLISTS[1]];
     vi.spyOn(productService, "getProductsByType").mockReturnValue(
@@ -352,10 +351,9 @@ describe("PartListService", () => {
         expect(ticket).toEqual(response);
       },
     });
-    tick(1);
-  }));
+  });
 
-  it("should find a partlist if exactly ", fakeAsync(() => {
+  it("should find a partlist if exactly ", async () => {
     const service: PartListService = TestBed.inject(PartListService);
     const partlists: Product[] = [PARTLISTS[0], PARTLISTS[2]];
     vi.spyOn(productService, "getProductsByType").mockReturnValue(
@@ -377,10 +375,9 @@ describe("PartListService", () => {
         expect(partlists[1]).toEqual(response[0].product);
       },
     });
-    tick(1);
-  }));
+  });
 
-  it("should find a partlist with one relation of two ", fakeAsync(() => {
+  it("should find a partlist with one relation of two ", async () => {
     const service: PartListService = TestBed.inject(PartListService);
     const partlists: Product[] = [PARTLISTS[0], PARTLISTS[2]];
     vi.spyOn(productService, "getProductsByType").mockReturnValue(
@@ -402,10 +399,9 @@ describe("PartListService", () => {
         expect(partlists[1]).toEqual(response[0].product);
       },
     });
-    tick(1);
-  }));
+  });
 
-  it("should find a partlist with more than one relation of two", fakeAsync(() => {
+  it("should find a partlist with more than one relation of two", async () => {
     const service: PartListService = TestBed.inject(PartListService);
     const partlists: Product[] = [PARTLISTS[0], PARTLISTS[3]];
     vi.spyOn(productService, "getProductsByType").mockReturnValue(
@@ -437,10 +433,9 @@ describe("PartListService", () => {
         expect(response.length).toEqual(1);
       },
     });
-    tick(1);
-  }));
+  });
 
-  it("should find a partlist with one relation of two and remove from the item", fakeAsync(() => {
+  it("should find a partlist with one relation of two and remove from the item", async () => {
     const service: PartListService = TestBed.inject(PartListService);
     const partlists: Product[] = [PARTLISTS[0], PARTLISTS[2]];
     vi.spyOn(productService, "getProductsByType").mockReturnValue(
@@ -465,10 +460,9 @@ describe("PartListService", () => {
         expect(response[1].product).toEqual(partlists[1]);
       },
     });
-    tick(1);
-  }));
+  });
 
-  it("should find a partlist with one relation of two and remove multiple item", fakeAsync(() => {
+  it("should find a partlist with one relation of two and remove multiple item", async () => {
     const service: PartListService = TestBed.inject(PartListService);
     const partlists: Product[] = [PARTLISTS[0], PARTLISTS[2]];
     vi.spyOn(productService, "getProductsByType").mockReturnValue(
@@ -500,10 +494,9 @@ describe("PartListService", () => {
         expect(response[0].product).toEqual(partlists[1]);
       },
     });
-    tick(1);
-  }));
+  });
 
-  it("should find a partlist and do not remove other partlists", fakeAsync(() => {
+  it("should find a partlist and do not remove other partlists", async () => {
     const service: PartListService = TestBed.inject(PartListService);
     const partlists: Product[] = [
       PARTLISTS[0],
@@ -588,10 +581,9 @@ describe("PartListService", () => {
         expect(response[3].product).toEqual(partlists[2]);
       },
     });
-    tick(1);
-  }));
+  });
 
-  it("should find a partlist that has weired configuration", fakeAsync(() => {
+  it("should find a partlist that has weired configuration", async () => {
     const service: PartListService = TestBed.inject(PartListService);
     const partlists: Product[] = [PARTLISTS[6]];
     vi.spyOn(productService, "getProductsByType").mockReturnValue(
@@ -683,6 +675,5 @@ describe("PartListService", () => {
         expect(response[5].product).toEqual(partlists[0]);
       },
     });
-    tick(1);
-  }));
+  });
 });

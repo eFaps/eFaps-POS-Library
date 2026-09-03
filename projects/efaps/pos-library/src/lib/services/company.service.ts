@@ -10,11 +10,9 @@ import { ConfigService } from "./config.service";
   deps: [HttpClient, ConfigService],
 })
 export class CompanyService {
-  public _currentCompany: Company;
+  private _currentCompany: Company;
 
-  private currentSource = new BehaviorSubject<Company | null>(
-    this.currentCompany,
-  );
+  private currentSource = new BehaviorSubject<Company | null>(null);
   company = this.currentSource.asObservable();
 
   constructor(
