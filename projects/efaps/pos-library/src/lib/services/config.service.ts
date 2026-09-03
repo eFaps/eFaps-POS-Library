@@ -31,7 +31,9 @@ export class ConfigService {
     this.baseUrl = config.baseUrl;
     this._socketUrl = config.socketUrl;
     this.defaultProdImg = config.defaultProdImg;
-    this._persistence = config.persistence ? config.persistence : new MemoryPersitenceService();
+    this._persistence = config.persistence
+      ? config.persistence
+      : new MemoryPersitenceService();
   }
 
   get socketUrl() {
@@ -87,8 +89,7 @@ class MemoryPersitenceService implements PersistenceService {
   private _currentUser: CurrentUser = {
     username: undefined,
     tokens: undefined,
-    save: () => {
-    },
+    save: () => {},
     clean: () => {
       this._currentUser.username = undefined;
       this._currentUser.tokens = undefined;
@@ -96,30 +97,25 @@ class MemoryPersitenceService implements PersistenceService {
   };
 
   private _currentCompany: CurrentCompany = {
-    save: () => {
-
-    },
+    save: () => {},
     label: "",
     key: "",
   };
 
- private _workspaces = {
-    save: () => {
-    
-    },
+  private _workspaces = {
+    save: () => {},
   };
 
   currentUser(): CurrentUser {
-    return this._currentUser
+    return this._currentUser;
   }
   currentCompany(): CurrentCompany {
-    return this._currentCompany
+    return this._currentCompany;
   }
   spotPositions(): PersistenceObject {
     throw new Error("Method not implemented.");
   }
   workspaces(): PersistenceObject {
-    return this._workspaces
+    return this._workspaces;
   }
-
 }

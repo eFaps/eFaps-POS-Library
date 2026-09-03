@@ -1,13 +1,13 @@
-import { provideHttpClientTesting } from "@angular/common/http/testing";
-import { Injectable } from "@angular/core";
-import { TestBed, inject } from "@angular/core/testing";
-import { Observable } from "rxjs";
-
 import {
   provideHttpClient,
   withInterceptorsFromDi,
   withXhr,
 } from "@angular/common/http";
+import { provideHttpClientTesting } from "@angular/common/http/testing";
+import { Injectable } from "@angular/core";
+import { TestBed, inject } from "@angular/core/testing";
+import { Observable } from "rxjs";
+import { beforeEach, describe, expect, it } from "vitest";
 import { AuthService } from "./auth.service";
 import { CalculatorService } from "./calculator.service";
 import { ConfigService } from "./config.service";

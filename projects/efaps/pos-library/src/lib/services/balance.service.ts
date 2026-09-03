@@ -65,7 +65,7 @@ export class BalanceService {
   private getCurrent(createNew?: boolean): Observable<Balance> {
     const requestUrl = `${this.config.baseUrl}/balance/current`;
     return this.http.get<Balance>(requestUrl, {
-      params: { createNew: createNew ? createNew.toString(): 'false' },
+      params: { createNew: createNew ? createNew.toString() : "false" },
     });
   }
 

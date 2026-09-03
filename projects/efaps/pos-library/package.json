@@ -12,10 +12,10 @@
     "access": "public"
   },
   "peerDependencies": {
-    "@angular/common": "^19.0.0 || ^20.0.0 || ^21.0.0",
-    "@angular/core": "^19.0.0 || ^20.0.0 || ^21.0.0",
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0",
     "parse-decimal-number": "^1.0.0",
-    "just-clone": "^3.2.1 || ^5.0.1 || ^6.1.1"
+    "just-clone": "^6.1.1"
   },
   "dependencies": {
     "tslib": "^2.5.0"

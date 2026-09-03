@@ -34,7 +34,7 @@ import { WorkspaceService } from "./workspace.service";
 })
 export class PosService {
   private order: Order | null = null;
-  private orderSource = new BehaviorSubject<Order|  null>(this.order);
+  private orderSource = new BehaviorSubject<Order | null>(this.order);
   currentOrder = this.orderSource.asObservable();
 
   private ticket: Item[] = [];
@@ -149,7 +149,7 @@ export class PosService {
           currency: this.currency,
           exchangeRate: this.exchangeRate,
           remark: docItem.remark,
-          bomOid: docItem.bomOid
+          bomOid: docItem.bomOid,
         });
       });
     this.changeTicket(items);
@@ -173,7 +173,11 @@ export class PosService {
             next: (calcResp) => {
               this.updateTotals(calcResp);
               this.updateTicket(ticket, calcResp);
-              this.promotionInfo.set(calcResp.promotionInfo == undefined ? null : calcResp.promotionInfo);
+              this.promotionInfo.set(
+                calcResp.promotionInfo == undefined
+                  ? null
+                  : calcResp.promotionInfo,
+              );
             },
           });
         },
@@ -240,7 +244,7 @@ export class PosService {
           parentIdx: item.parentIdx == null ? undefined : item.parentIdx,
           quantity: item.quantity,
           productOid: item.product.oid,
-          bomOid: item.bomOid
+          bomOid: item.bomOid,
         };
       }),
     };
@@ -264,7 +268,7 @@ export class PosService {
         crossPrice: position.crossPrice,
         remark: item.remark,
         taxes: position.taxes,
-        bomOid: position.bomOid
+        bomOid: position.bomOid,
       });
     }
     return docItems;

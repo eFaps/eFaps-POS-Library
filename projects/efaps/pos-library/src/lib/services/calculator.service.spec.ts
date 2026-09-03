@@ -1,13 +1,14 @@
-import { provideHttpClientTesting } from "@angular/common/http/testing";
-import { TestBed } from "@angular/core/testing";
-import { Observable } from "rxjs";
-
 import {
   provideHttpClient,
   withInterceptorsFromDi,
   withXhr,
 } from "@angular/common/http";
+import { provideHttpClientTesting } from "@angular/common/http/testing";
+import { TestBed } from "@angular/core/testing";
 import Decimal from "decimal.js";
+import { Observable } from "rxjs";
+import { beforeEach, describe, expect, it } from "vitest";
+import { Item } from "../model";
 import { Currency } from "../model/currency";
 import { ProductStatus, ProductType } from "../model/product";
 import { TaxType } from "../model/tax";
@@ -15,7 +16,6 @@ import { CalculatorService } from "./calculator.service";
 import { ConfigService } from "./config.service";
 import { TaxService } from "./tax.service";
 import { WorkspaceService } from "./workspace.service";
-import { Item } from "../model";
 
 class WorkspaceServiceStub {
   currentWorkspace = new Observable((observer) => {

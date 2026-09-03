@@ -33,11 +33,10 @@ export class UtilsService {
     return "";
   }
 
-  getCurrencySymbol(isoCode: string) : string {
+  getCurrencySymbol(isoCode: string): string {
     return Intl.NumberFormat("es-PE", { style: "currency", currency: isoCode })
       .formatToParts()
       .find((part) => part.type === "currency")!.value;
-
   }
 }
 
@@ -56,7 +55,8 @@ class NumberParser {
     ].reverse();
     const index = new Map(numerals.map((d, i) => [d, i]));
     this.group = new RegExp(
-      `[${parts.find((d) => d.type === "group")!.value}]`, "g",
+      `[${parts.find((d) => d.type === "group")!.value}]`,
+      "g",
     );
     this.decimal = new RegExp(
       `[${parts.find((d) => d.type === "decimal")!.value}]`,

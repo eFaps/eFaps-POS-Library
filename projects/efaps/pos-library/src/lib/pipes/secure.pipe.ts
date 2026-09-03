@@ -24,15 +24,15 @@ export class SecurePipe implements PipeTransform, OnDestroy {
   private static defaultImage = "assets/defaultProdImg.svg";
   private latestValue: any = null;
   private latestReturnedValue: any = null;
-  private subscription: Subscription |null = null;
-  private obj: Observable<any> |null= null;
+  private subscription: Subscription | null = null;
+  private obj: Observable<any> | null = null;
 
   private previousUrl?: string;
   private result: BehaviorSubject<any> = new BehaviorSubject(
     SecurePipe.defaultImage,
   );
   private resultObs: Observable<any> = this.result.asObservable();
-  private internalSubscription: Subscription|null = null;
+  private internalSubscription: Subscription | null = null;
 
   constructor(
     private ref: ChangeDetectorRef,

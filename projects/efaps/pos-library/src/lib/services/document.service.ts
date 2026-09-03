@@ -38,8 +38,8 @@ export class DocumentService {
     });
   }
 
-  get workspaceOid():string {
-    return this._workspaceOid ? this._workspaceOid : ""
+  get workspaceOid(): string {
+    return this._workspaceOid ? this._workspaceOid : "";
   }
 
   public createReceipt(orderId: string, receipt: Receipt): Observable<Receipt> {

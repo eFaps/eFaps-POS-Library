@@ -43,7 +43,7 @@ export class SpotService {
 
   public getLayout(): Observable<SpotsLayout> {
     let layout: SpotsLayout = {
-      floors: this.workspace ? this.workspace.floors : []
+      floors: this.workspace ? this.workspace.floors : [],
     };
     return new Observable((observer) => {
       this.documentService.getOrders4Spots().subscribe((_orders) => {

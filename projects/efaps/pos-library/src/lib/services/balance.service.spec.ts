@@ -7,11 +7,11 @@ import {
   withInterceptorsFromDi,
   withXhr,
 } from "@angular/common/http";
+import { beforeEach, describe, expect, it } from "vitest";
 import { AuthService } from "./auth.service";
 import { BalanceService } from "./balance.service";
 import { ConfigService } from "./config.service";
 import { WorkspaceService } from "./workspace.service";
-
 class AuthServiceStub {
   currentEvent = new Observable((observer) => {
     observer.next("nothing");

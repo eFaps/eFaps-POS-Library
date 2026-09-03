@@ -1,12 +1,12 @@
-import { provideHttpClientTesting } from "@angular/common/http/testing";
-import { TestBed, fakeAsync, tick } from "@angular/core/testing";
-import { Observable, of } from "rxjs";
-
 import {
   provideHttpClient,
   withInterceptorsFromDi,
   withXhr,
 } from "@angular/common/http";
+import { provideHttpClientTesting } from "@angular/common/http/testing";
+import { TestBed, fakeAsync, tick } from "@angular/core/testing";
+import { Observable, of } from "rxjs";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   Currency,
   Item,
@@ -318,7 +318,9 @@ describe("PartListService", () => {
 
   it("updateTicketInternal should ignore an empty ticket", fakeAsync(() => {
     const service: PartListService = TestBed.inject(PartListService);
-    spyOn(productService, "getProductsByType").and.returnValue(of(PARTLISTS));
+    vi.spyOn(productService, "getProductsByType").mockReturnValue(
+      of(PARTLISTS),
+    );
     const ticket: Item[] = [];
     service.updateTicket(ticket).subscribe({
       next: (response) => {
@@ -331,8 +333,10 @@ describe("PartListService", () => {
   it("should not change if not SALESBOM or not product oid is met", fakeAsync(() => {
     const service: PartListService = TestBed.inject(PartListService);
     const partlists: Product[] = [PARTLISTS[0], PARTLISTS[1]];
-    spyOn(productService, "getProductsByType").and.returnValue(of(partlists));
-    const ticket : Item[] = [
+    vi.spyOn(productService, "getProductsByType").mockReturnValue(
+      of(partlists),
+    );
+    const ticket: Item[] = [
       {
         index: 0,
         product: PRODUCTS[0],
@@ -354,7 +358,9 @@ describe("PartListService", () => {
   it("should find a partlist if exactly ", fakeAsync(() => {
     const service: PartListService = TestBed.inject(PartListService);
     const partlists: Product[] = [PARTLISTS[0], PARTLISTS[2]];
-    spyOn(productService, "getProductsByType").and.returnValue(of(partlists));
+    vi.spyOn(productService, "getProductsByType").mockReturnValue(
+      of(partlists),
+    );
     const ticket = [
       {
         index: 0,
@@ -377,7 +383,9 @@ describe("PartListService", () => {
   it("should find a partlist with one relation of two ", fakeAsync(() => {
     const service: PartListService = TestBed.inject(PartListService);
     const partlists: Product[] = [PARTLISTS[0], PARTLISTS[2]];
-    spyOn(productService, "getProductsByType").and.returnValue(of(partlists));
+    vi.spyOn(productService, "getProductsByType").mockReturnValue(
+      of(partlists),
+    );
     const ticket = [
       {
         index: 0,
@@ -400,7 +408,9 @@ describe("PartListService", () => {
   it("should find a partlist with more than one relation of two", fakeAsync(() => {
     const service: PartListService = TestBed.inject(PartListService);
     const partlists: Product[] = [PARTLISTS[0], PARTLISTS[3]];
-    spyOn(productService, "getProductsByType").and.returnValue(of(partlists));
+    vi.spyOn(productService, "getProductsByType").mockReturnValue(
+      of(partlists),
+    );
     const ticket = [
       {
         index: 0,
@@ -433,7 +443,9 @@ describe("PartListService", () => {
   it("should find a partlist with one relation of two and remove from the item", fakeAsync(() => {
     const service: PartListService = TestBed.inject(PartListService);
     const partlists: Product[] = [PARTLISTS[0], PARTLISTS[2]];
-    spyOn(productService, "getProductsByType").and.returnValue(of(partlists));
+    vi.spyOn(productService, "getProductsByType").mockReturnValue(
+      of(partlists),
+    );
     const ticket = [
       {
         index: 0,
@@ -459,7 +471,9 @@ describe("PartListService", () => {
   it("should find a partlist with one relation of two and remove multiple item", fakeAsync(() => {
     const service: PartListService = TestBed.inject(PartListService);
     const partlists: Product[] = [PARTLISTS[0], PARTLISTS[2]];
-    spyOn(productService, "getProductsByType").and.returnValue(of(partlists));
+    vi.spyOn(productService, "getProductsByType").mockReturnValue(
+      of(partlists),
+    );
     const ticket = [
       {
         index: 0,
@@ -497,7 +511,9 @@ describe("PartListService", () => {
       PARTLISTS[4],
       PARTLISTS[5],
     ];
-    spyOn(productService, "getProductsByType").and.returnValue(of(partlists));
+    vi.spyOn(productService, "getProductsByType").mockReturnValue(
+      of(partlists),
+    );
     const ticket = [
       {
         index: 0,
@@ -578,7 +594,9 @@ describe("PartListService", () => {
   it("should find a partlist that has weired configuration", fakeAsync(() => {
     const service: PartListService = TestBed.inject(PartListService);
     const partlists: Product[] = [PARTLISTS[6]];
-    spyOn(productService, "getProductsByType").and.returnValue(of(partlists));
+    vi.spyOn(productService, "getProductsByType").mockReturnValue(
+      of(partlists),
+    );
     const ticket = [
       {
         index: 1,

@@ -1,11 +1,11 @@
-import { TestBed } from "@angular/core/testing";
-
 import {
   provideHttpClient,
   withInterceptorsFromDi,
   withXhr,
 } from "@angular/common/http";
 import { provideHttpClientTesting } from "@angular/common/http/testing";
+import { TestBed } from "@angular/core/testing";
+import { beforeEach, describe, expect, it } from "vitest";
 import { ConfigService } from "./config.service";
 import { PosFileService } from "./pos-file.service";
 

@@ -22,7 +22,9 @@ import { ConfigService } from "./config.service";
 export class WorkspaceService {
   SpotConfig = SpotConfig;
   private current?: Workspace | null;
-  private currentSource = new BehaviorSubject<Workspace|undefined|null>(this.current);
+  private currentSource = new BehaviorSubject<Workspace | undefined | null>(
+    this.current,
+  );
   currentWorkspace = this.currentSource.asObservable();
   workspaces: PersistenceObject;
   private autoPayment = false;
@@ -51,14 +53,17 @@ export class WorkspaceService {
     if (this.currentSource.getValue()) {
       return new Promise<boolean>((resolve) => resolve(true));
     }
-    var workspaceOid: string|undefined;
-    var userName = this.auth.getCurrentUsername() ? this.auth.getCurrentUsername() : "none"
+    var workspaceOid: string | undefined;
+    var userName = this.auth.getCurrentUsername()
+      ? this.auth.getCurrentUsername()
+      : "none";
     if (this.companyService.hasCompany()) {
-      if (! (this.workspaces as any)[this.companyService.currentCompany!.key]) {
-         (this.workspaces as any)[this.companyService.currentCompany!.key] = {};
+      if (!(this.workspaces as any)[this.companyService.currentCompany!.key]) {
+        (this.workspaces as any)[this.companyService.currentCompany!.key] = {};
       }
-      workspaceOid =
-        (this.workspaces as any)[this.companyService.currentCompany!.key][userName!];
+      workspaceOid = (this.workspaces as any)[
+        this.companyService.currentCompany!.key
+      ][userName!];
     } else {
       workspaceOid = (this.workspaces as any)[userName!];
     }
@@ -94,14 +99,19 @@ export class WorkspaceService {
   }
 
   private storeCurrentWorkspace(oid: string) {
-    var userName = this.auth.getCurrentUsername() ? this.auth.getCurrentUsername() : "none"
+    var userName = this.auth.getCurrentUsername()
+      ? this.auth.getCurrentUsername()
+      : "none";
     if (this.companyService.hasCompany()) {
       if (
-        (this.workspaces as any)[this.companyService.currentCompany!.key] == undefined
+        (this.workspaces as any)[this.companyService.currentCompany!.key] ==
+        undefined
       ) {
         (this.workspaces as any)[this.companyService.currentCompany!.key] = {};
       }
-      (this.workspaces as any)[this.companyService.currentCompany!.key][userName!] = oid;
+      (this.workspaces as any)[this.companyService.currentCompany!.key][
+        userName!
+      ] = oid;
     } else {
       (this.workspaces as any)[userName!] = oid;
     }
@@ -142,8 +152,10 @@ export class WorkspaceService {
     return this.autoPayment;
   }
 
-  public getWarehouseOid(): string | undefined{
-    return this.showInventory() && this.current?.warehouseOid ? this.current.warehouseOid : undefined;
+  public getWarehouseOid(): string | undefined {
+    return this.showInventory() && this.current?.warehouseOid
+      ? this.current.warehouseOid
+      : undefined;
   }
 
   public getPosLayout(): PosLayout {

@@ -31,7 +31,7 @@ export class CalculatorService {
   };
   private workspaceFlags: number = 0;
   private workspaceOid: string | undefined;
-  
+
   constructor(
     private http: HttpClient,
     private config: ConfigService,

@@ -12,7 +12,9 @@ import { ConfigService } from "./config.service";
 export class CompanyService {
   public _currentCompany: Company;
 
-  private currentSource = new BehaviorSubject<Company | null>(this.currentCompany);
+  private currentSource = new BehaviorSubject<Company | null>(
+    this.currentCompany,
+  );
   company = this.currentSource.asObservable();
 
   constructor(
@@ -23,9 +25,7 @@ export class CompanyService {
   }
 
   get currentCompany() {
-    return this._currentCompany.key.length > 0
-      ? this._currentCompany
-      : null;
+    return this._currentCompany.key.length > 0 ? this._currentCompany : null;
   }
 
   public getCompanies(): Observable<Company[]> {

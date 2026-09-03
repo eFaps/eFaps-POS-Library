@@ -73,14 +73,14 @@ export class AuthService {
   }
 
   getAccessToken(): string | undefined {
-    return this.currentUser.tokens?.accessToken
+    return this.currentUser.tokens?.accessToken;
   }
 
-  private getRefreshToken(): string | undefined{
-    return this.currentUser.tokens?.refreshToken
+  private getRefreshToken(): string | undefined {
+    return this.currentUser.tokens?.refreshToken;
   }
 
-  getCurrentUsername(): string | undefined{
+  getCurrentUsername(): string | undefined {
     return this.currentUser.username;
   }
 
