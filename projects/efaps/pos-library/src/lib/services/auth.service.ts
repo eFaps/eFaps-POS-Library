@@ -72,31 +72,23 @@ export class AuthService {
     this.eventSource.next("logout");
   }
 
-  getAccessToken(): string {
-    return (
-      this.currentUser &&
-      this.currentUser.tokens &&
-      this.currentUser.tokens.accessToken
-    );
+  getAccessToken(): string | undefined {
+    return this.currentUser.tokens?.accessToken
   }
 
-  private getRefreshToken(): string {
-    return (
-      this.currentUser &&
-      this.currentUser.tokens &&
-      this.currentUser.tokens.refreshToken
-    );
+  private getRefreshToken(): string | undefined{
+    return this.currentUser.tokens?.refreshToken
   }
 
-  getCurrentUsername(): string {
-    return this.currentUser && this.currentUser.username;
+  getCurrentUsername(): string | undefined{
+    return this.currentUser.username;
   }
 
-  private getTokenExpirationDate(_token: string): Date {
-    const decoded = <any>jwtDecode(_token);
+  private getTokenExpirationDate(token: string): Date | undefined {
+    const decoded = <any>jwtDecode(token);
 
     if (decoded.exp === undefined) {
-      return null;
+      return undefined;
     }
 
     const date = new Date(0);
@@ -104,15 +96,15 @@ export class AuthService {
     return date;
   }
 
-  isTokenExpired(_token?: string): boolean {
-    if (!_token) {
-      _token = this.getAccessToken();
+  isTokenExpired(token?: string): boolean {
+    if (!token) {
+      token = this.getAccessToken();
     }
-    if (!_token) {
+    if (!token) {
       return true;
     }
 
-    const date = this.getTokenExpirationDate(_token);
+    const date = this.getTokenExpirationDate(token);
     if (date === undefined) {
       return false;
     }
@@ -130,12 +122,12 @@ export class AuthService {
     if (this.isTokenExpired()) {
       return false;
     }
-    const decoded = <any>jwtDecode(this.getAccessToken());
+    const decoded = <any>jwtDecode(this.getAccessToken()!!);
     const assignedPermissions: string[] = decoded.permissions;
 
     let hasIt = false;
     assignedPermissions.every((permission) => {
-      if (permissions.find((x) => x === Permission[permission])) {
+      if (permissions.find((x) => x === (Permission as any)[permission])) {
         hasIt = true;
         return false;
       }

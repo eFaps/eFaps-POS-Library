@@ -3,7 +3,10 @@ import { Inject, Injectable } from "@angular/core";
 import { Observable, Subscriber } from "rxjs";
 
 import {
+  CurrentCompany,
+  CurrentUser,
   Extension,
+  PersistenceObject,
   PersistenceService,
   PersistenceServiceProvider,
   PosConfig,
@@ -15,11 +18,11 @@ import { PosConfigToken } from "./pos-config.token";
 })
 export class ConfigService {
   public baseUrl: string;
-  public defaultProdImg: string;
+  public defaultProdImg?: string;
   private _persistence: PersistenceService | PersistenceServiceProvider;
   private _socketUrl: string;
   private systemConfig: Map<string, any> = new Map();
-  private extensions: Extension[];
+  private extensions: Extension[] = [];
 
   constructor(
     @Inject(PosConfigToken) config: PosConfig,
@@ -28,7 +31,7 @@ export class ConfigService {
     this.baseUrl = config.baseUrl;
     this._socketUrl = config.socketUrl;
     this.defaultProdImg = config.defaultProdImg;
-    this._persistence = config.persistence;
+    this._persistence = config.persistence ? config.persistence : new MemoryPersitenceService();
   }
 
   get socketUrl() {
@@ -70,16 +73,53 @@ export class ConfigService {
     });
   }
 
-  get persistence(): PersistenceService | undefined {
-    if (this._persistence) {
-      if (typeof this._persistence["get"] == "function") {
-        this._persistence = (
-          this._persistence as PersistenceServiceProvider
-        ).get();
-      }
-      return this._persistence as PersistenceService;
-    } else {
-      return undefined;
+  get persistence(): PersistenceService {
+    if (typeof (this._persistence as any).get === "function") {
+      this._persistence = (
+        this._persistence as PersistenceServiceProvider
+      ).get();
     }
+    return this._persistence as PersistenceService;
   }
+}
+
+class MemoryPersitenceService implements PersistenceService {
+  private _currentUser: CurrentUser = {
+    username: undefined,
+    tokens: undefined,
+    save: () => {
+    },
+    clean: () => {
+      this._currentUser.username = undefined;
+      this._currentUser.tokens = undefined;
+    },
+  };
+
+  private _currentCompany: CurrentCompany = {
+    save: () => {
+
+    },
+    label: "",
+    key: "",
+  };
+
+ private _workspaces = {
+    save: () => {
+    
+    },
+  };
+
+  currentUser(): CurrentUser {
+    return this._currentUser
+  }
+  currentCompany(): CurrentCompany {
+    return this._currentCompany
+  }
+  spotPositions(): PersistenceObject {
+    throw new Error("Method not implemented.");
+  }
+  workspaces(): PersistenceObject {
+    return this._workspaces
+  }
+
 }

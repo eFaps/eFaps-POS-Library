@@ -21,8 +21,8 @@ import { ConfigService } from "./config.service";
 })
 export class WorkspaceService {
   SpotConfig = SpotConfig;
-  private current: Workspace = null;
-  private currentSource = new BehaviorSubject<Workspace>(this.current);
+  private current?: Workspace | null;
+  private currentSource = new BehaviorSubject<Workspace|undefined|null>(this.current);
   currentWorkspace = this.currentSource.asObservable();
   workspaces: PersistenceObject;
   private autoPayment = false;
@@ -34,9 +34,7 @@ export class WorkspaceService {
     private companyService: CompanyService,
     private collectService: CollectService,
   ) {
-    if (config.persistence) {
-      this.workspaces = config.persistence.workspaces();
-    }
+    this.workspaces = config.persistence.workspaces();
   }
 
   public getWorkspaces(): Observable<Workspace[]> {
@@ -53,22 +51,21 @@ export class WorkspaceService {
     if (this.currentSource.getValue()) {
       return new Promise<boolean>((resolve) => resolve(true));
     }
-    var workspaceOid;
+    var workspaceOid: string|undefined;
+    var userName = this.auth.getCurrentUsername() ? this.auth.getCurrentUsername() : "none"
     if (this.companyService.hasCompany()) {
-      if (!this.workspaces[this.companyService.currentCompany.key]) {
-        this.workspaces[this.companyService.currentCompany.key] = {};
+      if (! (this.workspaces as any)[this.companyService.currentCompany!.key]) {
+         (this.workspaces as any)[this.companyService.currentCompany!.key] = {};
       }
       workspaceOid =
-        this.workspaces[this.companyService.currentCompany.key][
-          this.auth.getCurrentUsername()
-        ];
+        (this.workspaces as any)[this.companyService.currentCompany!.key][userName!];
     } else {
-      workspaceOid = this.workspaces[this.auth.getCurrentUsername()];
+      workspaceOid = (this.workspaces as any)[userName!];
     }
 
     if (workspaceOid) {
       return new Promise<boolean>((resolve) => {
-        this.getWorkspace(workspaceOid).subscribe({
+        this.getWorkspace(workspaceOid!).subscribe({
           next: (ws) => {
             this.setCurrent(ws);
             resolve(true);
@@ -96,18 +93,17 @@ export class WorkspaceService {
     });
   }
 
-  private storeCurrentWorkspace(_oid: string) {
+  private storeCurrentWorkspace(oid: string) {
+    var userName = this.auth.getCurrentUsername() ? this.auth.getCurrentUsername() : "none"
     if (this.companyService.hasCompany()) {
       if (
-        this.workspaces[this.companyService.currentCompany.key] == undefined
+        (this.workspaces as any)[this.companyService.currentCompany!.key] == undefined
       ) {
-        this.workspaces[this.companyService.currentCompany.key] = {};
+        (this.workspaces as any)[this.companyService.currentCompany!.key] = {};
       }
-      this.workspaces[this.companyService.currentCompany.key][
-        this.auth.getCurrentUsername()
-      ] = _oid;
+      (this.workspaces as any)[this.companyService.currentCompany!.key][userName!] = oid;
     } else {
-      this.workspaces[this.auth.getCurrentUsername()] = _oid;
+      (this.workspaces as any)[userName!] = oid;
     }
     this.workspaces.save();
   }
@@ -125,7 +121,7 @@ export class WorkspaceService {
   }
 
   public getSpotSize(): number {
-    return this.current && this.current.spotCount;
+    return this.current && this.current.spotCount ? this.current.spotCount : 0;
   }
 
   public showInventory() {
@@ -146,8 +142,8 @@ export class WorkspaceService {
     return this.autoPayment;
   }
 
-  public getWarehouseOid(): string {
-    return this.showInventory() && this.current.warehouseOid;
+  public getWarehouseOid(): string | undefined{
+    return this.showInventory() && this.current?.warehouseOid ? this.current.warehouseOid : undefined;
   }
 
   public getPosLayout(): PosLayout {

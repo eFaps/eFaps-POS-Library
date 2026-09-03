@@ -13,9 +13,9 @@ import { ProductService } from "./product.service";
   deps: [AdminService, AuthService, ProductService],
 })
 export class PartListService {
-  private partLists: Product[];
+  private partLists: Product[] | undefined;
   private partListComb = [];
-  private partListSource = new BehaviorSubject<Product>(null);
+  private partListSource = new BehaviorSubject<Product | null>(null);
   detectedPartList = this.partListSource.asObservable();
 
   constructor(
@@ -64,7 +64,7 @@ export class PartListService {
   }
 
   private updateTicketInternal(ticket: Item[]): Item[] {
-    if (ticket.length > 0 && this.partLists.length > 0) {
+    if (ticket.length > 0 && this.partLists && this.partLists.length > 0) {
       this.partLists.forEach((partList) => {
         let tempTicket = clone(ticket);
         let isFound = [];

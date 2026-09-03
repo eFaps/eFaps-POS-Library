@@ -24,7 +24,7 @@ import { WorkspaceService } from "./workspace.service";
   deps: [HttpClient, ConfigService, WorkspaceService],
 })
 export class DocumentService {
-  private workspaceOid: string;
+  private _workspaceOid: string | undefined;
 
   constructor(
     private http: HttpClient,
@@ -33,9 +33,13 @@ export class DocumentService {
   ) {
     workspaceService.currentWorkspace.subscribe((ws) => {
       if (ws) {
-        this.workspaceOid = ws.oid;
+        this._workspaceOid = ws.oid;
       }
     });
+  }
+
+  get workspaceOid():string {
+    return this._workspaceOid ? this._workspaceOid : ""
   }
 
   public createReceipt(orderId: string, receipt: Receipt): Observable<Receipt> {
@@ -261,7 +265,7 @@ export class DocumentService {
   private getReceipts4Balance(_balance: Balance): Observable<PayableHead[]> {
     const url = `${this.config.baseUrl}/receipts`;
     const balanceOid = _balance.oid ? _balance.oid : _balance.id;
-    return this.http.get<Receipt[]>(url, { params: { balanceOid } }).pipe(
+    return this.http.get<PayableHead[]>(url, { params: { balanceOid } }).pipe(
       map((docs) => {
         docs.map((doc) => {
           doc.type = "RECEIPT";
@@ -274,7 +278,7 @@ export class DocumentService {
   private getInvoices4Balance(_balance: Balance): Observable<PayableHead[]> {
     const url = `${this.config.baseUrl}/invoices`;
     const balanceOid = _balance.oid ? _balance.oid : _balance.id;
-    return this.http.get<Invoice[]>(url, { params: { balanceOid } }).pipe(
+    return this.http.get<PayableHead[]>(url, { params: { balanceOid } }).pipe(
       map((docs) => {
         docs.map((doc) => {
           doc.type = "INVOICE";
@@ -287,7 +291,7 @@ export class DocumentService {
   private getTickets4Balance(_balance: Balance): Observable<PayableHead[]> {
     const url = `${this.config.baseUrl}/tickets`;
     const balanceOid = _balance.oid ? _balance.oid : _balance.id;
-    return this.http.get<Ticket[]>(url, { params: { balanceOid } }).pipe(
+    return this.http.get<PayableHead[]>(url, { params: { balanceOid } }).pipe(
       map((docs) => {
         docs.map((doc) => {
           doc.type = "TICKET";
@@ -300,7 +304,7 @@ export class DocumentService {
   private getCreditNotes4Balance(_balance: Balance): Observable<PayableHead[]> {
     const url = `${this.config.baseUrl}/creditnotes`;
     const balanceOid = _balance.oid ? _balance.oid : _balance.id;
-    return this.http.get<CreditNote[]>(url, { params: { balanceOid } }).pipe(
+    return this.http.get<PayableHead[]>(url, { params: { balanceOid } }).pipe(
       map((docs) => {
         docs.map((doc) => {
           doc.type = "CREDITNOTE";

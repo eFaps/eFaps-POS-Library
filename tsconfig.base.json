@@ -1,11 +1,9 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "downlevelIteration": true,
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "module": "es2020",
@@ -21,10 +19,10 @@
     ],
     "paths": {
       "@efaps/pos-library": [
-        "dist/efaps/pos-library"
+        "./dist/efaps/pos-library"
       ],
       "@efaps/pos-library/*": [
-        "dist/efaps/pos-library/*"
+        "./dist/efaps/pos-library/*"
       ]
     }
   },

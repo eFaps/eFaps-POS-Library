@@ -10,22 +10,20 @@ import { ConfigService } from "./config.service";
   deps: [HttpClient, ConfigService],
 })
 export class CompanyService {
-  public _currentCompany: Company = null;
+  public _currentCompany: Company;
 
-  private currentSource = new BehaviorSubject<Company>(this.currentCompany);
+  private currentSource = new BehaviorSubject<Company | null>(this.currentCompany);
   company = this.currentSource.asObservable();
 
   constructor(
     private http: HttpClient,
     private config: ConfigService,
   ) {
-    if (config.persistence) {
-      this._currentCompany = <any>config.persistence.currentCompany();
-    }
+    this._currentCompany = config.persistence.currentCompany();
   }
 
   get currentCompany() {
-    return this._currentCompany && this._currentCompany.key
+    return this._currentCompany.key.length > 0
       ? this._currentCompany
       : null;
   }

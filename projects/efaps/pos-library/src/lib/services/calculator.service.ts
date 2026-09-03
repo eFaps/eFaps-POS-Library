@@ -30,7 +30,8 @@ export class CalculatorService {
     crossPriceScale: 4,
   };
   private workspaceFlags: number = 0;
-  private workspaceOid: string;
+  private workspaceOid: string | undefined;
+  
   constructor(
     private http: HttpClient,
     private config: ConfigService,
@@ -81,7 +82,7 @@ export class CalculatorService {
     const positions = document.items.map((item) => {
       return {
         index: item.index,
-        parentIdx: item.parentIdx,
+        parentIdx: item.parentIdx == null ? undefined : item.parentIdx,
         quantity: item.quantity,
         productOid: item.product.oid,
         bomOid: item.bomOid,
@@ -98,7 +99,7 @@ export class CalculatorService {
         document.taxes = response.taxes;
         document.items.forEach((item, index) => {
           // if we have a set index
-          let pos: CalculatorPosResponse;
+          let pos: CalculatorPosResponse | undefined;
           if (item.index) {
             pos = response.positions.find((pos) => {
               return pos.index == item.index;
@@ -205,7 +206,7 @@ export class CalculatorService {
           if (!taxes.has(tax.name)) {
             taxes.set(tax.name, new Decimal(0));
           }
-          taxes.set(tax.name, taxes.get(tax.name).plus(taxAmount));
+          taxes.set(tax.name, taxes.get(tax.name)!!.plus(taxAmount));
           itemTaxAmount = itemTaxAmount.plus(taxAmount);
         });
       }
@@ -278,7 +279,7 @@ export class CalculatorService {
             exchangeRate: item.exchangeRate,
           });
         }
-        const currentEntry = taxValues.get(taxEntry.tax.name);
+        const currentEntry = taxValues.get(taxEntry.tax.name)!!;
         currentEntry.amount = new Decimal(currentEntry.amount)
           .plus(new Decimal(taxEntry.amount))
           .toNumber();

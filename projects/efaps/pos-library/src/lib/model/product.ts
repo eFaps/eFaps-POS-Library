@@ -8,7 +8,7 @@ export interface Product {
   type: ProductType;
   description?: string;
   note?: string;
-  imageOid: string;
+  imageOid?: string;
   netPrice: number;
   crossPrice: number;
   currency: Currency;

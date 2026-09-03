@@ -15,6 +15,7 @@ import { CalculatorService } from "./calculator.service";
 import { ConfigService } from "./config.service";
 import { TaxService } from "./tax.service";
 import { WorkspaceService } from "./workspace.service";
+import { Item } from "../model";
 
 class WorkspaceServiceStub {
   currentWorkspace = new Observable((observer) => {
@@ -51,7 +52,7 @@ describe("CalculatorService", () => {
   });
 
   it("should set crosstotal, nettotal and payableamount to 0 as default", () => {
-    const item = [];
+    const item: Item[] = [];
     const totals = service.calculateTotals(item);
     expect(totals.netTotal).toEqual(new Decimal(0));
     expect(totals.crossTotal).toEqual(new Decimal(0));

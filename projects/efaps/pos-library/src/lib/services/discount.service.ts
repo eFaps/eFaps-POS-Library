@@ -41,7 +41,7 @@ export class DiscountService {
   applyDiscount(order: Order, discount: Discount | null): Document {
     if (order.discount) {
       order.items = order.items.filter(
-        (item) => item.product.oid != order.discount.productOid,
+        (item) => item.product.oid != order.discount?.productOid,
       );
       order.discount = null;
       this.recalculate(order);

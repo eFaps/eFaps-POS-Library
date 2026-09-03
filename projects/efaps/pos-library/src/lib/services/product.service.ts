@@ -21,7 +21,7 @@ import { WorkspaceService } from "./workspace.service";
   deps: [HttpClient, ConfigService],
 })
 export class ProductService {
-  workspace: Workspace;
+  workspace: Workspace | undefined | null;
   constructor(
     private http: HttpClient,
     private config: ConfigService,
@@ -113,7 +113,7 @@ export class ProductService {
   private categorySort = (n1: Category, n2: Category) => {
     const w1 = n1.weight ? 0 : n1.weight;
     const w2 = n2.weight ? 0 : n2.weight;
-    return w1 - w2;
+    return w1! - w2!;
   };
 
   public getCategories(): Observable<Category[]> {

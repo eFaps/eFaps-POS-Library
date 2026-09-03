@@ -33,8 +33,8 @@ import { WorkspaceService } from "./workspace.service";
   ],
 })
 export class PosService {
-  private order: Order = null;
-  private orderSource = new BehaviorSubject<Order>(this.order);
+  private order: Order | null = null;
+  private orderSource = new BehaviorSubject<Order|  null>(this.order);
   currentOrder = this.orderSource.asObservable();
 
   private ticket: Item[] = [];
@@ -71,9 +71,9 @@ export class PosService {
   private multiplierSource = new BehaviorSubject<number>(this._multiplier);
   multiplier = this.multiplierSource.asObservable();
 
-  private currentPos: Pos;
+  private currentPos: Pos | undefined;
 
-  private _contactOid: string | null;
+  private _contactOid: string | undefined;
 
   private employeeRelations: EmployeeRelation[] | undefined;
 
@@ -128,7 +128,7 @@ export class PosService {
   public setOrder(order: Order) {
     if (order.discount) {
       order.items = order.items.filter(
-        (item) => item.product.oid != order.discount.productOid,
+        (item) => item.product.oid != order.discount?.productOid,
       );
       order.discount = null;
     }
@@ -173,7 +173,7 @@ export class PosService {
             next: (calcResp) => {
               this.updateTotals(calcResp);
               this.updateTicket(ticket, calcResp);
-              this.promotionInfo.set(calcResp.promotionInfo);
+              this.promotionInfo.set(calcResp.promotionInfo == undefined ? null : calcResp.promotionInfo);
             },
           });
         },
@@ -218,7 +218,6 @@ export class PosService {
           payableAmount: calcResp.payableAmount,
           taxes: calcResp.taxes,
           discount: null,
-          payableOid: null,
           contactOid: this.contactOid,
           employeeRelations: this.employeeRelations,
           shoutout: this.shoutOut,
@@ -238,7 +237,7 @@ export class PosService {
       positions: itemsToMap.map((item) => {
         return {
           index: item.index,
-          parentIdx: item.parentIdx,
+          parentIdx: item.parentIdx == null ? undefined : item.parentIdx,
           quantity: item.quantity,
           productOid: item.product.oid,
           bomOid: item.bomOid
@@ -312,11 +311,11 @@ export class PosService {
     this.orderSource.next(null);
   }
 
-  public set contactOid(contactOid: string | null) {
-    this._contactOid = contactOid;
+  public set contactOid(contactOid: string | null | undefined) {
+    this._contactOid = contactOid == null ? undefined : contactOid;
   }
 
-  public get contactOid(): string | null {
+  public get contactOid(): string | undefined {
     return this._contactOid;
   }
 

@@ -1,9 +1,10 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
 import { Document, Order, PrintResponse } from "../model";
 import { ConfigService } from "./config.service";
+import { SafeHttpParams } from "../helper/HttpParamHelper";
 
 @Injectable({
   providedIn: "root",
@@ -18,10 +19,10 @@ export class PrintService {
   printJobs(workspaceOid: string, order: Order): Observable<PrintResponse[]> {
     const requestUrl = `${this.config.baseUrl}/print/jobs`;
     return this.http.post<PrintResponse[]>(requestUrl, null, {
-      params: {
+      params: new SafeHttpParams( {
         documentId: order.id,
         workspaceOid,
-      },
+      }),
     });
   }
 
@@ -36,20 +37,20 @@ export class PrintService {
   ): Observable<PrintResponse[]> {
     const requestUrl = `${this.config.baseUrl}/print/preliminary`;
     return this.http.post<PrintResponse[]>(requestUrl, null, {
-      params: {
+      params: new SafeHttpParams({
         documentId: doc.id,
         workspaceOid,
-      },
+      }),
     });
   }
 
   printCopy(workspaceOid: string, doc: Document): Observable<PrintResponse[]> {
     const requestUrl = `${this.config.baseUrl}/print/copy`;
     return this.http.post<PrintResponse[]>(requestUrl, null, {
-      params: {
+      params:new SafeHttpParams( {
         documentId: doc.id,
         workspaceOid,
-      },
+      }),
     });
   }
 
@@ -59,10 +60,10 @@ export class PrintService {
   ): Observable<PrintResponse[]> {
     const requestUrl = `${this.config.baseUrl}/print/ticket`;
     return this.http.post<PrintResponse[]>(requestUrl, null, {
-      params: {
+      params: new SafeHttpParams({
         documentId: doc.id,
         workspaceOid,
-      },
+      }),
     });
   }
 
@@ -73,11 +74,11 @@ export class PrintService {
   ): Observable<PrintResponse[]> {
     const requestUrl = `${this.config.baseUrl}/print/balance`;
     return this.http.post<PrintResponse[]>(requestUrl, null, {
-      params: {
+      params: new SafeHttpParams({
         balanceId,
         workspaceOid,
         detailed,
-      },
+      }),
     });
   }
 

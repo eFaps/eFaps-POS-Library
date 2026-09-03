@@ -16,7 +16,7 @@ export class ImageService {
     private config: ConfigService,
   ) {}
 
-  public loadImage(oid: string): Observable<string> {
+  public loadImage(oid: string): Observable<string | undefined> {
     if (this.cache.has(oid)) {
       return this.getFromCache(oid);
     }
@@ -30,25 +30,25 @@ export class ImageService {
     );
   }
 
-  private getFromCache(oid: string): Observable<string> {
+  private getFromCache(oid: string): Observable<string | undefined> {
     return new Observable((subscriber) => {
       subscriber.next(this.cache.get(oid));
       subscriber.complete();
     });
   }
 
-  getBase64Image(oid: string): Observable<String> {
+  getBase64Image(oid: string): Observable<string | undefined> {
     if (this.cache.has(oid)) {
       return this.getFromCache(oid);
     }
     const url = `${this.config.baseUrl}/images/${oid}`;
-    return new Observable<String>((subscriber: Subscriber<String>) => {
+    return new Observable<string>((subscriber: Subscriber<string>) => {
       this.http.get(url, { responseType: "blob" }).subscribe((blob) => {
         var reader = new FileReader();
         reader.readAsDataURL(blob);
         reader.onloadend = () => {
           const base64 = reader.result;
-          subscriber.next(base64.toString());
+          subscriber.next(base64!!.toString());
         };
       });
     });

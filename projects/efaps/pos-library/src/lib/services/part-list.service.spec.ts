@@ -9,6 +9,7 @@ import {
 } from "@angular/common/http";
 import {
   Currency,
+  Item,
   Product,
   ProductRelationType,
   ProductStatus,
@@ -26,8 +27,6 @@ const PRODUCTS: Product[] = [
     sku: "0815.2564",
     type: ProductType.STANDART,
     description: "Standart Product No 1 description",
-    note: null,
-    imageOid: null,
     netPrice: 12,
     crossPrice: 14,
     currency: Currency.PEN,
@@ -45,8 +44,6 @@ const PRODUCTS: Product[] = [
     sku: "0815.2564",
     type: ProductType.STANDART,
     description: "Standart Product No 2 description",
-    note: null,
-    imageOid: null,
     netPrice: 12,
     crossPrice: 14,
     currency: Currency.PEN,
@@ -64,8 +61,6 @@ const PRODUCTS: Product[] = [
     sku: "0815.2564",
     type: ProductType.STANDART,
     description: "Standart Product No 3 description",
-    note: null,
-    imageOid: null,
     netPrice: 12,
     crossPrice: 14,
     currency: Currency.PEN,
@@ -83,8 +78,6 @@ const PRODUCTS: Product[] = [
     sku: "0815.2564",
     type: ProductType.STANDART,
     description: "Standart Product No 3 description",
-    note: null,
-    imageOid: null,
     netPrice: 12,
     crossPrice: 14,
     currency: Currency.PEN,
@@ -105,8 +98,6 @@ const PARTLISTS: Product[] = [
     sku: "0815.2563",
     type: ProductType.PARTLIST,
     description: "Product description",
-    note: null,
-    imageOid: null,
     netPrice: 12,
     crossPrice: 14,
     currency: Currency.PEN,
@@ -131,8 +122,6 @@ const PARTLISTS: Product[] = [
     sku: "0815.2564",
     type: ProductType.PARTLIST,
     description: "Product description",
-    note: null,
-    imageOid: null,
     netPrice: 12,
     crossPrice: 14,
     currency: Currency.PEN,
@@ -157,8 +146,6 @@ const PARTLISTS: Product[] = [
     sku: "0815.2564",
     type: ProductType.PARTLIST,
     description: "Product description",
-    note: null,
-    imageOid: null,
     netPrice: 12,
     crossPrice: 14,
     currency: Currency.PEN,
@@ -183,8 +170,6 @@ const PARTLISTS: Product[] = [
     sku: "0815.2564",
     type: ProductType.PARTLIST,
     description: "Product description",
-    note: null,
-    imageOid: null,
     netPrice: 12,
     crossPrice: 14,
     currency: Currency.PEN,
@@ -215,8 +200,6 @@ const PARTLISTS: Product[] = [
     sku: "0815.2564",
     type: ProductType.PARTLIST,
     description: "Product description",
-    note: null,
-    imageOid: null,
     netPrice: 12,
     crossPrice: 14,
     currency: Currency.PEN,
@@ -253,8 +236,6 @@ const PARTLISTS: Product[] = [
     sku: "0815.2564",
     type: ProductType.PARTLIST,
     description: "stupid partlist",
-    note: null,
-    imageOid: null,
     netPrice: 12,
     crossPrice: 14,
     currency: Currency.PEN,
@@ -272,8 +253,6 @@ const PARTLISTS: Product[] = [
     sku: "0815.2564",
     type: ProductType.PARTLIST,
     description: "Wiered partlist",
-    note: null,
-    imageOid: null,
     netPrice: 12,
     crossPrice: 14,
     currency: Currency.PEN,
@@ -340,7 +319,7 @@ describe("PartListService", () => {
   it("updateTicketInternal should ignore an empty ticket", fakeAsync(() => {
     const service: PartListService = TestBed.inject(PartListService);
     spyOn(productService, "getProductsByType").and.returnValue(of(PARTLISTS));
-    const ticket = [];
+    const ticket: Item[] = [];
     service.updateTicket(ticket).subscribe({
       next: (response) => {
         expect(ticket).toEqual(response);
@@ -353,7 +332,7 @@ describe("PartListService", () => {
     const service: PartListService = TestBed.inject(PartListService);
     const partlists: Product[] = [PARTLISTS[0], PARTLISTS[1]];
     spyOn(productService, "getProductsByType").and.returnValue(of(partlists));
-    const ticket = [
+    const ticket : Item[] = [
       {
         index: 0,
         product: PRODUCTS[0],

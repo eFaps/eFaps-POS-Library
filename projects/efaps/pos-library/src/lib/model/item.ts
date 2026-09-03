@@ -10,6 +10,6 @@ export interface Item {
   price: number;
   currency: Currency;
   exchangeRate: number;
-  remark: string | null;
+  remark?: string | null;
   bomOid?: string;
 }

@@ -13,11 +13,11 @@ export interface PersistenceServiceProvider {
 }
 
 export interface PersistenceObject {
-  save();
+  save(): void;
 }
 
 export interface CleanableObject {
-  clean();
+  clean(): void;
 }
 
 export interface CurrentCompany extends Company, PersistenceObject {}

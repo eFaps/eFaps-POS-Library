@@ -9,7 +9,7 @@ import { ConfigService } from "./config.service";
   deps: [HttpClient, ConfigService],
 })
 export class HealthService {
-  private healthSource = new BehaviorSubject<Health>(null);
+  private healthSource = new BehaviorSubject<Health | null>(null);
   currentHealth = this.healthSource.asObservable();
   constructor(
     private http: HttpClient,
@@ -21,7 +21,7 @@ export class HealthService {
     return this.http.get<Health>(requestUrl);
   }
 
-  public monitor(interval: number): Observable<Health> {
+  public monitor(interval: number): Observable<Health| null> {
     setInterval(() => {
       this.getHealth().subscribe({
         next: (health) => this.healthSource.next(health),

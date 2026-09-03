@@ -10,8 +10,8 @@ import { PosService } from "./pos.service";
   deps: [PosService],
 })
 export class PaymentService {
-  private document: Document = null;
-  private documentSource = new BehaviorSubject<Document>(this.document);
+  private document: Document | null = null;
+  private documentSource = new BehaviorSubject<Document | null>(this.document);
   currentDocument = this.documentSource.asObservable();
 
   private payments: Payment[] = [];
@@ -22,7 +22,7 @@ export class PaymentService {
   private totalSource = new BehaviorSubject<number>(this.total);
   currentTotal = this.totalSource.asObservable();
 
-  currency: Currency;
+  currency: Currency | undefined;
 
   constructor(private posService: PosService) {
     this.posService.currentCurrency.subscribe((_data) => {

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable, forkJoin } from "rxjs";
 
-import { Position, Spot, SpotsLayout, Workspace } from "../model";
+import { Order, Position, Spot, SpotsLayout, Workspace } from "../model";
 import { ConfigService } from "./config.service";
 import { DocumentService } from "./document.service";
 import { WorkspaceService } from "./workspace.service";
@@ -12,7 +12,7 @@ import { WorkspaceService } from "./workspace.service";
 })
 export class SpotService {
   public positions: any = {};
-  private workspace: Workspace;
+  private workspace: Workspace | undefined | null;
 
   constructor(
     private documentService: DocumentService,
@@ -43,7 +43,7 @@ export class SpotService {
 
   public getLayout(): Observable<SpotsLayout> {
     let layout: SpotsLayout = {
-      floors: this.workspace.floors,
+      floors: this.workspace ? this.workspace.floors : []
     };
     return new Observable((observer) => {
       this.documentService.getOrders4Spots().subscribe((_orders) => {
@@ -75,8 +75,8 @@ export class SpotService {
   }
 
   public swap(origin: Spot, target: Spot) {
-    const orders = origin.orders;
-    const obsv = [];
+    const orders = origin.orders ? origin.orders : [];
+    const obsv: Observable<Order>[] = [];
     orders.forEach((order) => {
       order.spot = { id: target.id, label: target.label };
       obsv.push(this.documentService.updateOrder(order));

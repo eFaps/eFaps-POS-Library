@@ -7,7 +7,7 @@ import { BarcodeOptions } from "../model";
   providedIn: "root",
 })
 export class BarcodeScannerService {
-  private currentSource = new BehaviorSubject<string>(null);
+  private currentSource = new BehaviorSubject<string | null>(null);
   barcode = this.currentSource.asObservable();
 
   private prevTime: number = 0;

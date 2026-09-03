@@ -14,11 +14,11 @@ export class TaxService {
     taxes.forEach((tax) => {
       switch (tax.type) {
         case TaxType.PERUNIT:
-          amount = amount.add(quantity.mul(new Decimal(tax.amount)));
+          amount = amount.add(quantity.mul(new Decimal(tax.amount ? tax.amount: 0)));
           break;
         case TaxType.ADVALOREM:
           amount = amount.add(
-            net.mul(new Decimal(tax.percent).div(new Decimal(100))),
+            net.mul(new Decimal(tax.percent ? tax.percent: 0).div(new Decimal(100))),
           );
           break;
       }
@@ -41,6 +41,7 @@ export class TaxService {
           });
         }
         const ce = taxValues.get(_taxEntry.tax.name);
+        if (ce) {
         ce.amount = new Decimal(ce.amount)
           .plus(new Decimal(_taxEntry.amount))
           .toDecimalPlaces(2, Decimal.ROUND_HALF_UP)
@@ -50,6 +51,7 @@ export class TaxService {
           .toDecimalPlaces(2, Decimal.ROUND_HALF_UP)
           .toNumber();
         taxValues.set(_taxEntry.tax.name, ce);
+        }
       });
     });
     taxValues.forEach((_value, _key) => {

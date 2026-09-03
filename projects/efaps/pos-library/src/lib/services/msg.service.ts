@@ -27,7 +27,7 @@ export class MsgService {
       const stompConfig: RxStompConfig = {
         brokerURL: this.configService.socketUrl,
         connectHeaders: {
-          login: this.authService.currentUser.tokens.accessToken,
+          login: this.authService.currentUser.tokens!.accessToken,
         },
         heartbeatIncoming: 0,
         heartbeatOutgoing: 20000,
@@ -39,7 +39,7 @@ export class MsgService {
       this.stompService.configure(stompConfig);
       this.stompService.activate();
       this.stompService.watch("/app/orders/start.edit").subscribe((message) => {
-        JSON.parse(message.body).forEach((orderId) => {
+        JSON.parse(message.body).forEach((orderId: unknown) => {
           this.ordersEdited.add(orderId);
         });
       });
