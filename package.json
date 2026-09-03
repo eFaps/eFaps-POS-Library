@@ -5,22 +5,20 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --configuration production",
-    "test": "ng test --browsers ChromeHeadlessNoSandbox --no-progress --no-watch",
+    "test": "ng test --browsers chromium --no-progress --no-watch",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "prettier": "prettier --write \"projects/**/*.ts\""
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^22.1.4",
-    "@angular/common": "^22.1.4",
-    "@angular/compiler": "^22.1.4",
-    "@angular/core": "^22.1.4",
-    "@angular/forms": "^22.1.4",
-    "@angular/platform-browser": "^22.1.4",
-    "@angular/platform-browser-dynamic": "^22.1.4",
-    "@angular/router": "^22.1.4",
-    "@stomp/rx-stomp": "^2.3.0",
+    "@angular/common": "^22.1.5",
+    "@angular/compiler": "^22.1.5",
+    "@angular/core": "^22.1.5",
+    "@angular/forms": "^22.1.5",
+    "@angular/platform-browser": "^22.1.5",
+    "@angular/router": "^22.1.5",
+    "@stomp/rx-stomp": "^2.4.0",
     "decimal.js": "^10.6.0",
     "just-clone": "^6.2.0",
     "jwt-decode": "^4.0.0",
@@ -30,8 +28,8 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "^22.1.7",
     "@angular/cli": "^22.1.7",
-    "@angular/compiler-cli": "^22.1.4",
-    "@angular/language-service": "^22.1.4",
+    "@angular/compiler-cli": "^22.1.5",
+    "@angular/language-service": "^22.1.5",
     "@types/node": "^25.6.0",
     "@types/jasmine": "^6.0.0",
     "@vitest/browser-playwright": "^4.0.18",
@@ -45,8 +43,7 @@
     "protractor": "~7.0.0",
     "ts-node": "^10.9.2",
     "typescript": "~6.0.3",
-    "vitest": "^4.1.11",
-    "zone.js": "^0.16.1"
+    "vitest": "^4.1.11"
   },
   "prettier": {
     "plugins": [
