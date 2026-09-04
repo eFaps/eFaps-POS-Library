@@ -7,8 +7,8 @@ import {
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
-import { CompanyService } from "../services/company.service";
 import { Company } from "../model";
+import { CompanyService } from "../services/company.service";
 
 @Injectable({
   providedIn: "root",

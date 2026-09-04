@@ -123,10 +123,14 @@ export class WorkspaceService {
   }
 
   public showSpots() {
-    if (this.current && this.current.spotConfig && this.current.spotConfig != SpotConfig.NONE) {
-      return true
+    if (
+      this.current &&
+      this.current.spotConfig &&
+      this.current.spotConfig != SpotConfig.NONE
+    ) {
+      return true;
     }
-    return false
+    return false;
   }
 
   public getSpotSize(): number {
@@ -134,17 +138,25 @@ export class WorkspaceService {
   }
 
   public showInventory(): boolean {
-    if (this.current && this.current.warehouseOid && this.current.warehouseOid.length > 0) {
-      return true
+    if (
+      this.current &&
+      this.current.warehouseOid &&
+      this.current.warehouseOid.length > 0
+    ) {
+      return true;
     }
-    return false
+    return false;
   }
 
-  public allowPayment() : boolean{
-    if (this.current && this.current.docTypes && this.current.docTypes.length > 0) {
-      return true
+  public allowPayment(): boolean {
+    if (
+      this.current &&
+      this.current.docTypes &&
+      this.current.docTypes.length > 0
+    ) {
+      return true;
     }
-    return false
+    return false;
   }
 
   public hasAutoPayment() {
