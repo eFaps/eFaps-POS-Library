@@ -51,11 +51,11 @@ export class SecurePipe implements PipeTransform, OnDestroy {
     }
   }
 
-  transform(_url: string): any {
-    if (_url === "null") {
+  transform(url: string | undefined | null): any {
+    if (url == undefined || url == null || url === "null") {
       return SecurePipe.defaultImage;
     }
-    const obj = this.internalTransform(_url);
+    const obj = this.internalTransform(url);
     return this.asyncTrasnform(obj);
   }
 
