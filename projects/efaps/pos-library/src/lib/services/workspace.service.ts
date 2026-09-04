@@ -123,29 +123,28 @@ export class WorkspaceService {
   }
 
   public showSpots() {
-    return (
-      this.current &&
-      this.current.spotConfig &&
-      this.current.spotConfig != SpotConfig.NONE
-    );
+    if (this.current && this.current.spotConfig && this.current.spotConfig != SpotConfig.NONE) {
+      return true
+    }
+    return false
   }
 
   public getSpotSize(): number {
     return this.current && this.current.spotCount ? this.current.spotCount : 0;
   }
 
-  public showInventory() {
-    return (
-      this.current &&
-      this.current.warehouseOid &&
-      this.current.warehouseOid.length > 0
-    );
+  public showInventory(): boolean {
+    if (this.current && this.current.warehouseOid && this.current.warehouseOid.length > 0) {
+      return true
+    }
+    return false
   }
 
-  public allowPayment() {
-    return (
-      this.current && this.current.docTypes && this.current.docTypes.length > 0
-    );
+  public allowPayment() : boolean{
+    if (this.current && this.current.docTypes && this.current.docTypes.length > 0) {
+      return true
+    }
+    return false
   }
 
   public hasAutoPayment() {

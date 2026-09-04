@@ -10,7 +10,7 @@ export interface Workspace extends Flagged {
   docTypes: DocumentType[];
   spotConfig: SpotConfig;
   spotCount: number;
-  warehouseOid: string;
+  warehouseOid?: string;
   printCmds: PrintCmd[];
   posLayout: PosLayout;
   discounts: Discount[];
