@@ -22,7 +22,7 @@ export class ConfigService {
   private _persistence: PersistenceService | PersistenceServiceProvider;
   private _socketUrl: string;
   private systemConfig: Map<string, any> = new Map();
-  private extensions: Extension[] = [];
+  private extensions: Extension[] | undefined;
 
   constructor(
     @Inject(PosConfigToken) config: PosConfig,
@@ -63,7 +63,7 @@ export class ConfigService {
   getExtensions(): Observable<Extension[]> {
     if (this.extensions) {
       return new Observable((subscriber: Subscriber<Extension[]>) => {
-        subscriber.next(this.extensions);
+        subscriber.next(this.extensions!);
       });
     }
     return new Observable((subscriber: Subscriber<Extension[]>) => {
