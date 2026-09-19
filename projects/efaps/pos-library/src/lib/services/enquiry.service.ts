@@ -1,7 +1,7 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { DNI, Page, PageRequest, RUC } from "../model";
+import { District, DNI, Page, PageRequest, RUC } from "../model";
 import { ConfigService } from "./config.service";
 
 @Injectable({
@@ -28,5 +28,13 @@ export class EnquiryService {
   public getRUC(number: string): Observable<RUC> {
     const url = `${this.config.baseUrl}/enquiry/ruc/${number}`;
     return this.http.get<RUC>(url);
+  }
+
+  public getDistrict(lat: number, lon: number): Observable<District> {
+    const url = `${this.config.baseUrl}/enquiry/district`;
+    let params: HttpParams = new HttpParams();
+    params = params.set("lat", lat);
+    params = params.set("lon", lon);
+    return this.http.get<District>(url, { params });
   }
 }

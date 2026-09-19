@@ -38,3 +38,13 @@ export interface DNI {
   address: string;
   updatedAt: string;
 }
+
+export interface District {
+  ubigeo: string;
+  codDep: string;
+  codProv: string;
+  codDist: string;
+  departamento: string;
+  provincia: string;
+  distrito: string;
+}
