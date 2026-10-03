@@ -17,7 +17,7 @@
     "@angular/core": "^22.1.5",
     "@angular/forms": "^22.1.5",
     "@angular/platform-browser": "^22.1.5",
-    "@angular/router": "^22.1.5",
+    "@angular/router": "^22.2.0",
     "@stomp/rx-stomp": "^2.4.0",
     "decimal.js": "^10.6.0",
     "just-clone": "^6.2.0",
