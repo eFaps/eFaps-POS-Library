@@ -6,15 +6,15 @@ import { catchError, map } from "rxjs/operators";
 import {
   Balance,
   CreditNote,
+  EmitValidityDto,
+  EmitValidityResponseDto,
   IGNORED_STATUSES,
   Invoice,
   Order,
   Payable,
   PayableHead,
   Receipt,
-  Ticket,
-  ValidateForCreditNote,
-  ValidateForCreditNoteResponse,
+  Ticket
 } from "../model";
 import { ConfigService } from "./config.service";
 import { WorkspaceService } from "./workspace.service";
@@ -421,10 +421,10 @@ export class DocumentService {
     );
   }
 
-  validateForCreditNote(
-    dto: ValidateForCreditNote,
-  ): Observable<ValidateForCreditNoteResponse> {
-    const url = `${this.config.baseUrl}/creditnotes/validate`;
-    return this.http.post<ValidateForCreditNoteResponse>(url, dto);
+  creditNoteEmitValidity(
+    dto: EmitValidityDto,
+  ): Observable<EmitValidityResponseDto> {
+    const url = `${this.config.baseUrl}/creditnotes/emit-validity`;
+    return this.http.post<EmitValidityResponseDto>(url, dto);
   }
 }

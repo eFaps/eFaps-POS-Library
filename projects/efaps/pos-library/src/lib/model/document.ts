@@ -99,10 +99,10 @@ export interface OrderWrapper extends Order {
   multiple: boolean;
 }
 
-export interface ValidateForCreditNote {
+export interface EmitValidityDto {
   payableOid: string;
 }
 
-export interface ValidateForCreditNoteResponse {
+export interface EmitValidityResponseDto {
   valid: boolean;
 }
