@@ -100,7 +100,7 @@ export interface OrderWrapper extends Order {
 }
 
 export interface EmitValidityDto {
-  payableOid: string;
+  sourceOid: string;
 }
 
 export interface EmitValidityResponseDto {
