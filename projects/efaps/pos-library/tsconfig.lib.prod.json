@@ -5,6 +5,7 @@
   },
   "angularCompilerOptions": {
     "extendedDiagnostics": {
+      "compilationMode": "partial",
       "checks": {
         "nullishCoalescingNotNullable": "suppress",
         "optionalChainNotNullable": "suppress"
