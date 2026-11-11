@@ -26,7 +26,7 @@ jobs:
         run: npm run build
       - name: Publish to npm
         id: publish
-        run: npm publish projects/efaps/pos-library/
+        run: npm publish dist/efaps/pos-library/
       - name: Create Release
         if: steps.publish.outputs.type != 'none'
         id: create_release
